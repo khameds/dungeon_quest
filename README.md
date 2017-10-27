@@ -1,2 +1,2 @@
-# dungeon_quest
+# The Dungeon Quest
 Projet Génie Logiciel
