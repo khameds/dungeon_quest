@@ -152,6 +152,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 304e59316f2467a468a917f76b391666, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 304e59316f2467a468a917f76b391666, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 304e59316f2467a468a917f76b391666, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 304e59316f2467a468a917f76b391666, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 304e59316f2467a468a917f76b391666, type: 2}
   m_IsPrefabParent: 0
@@ -328,7 +344,7 @@ MonoBehaviour:
   airControl: 1
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   wallSlideSpeed: 5
   wallRangeDetection: 0.4
   grounded: 0
@@ -468,6 +484,90 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1332164551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1332164553}
+  - component: {fileID: 1332164552}
+  m_Layer: 0
+  m_Name: A*
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1332164552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1332164551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIexWHDkVCAIAAH4EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1U9tu2kAQ/RW0z01lCJDStxQSWikJKLTq83o9xiPWu9ZeSiDi3zu7tmPHaZ9sn3Nm5szFr4zbCoR75g41+zoafxoxtLoEZ1Dcqr0EAhMCvcJcm/Iu28NSW2cJzrm0QJTRLkQrgl5H7IUek5sQcmpCz+E5utCbAOXAdLp/q7wSkpcVZDs8QyeetepZLVM6g0YRXAstJdrGBnOnKhDsmZ8YkRlyaimWDtoCcF+4YLQfuMlzC66xY/hphYYmU2dk37QrQqaS20Pt6Q+XPhZPJtNoqM76+EFwNY50bnT5vS08TkIRV6A4kEXBresNtA+v3jv36sjlgacSfhegnvTaaK8yIp3xIdRbmKy6z7felgWIQ4fXVgegr/6/mdDDJbb/spRYpoH6PK2BndRx2IsgBkNr+UGG40nYJgWhwcUvCz/5vn87DXGPxjqimi65d/oB1WFtMOurW3yF1j1gifUkwy2EflLtTVCzuzjk0L53S20URLjpsgLFpTttqa4bLn3A9SoPmHsunG530nDt3zIIiXCnT5IBtdXHt+3aQh8fwRYb7yQq6EwH4okGu9RK1TfZH0sbtvMm56IXtveYvb9FNp4DTNIv1+kcrhfTWXKVpomgz3S8uEnnk4yzeKyoqE8ut7XRZjy05v5MFF1mSBm2NFobXsUfJDP8uMZzqfsOUeV6JwyA2vRyXP4CUEsDBBQAAAgIAAAIIexu4XRLNAAAADcAAAASACQAZ3JhcGgwX2VkaXRvci5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1bKyU/OTk1RslIoKSpN1VFQKs7IL3etKClKBAqlJeYUg8QKMsvyS4B8JefUvJLUIqVaAFBLAwQUAAAICAAACCHsSxF0I2sAAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9AzNNRRUEovSizIKAaKgDmlmSkgdrSSoVlqqlGShXGSWaqxpYmpgW5SkkEykJtkaGmeZGaUkqgUC1RfUlmQ6peYmwrRE5BYkpGWmZeSmZeu516UmeIOMlopthYAUEsBAi0AFAAACAgAAAgh7FYcORUIAgAAfgQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7G7hdEs0AAAANwAAABIAJAAAAAAAAAAAAAAAVQIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIexLEXQjawAAAHgAAAAJACQAAAAAAAAAAAAAAN0CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAAkwMAAAAA
+    upgradeData: 
+    data_backup: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _NodeConnection: {r: 1, g: 1, b: 1, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors: []
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 0
+  maxFrameTime: 1
+  minAreaSize: 0
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &1332164553
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1332164551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480904194
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +688,22 @@ Prefab:
       propertyPath: m_Name
       value: Platform08x01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
   m_IsPrefabParent: 0
@@ -677,6 +793,22 @@ Prefab:
     - target: {fileID: 400010, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
       propertyPath: m_LocalScale.x
       value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e904fce94ce87b1419461545c7d84db4, type: 2}
