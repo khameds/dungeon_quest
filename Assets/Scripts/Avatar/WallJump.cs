@@ -20,10 +20,10 @@ public class WallJump : MonoBehaviour
     {
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance);
-
+        
 
         if (CrossPlatformInputManager.GetButtonDown("Jump") && !movement.grounded && hit.collider != null)
-        {  
+        {
             GetComponent<Rigidbody2D>().velocity = new Vector2(speed * hit.normal.x, speed);
             StartCoroutine("Flip");     // Flip character's avatar
         }
