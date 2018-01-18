@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 400f;                  // Amount of force added when the player jumps.
     [SerializeField] private bool airControl = true;                 // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask whatIsGround;                 // A mask determining what is ground to the character
+    [SerializeField] private float wallSlideSpeed = 3f;
+    [SerializeField] private float wallRangeDetection = 0.8f;
 
     private Transform groundCheck;    // A position marking where to check if the player is grounded.
     const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -47,8 +50,36 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("vSpeed", rigidBody.velocity.y);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        bool wallSliding = false;
 
-    public void Move(float move, bool crouch, bool jump)
+        Physics2D.queriesStartInColliders = false;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallRangeDetection);
+
+        if (hit.collider != null)
+            Debug.Log(string.Concat("Hit : ", hit.collider.ToString()));
+
+        if (hit.collider != null && rigidBody.velocity.y <= 0)
+        {
+            wallSliding = true;
+            if (rigidBody.velocity.y < - wallSlideSpeed)
+                rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
+        }
+       
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && wallSliding) 
+        {
+            Vector2 input = new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw("Vertical"));
+            int wallDirection = (this.facingRight) ? 1 : -1;
+
+            if (input.x != wallDirection)
+                this.Move(1, true);
+            
+        }
+    }
+
+    public void Move(float move, bool jump)
     {
         //only control the player if grounded or airControl is turned on
         if (grounded || airControl)
@@ -81,8 +112,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    private void Flip()
+    public void Flip()
     {
         // Switch the way the player is labelled as facing.
         facingRight = !facingRight;
@@ -91,5 +121,13 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    // Draw gizmo for debug purpose
+    void OnDrawGizmos()
+    {
+        //Detect facing wall
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * wallRangeDetection);
     }
 }

@@ -32,11 +32,9 @@ public class InputController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Read the inputs.
-        bool crouch = Input.GetKey(KeyCode.LeftControl);
-        float h = CrossPlatformInputManager.GetAxis("Horizontal");
+        float x = CrossPlatformInputManager.GetAxis("Horizontal");
         // Pass all parameters to the character control script.
-        character.Move(h, crouch, jumping);
+        character.Move(x, jumping);
         jumping = false;
     }
 }

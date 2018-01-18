@@ -5,37 +5,52 @@ using UnityStandardAssets.CrossPlatformInput;
 public class WallJump : MonoBehaviour
 {
     public float distance = 1f;
-    PlayerController movement;
-    public float speed = 2f;
+  
+    public float wallSlideSpeed = 3f;
+    public Vector2 wallJumpForce;
+    public Vector2 wallJumpOff;
+
+    PlayerController playerController;
+    new Rigidbody2D rigidbody;
+
     bool wallJumping;
+    
 
     // Use this for initialization
     void Start()
     {
-        movement = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool wallSliding = false;
+
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance);
 
+        if (hit.collider != null)
+            Debug.Log(string.Concat("Hit : ", hit.collider.ToString()));
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && !movement.grounded && hit.collider != null)
-        {  
-            GetComponent<Rigidbody2D>().velocity = new Vector2(speed * hit.normal.x, speed);
-            StartCoroutine("Flip");     // Flip character's avatar
+        if(hit.collider != null && rigidbody.velocity.y < 0)
+        {
+            wallSliding = true;
+            if (rigidbody.velocity.y < -wallSlideSpeed)
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, -wallSlideSpeed);
+        }
+            
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && wallSliding) //&& !playerController.grounded && hit.collider != null)
+        {
+            Vector2 input = new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw("Vertical"));
+            int wallDirection = (playerController.facingRight) ? 1 : -1;
+
+            if (input.x != wallDirection)
+                playerController.Move(1, true);
         }
     }
 
-    // Flip character's avatar using multi-thread
-    IEnumerator Flip()
-    {
-        yield return new WaitForFixedUpdate();
-        transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one;
-        movement.facingRight = !movement.facingRight;
-    }
 
     // Draw gizmo for debug purpose
     void OnDrawGizmos()
