@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114447616471004124}
   - component: {fileID: 61446331563373604}
   m_Layer: 0
-  m_Name: OOBTrigger (1)
+  m_Name: OOBTriggerHeight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
