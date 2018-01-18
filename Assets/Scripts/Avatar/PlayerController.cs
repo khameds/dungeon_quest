@@ -14,21 +14,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float wallRangeDetection = 0.8f;
 
     private Transform groundCheck;    // A position marking where to check if the player is grounded.
-    const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    const float groundedRadius = .1f; // Radius of the overlap circle to determine if grounded
     public bool grounded;            // Whether or not the player is grounded.
-    private Transform headCheck;   // A position marking where to check for ceilings
+   // private Transform headCheck;   // A position marking where to check for ceilings
     const float headRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
     private Animator animator;            // Reference to the player's animator component.
     private Rigidbody2D rigidBody;
     public bool facingRight = true;  // For determining which way the player is currently facing.
+    private bool jumping = false;
+    Vector2 input;
 
     private void Awake()
     {
         // Setting up references.
         groundCheck = transform.Find("GroundCheck");
-        headCheck = transform.Find("CeilingCheck");
+        //headCheck = transform.Find("HeadCheck");
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+
+        input = new Vector2();
     }
 
 
@@ -48,34 +52,45 @@ public class PlayerController : MonoBehaviour
 
         // Set the vertical animation
         animator.SetFloat("vSpeed", rigidBody.velocity.y);
+
+        input.x = Input.GetAxis("Horizontal");
+        Move(input.x, jumping);
+        jumping = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         bool wallSliding = false;
+
+        if (!jumping)
+        {
+            // Read the jump input in Update so button presses aren't missed.
+            jumping = Input.GetButtonDown("Jump");
+        }
 
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallRangeDetection);
 
-        if (hit.collider != null)
-            Debug.Log(string.Concat("Hit : ", hit.collider.ToString()));
-
-        if (hit.collider != null && rigidBody.velocity.y <= 0)
+        if (hit.collider != null && rigidBody.velocity.y <= 0 && !grounded)
         {
             wallSliding = true;
             if (rigidBody.velocity.y < - wallSlideSpeed)
-                rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -wallSlideSpeed);
         }
-       
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && wallSliding) 
+
+        if (wallSliding && !grounded)
         {
-            Vector2 input = new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw("Vertical"));
+             
             int wallDirection = (this.facingRight) ? 1 : -1;
 
-            if (input.x != wallDirection)
-                this.Move(1, true);
-            
+            if (Input.GetButtonDown("Jump")  && (input.x != wallDirection))
+                rigidBody.AddForce(new Vector2(0f, jumpForce));
+    
+            if (input.x == wallDirection && (input.x != 0))
+                rigidBody.velocity = new Vector2(0, -wallSlideSpeed);        
         }
     }
 
@@ -90,18 +105,12 @@ public class PlayerController : MonoBehaviour
             // Move the character
             rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
 
-            // If the input is moving the player right and the player is facing left...
-            if (move > 0 && !facingRight)
-            {
-                // ... flip the player.
+            // If the input is moving the player right and the player is facing left and vis-versa...
+            if ((move > 0 && !facingRight) || (move < 0 && facingRight))
                 Flip();
-            }
-            // Otherwise if the input is moving the player left and the player is facing right...
-            else if (move < 0 && facingRight)
-            {
-                Flip();
-            }
+          
         }
+
         // If the player should jump...
         if (grounded && jump && animator.GetBool("Ground"))
         {

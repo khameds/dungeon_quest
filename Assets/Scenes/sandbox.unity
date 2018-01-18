@@ -169,8 +169,6 @@ GameObject:
   - component: {fileID: 1112983668}
   - component: {fileID: 1112983669}
   - component: {fileID: 1112983672}
-  - component: {fileID: 1112983671}
-  - component: {fileID: 1112983670}
   m_Layer: 8
   m_Name: Character
   m_TagString: Player
@@ -314,86 +312,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.29171234, y: 0.76516855}
   m_EdgeRadius: 0
---- !u!60 &1112983670
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1112983663}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.375, y: 1.375}
-    newSize: {x: 1.375, y: 1.375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.0525, y: -0.4325}
-      - {x: 0.0175, y: -0.3425}
-      - {x: 0.037499998, y: -0.3275}
-      - {x: 0.0475, y: -0.26749998}
-      - {x: 0.0725, y: -0.1775}
-      - {x: 0.057499997, y: -0.0175}
-      - {x: 0.0475, y: 0.0525}
-      - {x: 0.1025, y: 0.0275}
-      - {x: 0.1325, y: 0.0325}
-      - {x: 0.1625, y: 0.0525}
-      - {x: 0.1925, y: 0.1325}
-      - {x: 0.22749999, y: 0.1325}
-      - {x: 0.2375, y: 0.1375}
-      - {x: 0.2575, y: 0.1775}
-      - {x: 0.2575, y: 0.2375}
-      - {x: 0.2525, y: 0.2575}
-      - {x: 0.2175, y: 0.2625}
-      - {x: 0.22749999, y: 0.3825}
-      - {x: 0.1625, y: 0.45749998}
-      - {x: 0.067499995, y: 0.4775}
-      - {x: -0.1025, y: 0.4775}
-      - {x: -0.1475, y: 0.42249998}
-      - {x: -0.18249999, y: 0.3825}
-      - {x: -0.1875, y: 0.30249998}
-      - {x: -0.1875, y: 0.1725}
-      - {x: -0.1625, y: 0.1575}
-      - {x: -0.1025, y: 0.1275}
-      - {x: -0.1725, y: 0.0625}
-      - {x: -0.1875, y: 0.0025}
-      - {x: -0.1875, y: -0.1175}
-      - {x: -0.1425, y: -0.22749999}
-      - {x: -0.1575, y: -0.2825}
-      - {x: -0.1575, y: -0.3725}
-      - {x: -0.1275, y: -0.39249998}
-      - {x: -0.0775, y: -0.4175}
-      - {x: -0.0625, y: -0.4175}
-      - {x: -0.0525, y: -0.4075}
-      - {x: -0.057499997, y: -0.4175}
-      - {x: -0.1125, y: -0.53749996}
-      - {x: -0.122499995, y: -0.60749996}
-      - {x: -0.1125, y: -0.6325}
-      - {x: 0.1175, y: -0.6325}
-      - {x: 0.1425, y: -0.6275}
-      - {x: 0.0975, y: -0.5475}
-      - {x: -0.012499999, y: -0.49249998}
---- !u!114 &1112983671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1112983663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c90b32e62c44745980fc02c22c20c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1112983672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +330,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   wallSlideSpeed: 5
-  distance: 0.5
+  wallRangeDetection: 0.4
   grounded: 0
   facingRight: 1
 --- !u!1 &1196525893
