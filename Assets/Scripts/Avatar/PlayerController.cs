@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool facingRight = true;  // For determining which way the player is currently facing.
     private bool jumping = false;
     Vector2 input;
+    private bool wallJumpAvailable = true;
 
     private void Awake()
     {
@@ -61,8 +62,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         bool wallSliding = false;
 
         if (!jumping)
@@ -86,12 +85,20 @@ public class PlayerController : MonoBehaviour
              
             int wallDirection = (this.facingRight) ? 1 : -1;
 
-            if (Input.GetButtonDown("Jump")  && (input.x != wallDirection))
+            if (Input.GetButtonDown("Jump") && (input.x != wallDirection) && wallJumpAvailable)
+            {
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
+                wallJumpAvailable = false;
+            }
     
             if (input.x == wallDirection && (input.x != 0))
-                rigidBody.velocity = new Vector2(0, -wallSlideSpeed);        
+                rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
+
+   
         }
+
+        if (hit.collider == null)
+            wallJumpAvailable = true;
     }
 
     public void Move(float move, bool jump)
