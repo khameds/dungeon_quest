@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,6 +39,9 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         grounded = false;
+        bool wallSliding = false;
+
+
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -54,35 +56,21 @@ public class PlayerController : MonoBehaviour
         // Set the vertical animation
         animator.SetFloat("vSpeed", rigidBody.velocity.y);
 
-        input.x = Input.GetAxis("Horizontal");
-        Move(input.x, jumping);
-        jumping = false;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        bool wallSliding = false;
-
-        if (!jumping)
-        {
-            // Read the jump input in Update so button presses aren't missed.
-            jumping = Input.GetButtonDown("Jump");
-        }
-
+        // Wall jump handling
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallRangeDetection);
 
         if (hit.collider != null && rigidBody.velocity.y <= 0 && !grounded)
         {
             wallSliding = true;
-            if (rigidBody.velocity.y < - wallSlideSpeed)
+            if (rigidBody.velocity.y < -wallSlideSpeed)
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, -wallSlideSpeed);
         }
 
         if (wallSliding && !grounded)
         {
-             
+
             int wallDirection = (this.facingRight) ? 1 : -1;
 
             if (Input.GetButtonDown("Jump") && (input.x != wallDirection) && wallJumpAvailable)
@@ -90,15 +78,20 @@ public class PlayerController : MonoBehaviour
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
                 wallJumpAvailable = false;
             }
-    
+
             if (input.x == wallDirection && (input.x != 0))
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
-
-   
         }
 
         if (hit.collider == null)
             wallJumpAvailable = true;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public void Move(float move, bool jump)
