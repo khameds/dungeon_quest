@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-    [SerializeField] private float jumpForce = 400f;                  // Amount of force added when the player jumps.
+    [SerializeField] private float jumpForce = 650f;                  // Amount of force added when the player jumps.
     [SerializeField] private bool airControl = true;                 // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask whatIsGround;                 // A mask determining what is ground to the character
     [SerializeField] private float wallSlideSpeed = 3f;
@@ -19,10 +19,15 @@ public class PlayerController : MonoBehaviour
     const float headRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
     private Animator animator;            // Reference to the player's animator component.
     private Rigidbody2D rigidBody;
-    public bool facingRight = true;  // For determining which way the player is currently facing.
-    private bool jumping = false;
-    Vector2 input;
+
+    [HideInInspector] public bool facingRight = true;  // For determining which way the player is currently facing.
+    [HideInInspector]  public Vector2 input;
+
     private bool wallJumpAvailable = true;
+    private bool wantToJump = false;
+
+    private float timeToWallUnstick;
+    private float wallStickTime = 0.25f;
 
     private void Awake()
     {
@@ -31,7 +36,6 @@ public class PlayerController : MonoBehaviour
         //headCheck = transform.Find("HeadCheck");
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
-
         input = new Vector2();
     }
 
@@ -39,9 +43,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         grounded = false;
-        bool wallSliding = false;
-
-
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -63,35 +64,38 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null && rigidBody.velocity.y <= 0 && !grounded)
         {
-            wallSliding = true;
+            timeToWallUnstick = wallStickTime;
+
             if (rigidBody.velocity.y < -wallSlideSpeed)
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, -wallSlideSpeed);
         }
-
-        if (wallSliding && !grounded)
+        else if (hit.collider == null)
+            timeToWallUnstick -= Time.deltaTime;
+        
+        if (timeToWallUnstick > 0 && !grounded)
         {
-
             int wallDirection = (this.facingRight) ? 1 : -1;
 
-            if (Input.GetButtonDown("Jump") && (input.x != wallDirection) && wallJumpAvailable)
+            if (wantToJump)
             {
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
-                wallJumpAvailable = false;
+                wantToJump = false;
             }
 
             if (input.x == wallDirection && (input.x != 0))
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
-
-        if (hit.collider == null)
-            wallJumpAvailable = true;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!wantToJump)
+        {
+            // Read the jump input in Update so button presses aren't missed.
+            wantToJump = Input.GetButtonDown("Jump");
+        }
+        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
     public void Move(float move, bool jump)
@@ -107,8 +111,7 @@ public class PlayerController : MonoBehaviour
 
             // If the input is moving the player right and the player is facing left and vis-versa...
             if ((move > 0 && !facingRight) || (move < 0 && facingRight))
-                Flip();
-          
+                Flip();    
         }
 
         // If the player should jump...
@@ -118,6 +121,9 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             animator.SetBool("Ground", false);
             rigidBody.AddForce(new Vector2(0f, jumpForce));
+
+            if (jump)
+                wantToJump = false;
         }
     }
 
