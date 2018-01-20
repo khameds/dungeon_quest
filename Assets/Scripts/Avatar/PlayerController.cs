@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool wantToJump = false;            // Did the player pressed the "Jump" button
     private float timeToWallUnstick;            // Define if the player is still considered as "wall sliding"
     private Vector2 input;                      // Store input informations
+    private bool canJump = true;                       // Check if the player can jump again;
 
     // At script load
     private void Awake()
@@ -73,17 +74,20 @@ public class PlayerController : MonoBehaviour
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, -wallSlideSpeed);
         }
         else if (hit.collider == null)
+        {
             timeToWallUnstick -= Time.deltaTime;
+            canJump = true;
+        }
         
         //If still considered as "wall sliding"
         if (timeToWallUnstick > 0 && !grounded)
         {
             int wallDirection = (this.facingRight) ? 1 : -1;
 
-            if (wantToJump)
+            if (wantToJump && canJump)
             {
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
-                wantToJump = false;
+                wantToJump = canJump = false;
             }
 
             // If running to the wall, just slide over it
