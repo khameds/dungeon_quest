@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
             timeToWallUnstick -= Time.deltaTime;
             canJump = true;
         }
-        
+
         //If still considered as "wall sliding"
         if (timeToWallUnstick > 0 && !grounded)
         {
@@ -89,12 +89,12 @@ public class PlayerController : MonoBehaviour
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
                 wantToJump = canJump = false;
             }
-
-            // If running to the wall, just slide over it
-            if (input.x == wallDirection && (input.x != 0))
+            else if (input.x == wallDirection)// If running to the wall, just slide over it   
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
+        else wantToJump = false;
     }
+    
 
     // Update is called once per frame
     void Update()
