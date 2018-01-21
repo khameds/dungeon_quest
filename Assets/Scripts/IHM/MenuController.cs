@@ -12,6 +12,12 @@ public class MenuController : MonoBehaviour {
 
     }
 
+    // Permit to acceed to the settings scene
+    public void OpenSettings()
+    {
+        SceneManager.LoadScene("options", LoadSceneMode.Additive);
+    }
+
     public void ExitGame()
     {
         Application.Quit();

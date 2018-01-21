@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour {
 
@@ -42,5 +43,16 @@ public class PauseMenuController : MonoBehaviour {
     public void Resume()
     {
         isActive = !isActive;
+    }
+
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
+    }
+
+    // Permit to acceed to the settings scene
+    public void OpenSettings()
+    {
+        SceneManager.LoadScene("options", LoadSceneMode.Additive);
     }
 }
