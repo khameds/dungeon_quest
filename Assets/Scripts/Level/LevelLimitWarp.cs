@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelLimitWarp : MonoBehaviour
 {
     [SerializeField] private Transform linkedWarp;
+    [SerializeField] private bool horizontal = false;
     
 
 
@@ -25,7 +26,12 @@ public class LevelLimitWarp : MonoBehaviour
 	{
         Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
         //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )
-        col.GetComponent<Rigidbody2D>().MovePosition(new Vector2(0,0));     //MovePosition is the recommended use
+
+        if(horizontal)
+            col.GetComponent<Rigidbody2D>().MovePosition(new Vector2(-col.GetComponent<Rigidbody2D>().position.x, col.GetComponent<Rigidbody2D>().position.y));
+        else
+            col.GetComponent<Rigidbody2D>().MovePosition(new Vector2(col.GetComponent<Rigidbody2D>().position.x, -col.GetComponent<Rigidbody2D>().position.y));
+
         Debug.Log(col.gameObject.name + " warp to " + col.gameObject.transform.position + " - " + linkedWarp.position);
     }
 }
