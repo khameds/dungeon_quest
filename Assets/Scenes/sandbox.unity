@@ -194,6 +194,11 @@ Prefab:
       propertyPath: m_Size.x
       value: 7.9780245
       objectReference: {fileID: 0}
+    - target: {fileID: 61368751418638684, guid: 757462cece286f248ab7c44f7145777f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114385817838820930, guid: 757462cece286f248ab7c44f7145777f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 757462cece286f248ab7c44f7145777f, type: 2}
@@ -220,6 +225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedWarp: {fileID: 592124593}
+  horizontal: 1
+  atTop: 0
+  atRight: 0
+  offset: 1
 --- !u!1 &42449770
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &42449771
 Transform:
   m_ObjectHideFlags: 0
@@ -242,7 +251,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42449770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.3474636, y: -24.7, z: 0.49876052}
+  m_LocalPosition: {x: -5.3474636, y: -25.2, z: 0.49876052}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1464423572}
@@ -489,7 +498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &321949781
 Transform:
   m_ObjectHideFlags: 0
@@ -518,7 +527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &367529583
 Transform:
   m_ObjectHideFlags: 0
@@ -638,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 592124592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.21, y: -11.44, z: 0}
+  m_LocalPosition: {x: 17.21, y: -11.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 594265443}
@@ -656,6 +665,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedWarp: {fileID: 22553913}
+  horizontal: 1
+  atTop: 0
+  atRight: 0
+  offset: 1
 --- !u!61 &592124595
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1143,6 +1156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedWarp: {fileID: 1351820001}
+  horizontal: 0
+  atTop: 0
+  atRight: 1
+  offset: 1
 --- !u!1 &1284025656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1341,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedWarp: {fileID: 1237405699}
+  horizontal: 0
+  atTop: 0
+  atRight: 0
+  offset: 1
 --- !u!1 &1366853192
 GameObject:
   m_ObjectHideFlags: 0
