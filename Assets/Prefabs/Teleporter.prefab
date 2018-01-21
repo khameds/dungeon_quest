@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61991179343466504}
   - component: {fileID: 114036745033367192}
   m_Layer: 0
-  m_Name: OOBTriggerBottom
+  m_Name: Teleporter
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
