@@ -644,14 +644,14 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Build: 1
-    Collab: 1
+    Build: 0
+    Collab: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: b1c426d2-0508-4bb1-acc7-0c5e8ea6928b
-  projectName: Dungeon Quest
-  organizationId: ptdq
+  cloudProjectId: 4da2da6d-f6d5-4c3d-964f-82f34bc44218
+  projectName: Dungeon Quest (1)
+  organizationId: m1_ptdq
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

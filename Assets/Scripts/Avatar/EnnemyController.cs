@@ -37,7 +37,7 @@ public class EnnemyController : MonoBehaviour
 
         // Start a new path to the target position, return the result to the OnPathComplete method
         seeker.StartPath(transform.position, target.position, OnPathComplete);
-
+        
         StartCoroutine(UpdatePath());
     }
 
@@ -83,10 +83,6 @@ public class EnnemyController : MonoBehaviour
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            if (pathIsEnded)
-                return;
-
-            Debug.Log("End of path reached.");
             pathIsEnded = true;
             return;
         }
