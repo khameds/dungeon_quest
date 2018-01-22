@@ -28,10 +28,6 @@ public class EnemyController : MonoBehaviour
     {       
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        target = GetTarget();
-
-        if (target == null)
-            return;
           
         // Start a new path to the target position, return the result to the OnPathComplete method
         seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
@@ -50,10 +46,7 @@ public class EnemyController : MonoBehaviour
             foreach (GameObject i in tmp)
             {
                 if (!(i.GetComponent<PlayerHealth>().isDead))
-                {
-                    //print("Add : " + i.name);
                     targets.Add(i);
-                }
             }
 
             if (targets.Count == 0)
@@ -101,25 +94,32 @@ public class EnemyController : MonoBehaviour
             path = p;
             currentWaypoint = 0;
         }
-        else Debug.Log("We got a path with an error.");
+        else Debug.Log("[EnemyController] OnPathComplete : Got a path with an error.");
         
     }
 
     void FixedUpdate()
     {
         if (target == null)
-        {
+        {// Should not happen
             target = GetTarget();
             if (target == null)
+            {
+                //print("[EnemyController] FixedUpdate : Target is null.");
                 return;
+            }
         }
 
         if (path == null)
+        {
+            //print("[EnemyController] FixedUpdate : Path is null.");
             return;
+        }
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
             pathIsEnded = true;
+            //print("[EnemyController] FixedUpdate : Path ended.");
             return;
         }
         pathIsEnded = false;
