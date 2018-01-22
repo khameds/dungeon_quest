@@ -9,40 +9,36 @@ public class LevelLimitWarp : MonoBehaviour
     [SerializeField] private bool horizontal = false;
     [SerializeField] private bool atTop = false;
     [SerializeField] private bool atRight = false;
-    [SerializeField] private float offset = 1f;
-
-    // Use this for initialization
-    void Start()
-    {
-        Debug.Log("this position : " + this.transform.position);
-    }
+    [SerializeField] private float offset = 1.25f;
 
     void OnTriggerEnter2D(Collider2D col)
     {
         Rigidbody2D rb = col.attachedRigidbody;
         int direction = 1;
+        Vector2 v2;
 
         if (rb != null)
         {
-            Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
+            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
             //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
             if (horizontal)
             {
                 direction = (atTop) ? 1 : -1;
-                rb.MovePosition(new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction)));
+                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
+                rb.MovePosition(v2);
             }
             else
             {
                 direction = (atRight) ? 1 : -1;
-                rb.MovePosition(new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y));
+                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
+                rb.MovePosition(v2);
             }
-            Debug.Log(col.gameObject.name + " warp to " + col.gameObject.transform.position + " - " + linkedWarp.position);
+            Debug.Log("Warp " + col.gameObject.name + " : " + col.gameObject.transform.position + " -> " + v2);
         }
         else
         {
             Debug.Log("[Warp] Can't get collider Rigidbody2D");
             return;
         }
-
     }
 }
