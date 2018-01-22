@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PU_Speed : MonoBehaviour {
 
-    public float multiplier = 2f;
+    public float multiplier = 1.5f;
     public float duration = 4f;
     void OnTriggerEnter2D(Collider2D other)
     {
