@@ -26,7 +26,10 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int amount, Vector3 hitPoint)
     {
         if (isDead)
+        {
+            print("[EnemyHealth]return;");
             return;
+        }
 
         enemyAudio.Play();
 

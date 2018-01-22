@@ -65,7 +65,7 @@ public class EnemyAttack : MonoBehaviour
         // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
         if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
         {
-            //Debug.Log(this.gameObject.name + " attacks " + target.name);
+            Debug.Log(this.gameObject.name + " attacks " + target.name + " (" + playerHealth.currentHealth + "/" + playerHealth.maxHealth + "HP)");
             Attack();
         }
 
@@ -79,11 +79,11 @@ public class EnemyAttack : MonoBehaviour
             {
                 playerHealth = target.GetComponent<PlayerHealth>();
                 playerInRange = false;
-                Debug.Log("Switch to target : " + target.name);
+                Debug.Log("[EnemyAttack] Update : Switch to target : " + target.name + ".");
             }
             else
             {
-                Debug.Log("Target switch fail.");
+                Debug.Log("[EnemyAttack] Update : Target switch fail.");
             }
         }    
     }

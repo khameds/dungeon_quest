@@ -11,10 +11,6 @@ public class LevelLimitWarp : MonoBehaviour
     [SerializeField] private bool atRight = false;
     [SerializeField] private float offset = 1.25f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        print("Collid enter");
-    }
     void OnTriggerEnter2D(Collider2D col)
     {
         Rigidbody2D rb = col.attachedRigidbody;
@@ -42,6 +38,7 @@ public class LevelLimitWarp : MonoBehaviour
         else
         {
             Debug.Log("[Warp] Can't get collider Rigidbody2D");
+            print("[LevelLimitWarp]return;");
             return;
         }
     }
