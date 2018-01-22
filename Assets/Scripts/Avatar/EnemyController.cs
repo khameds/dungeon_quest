@@ -4,10 +4,10 @@ using Pathfinding;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Seeker))]
-public class EnnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     // TODO : get this from players list
-    public Transform target;        // Chased target position
+    public GameObject target;        // Chased target gameobject
     public float updateRate = 2f;   // Update rate of A* path
     private Seeker seeker;          // Pathing script
     private Rigidbody2D rb;         // Referance to the Rigidbody2D component of the IA
@@ -24,34 +24,54 @@ public class EnnemyController : MonoBehaviour
     private int currentWaypoint = 0;
 
     void Start()
-    {
+    {       
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        target = GetTarget();
 
         if (target == null)
-        {
-            // TODO get this from players list
-            Debug.LogError("Can't find any player alive, GAMEOVER.");
             return;
-        }
-
+          
         // Start a new path to the target position, return the result to the OnPathComplete method
-        seeker.StartPath(transform.position, target.position, OnPathComplete);
+        seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
         
         StartCoroutine(UpdatePath());
+    }
+
+    public GameObject GetTarget()
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+
+        if (targets.Length > 0)
+        {
+            target = targets[Random.Range(0, targets.Length)];
+            return target;
+        }
+        else
+        {
+            Debug.LogError("Can't find any player alive, GAMEOVER.");
+            return null;
+        }
+
+        
+
     }
 
     IEnumerator UpdatePath()
     {
         if (target == null) // TODO test if player alive
         {
-            // TODO get this from players list
-            Debug.LogError("Can't find any player alive, GAMEOVER.");
-            yield break;
+            target = GetTarget();
+
+            if (target == null)
+            {
+                Debug.LogError("Can't find any player alive, GAMEOVER.");
+                yield break;
+            }           
         }
 
         // Start a new path to the target position, return the result to the OnPathComplete method
-        seeker.StartPath(transform.position, target.position, OnPathComplete);
+        seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
 
         yield return new WaitForSeconds(1f / updateRate);
         StartCoroutine(UpdatePath());
@@ -72,11 +92,10 @@ public class EnnemyController : MonoBehaviour
     {
         if (target == null)
         {
-            //TODO: Insert a player search here.
-            return;
+            target = GetTarget();
+            if (target == null)
+                return;
         }
-
-        //TODO: Always look at player?
 
         if (path == null)
             return;
