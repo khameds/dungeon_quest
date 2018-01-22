@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private float maxSpeed = 10f;                  // The fastest the player can travel in the x axis.
+    [SerializeField] public float maxSpeed = 10f;                  // The fastest the player can travel in the x axis.
     [SerializeField] private float jumpForce = 650f;                // Amount of force added when the player jumps.
     [SerializeField] private bool airControl = true;                // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask whatIsGround;                // A mask determining what is ground to the character
