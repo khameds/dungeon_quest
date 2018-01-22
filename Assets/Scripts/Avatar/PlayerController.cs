@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;                      // Store input informations
     private bool canJump = true;                       // Check if the player can jump again;
 
+    public PlayerHealth playerHealth;
     // At script load
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         //headCheck = transform.Find("HeadCheck");
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+        playerHealth = GetComponent<PlayerHealth>();
         input = new Vector2();
     }
 
