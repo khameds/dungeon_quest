@@ -4,16 +4,16 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 1f;     // The time in seconds between each attack.
-    public int attackDamage = 1;               // The amount of health taken away per attack.
+    public float timeBetweenAttacks = 1f;   // The time in seconds between each attack.
+    public int attackDamage = 1;            // The amount of health taken away per attack.
 
 
-    Animator animator;                              // Reference to the animator component.
-    GameObject target;                          // Reference to the player GameObject.
-    PlayerHealth playerHealth;                  // Reference to the player's health.
-    EnemyHealth enemyHealth;                    // Reference to this enemy's health.
-    bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
-    float timer;                                // Timer for counting up to the next attack.
+    Animator animator;                      // Reference to the animator component.
+    GameObject target;                      // Reference to the player GameObject.
+    PlayerHealth playerHealth;              // Reference to the player's health.
+    EnemyHealth enemyHealth;                // Reference to this enemy's health.
+    bool playerInRange;                     // Whether player is within the trigger collider and can be attacked.
+    float timer;                            // Timer for counting up to the next attack.
 
     EnemyController enemyController;
 
@@ -26,8 +26,7 @@ public class EnemyAttack : MonoBehaviour
        
         animator = GetComponent<Animator>();
         enemyHealth = GetComponent<EnemyHealth>();
-
-        
+  
         if (target == null|| enemyController == null || enemyHealth == null)
         {
             Debug.Log("[EnnemyAttack.cs] Cannot get component references... ");
@@ -40,31 +39,13 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = target.GetComponent<PlayerHealth>();
     }
 
-
-    void OnTriggerEnter(Collider other)
-    {
-        // If the entering collider is the player...
-        Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
-        if (other.gameObject == target)
-            playerInRange = true;
-    }
-
-
-    void OnTriggerExit(Collider other)
-    {
-
-        // If the exiting collider is the player...
-        if (other.gameObject == target)
-            playerInRange = false;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // If the entering collider is the player...
 
         if (collision.collider.gameObject == target)
         {
-            Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
+            //Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
             playerInRange = true;
         }
     }
@@ -82,22 +63,30 @@ public class EnemyAttack : MonoBehaviour
         timer += Time.deltaTime;
 
         // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-        if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
+        if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
         {
-            Debug.Log(this.gameObject.name + " attacks " + target.name);
+            //Debug.Log(this.gameObject.name + " attacks " + target.name);
             Attack();
         }
 
         
-        // If the player has zero or less health...
+        // If the player has zero or less health, switch to valid target
         if (playerHealth.currentHealth <= 0)
         {
-           // animator.SetBool("IsDead");
+            target.GetComponent<Animator>().SetBool("IsDead", true);
             target = enemyController.GetTarget();
-        }
-        
+            if(target != null)
+            {
+                playerHealth = target.GetComponent<PlayerHealth>();
+                playerInRange = false;
+                Debug.Log("Switch to target : " + target.name);
+            }
+            else
+            {
+                Debug.Log("Target switch fail.");
+            }
+        }    
     }
-
 
     void Attack()
     {

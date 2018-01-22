@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using Pathfinding;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Seeker))]
@@ -40,21 +41,37 @@ public class EnemyController : MonoBehaviour
 
     public GameObject GetTarget()
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Player");
+        List<GameObject> tmp = new List<GameObject>();
+        List<GameObject> targets = new List<GameObject>();
+        tmp.AddRange(GameObject.FindGameObjectsWithTag("Player"));
 
-        if (targets.Length > 0)
+        if (tmp.Count > 0)
         {
-            target = targets[Random.Range(0, targets.Length)];
+            foreach (GameObject i in tmp)
+            {
+                if (!(i.GetComponent<PlayerHealth>().isDead))
+                {
+                    //print("Add : " + i.name);
+                    targets.Add(i);
+                }
+            }
+
+            if (targets.Count == 0)
+            {
+                Debug.LogError("[GetTarget1]Can't find any player alive, GAMEOVER.");
+                target = null;
+            }
+            else
+            {
+                target = targets[Random.Range(0, targets.Count)];
+            }
             return target;
         }
         else
         {
-            Debug.LogError("Can't find any player alive, GAMEOVER.");
+            Debug.LogError("[GetTarget2]Can't find any player, GAMEOVER.");
             return null;
         }
-
-        
-
     }
 
     IEnumerator UpdatePath()
@@ -65,7 +82,7 @@ public class EnemyController : MonoBehaviour
 
             if (target == null)
             {
-                Debug.LogError("Can't find any player alive, GAMEOVER.");
+                Debug.LogError("[UpdatePath] Can't find any player alive, GAMEOVER.");
                 yield break;
             }           
         }
