@@ -4,7 +4,7 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
+    public float timeBetweenAttacks = 1f;     // The time in seconds between each attack.
     public int attackDamage = 1;               // The amount of health taken away per attack.
 
 
@@ -28,34 +28,23 @@ public class EnemyAttack : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
 
         
-        if (playerHealth == null)//target == null|| playerHealth == null || enemyHealth == null)
+        if (target == null|| enemyController == null || enemyHealth == null)
         {
-            Debug.Log("[EnnemyAttack.cs] Cannot get PlayerHealth component... ");
+            Debug.Log("[EnnemyAttack.cs] Cannot get component references... ");
+            return;
         }
-
-        if (target == null)//|| playerHealth == null || enemyHealth == null)
-        {
-            Debug.Log("[EnnemyAttack.cs] Cannot get PlayerController component... ");
-        }
-
-        if ( enemyHealth == null)
-        {
-            Debug.Log("[EnnemyAttack.cs] Cannot get EnnemyHealth component... ");
-        }
-
-
-
     }
 
     private void Start()
-    {
-        playerHealth = target.GetComponentInParent<PlayerHealth>();
+    {   
+        playerHealth = target.GetComponent<PlayerHealth>();
     }
 
 
     void OnTriggerEnter(Collider other)
     {
         // If the entering collider is the player...
+        Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
         if (other.gameObject == target)
             playerInRange = true;
     }
@@ -69,6 +58,23 @@ public class EnemyAttack : MonoBehaviour
             playerInRange = false;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // If the entering collider is the player...
+
+        if (collision.collider.gameObject == target)
+        {
+            Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
+            playerInRange = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // If the exiting collider is the player...
+        if (collision.collider.gameObject == target)
+            playerInRange = false;
+    }
 
     void Update()
     {
@@ -78,18 +84,18 @@ public class EnemyAttack : MonoBehaviour
         // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
         if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
-            // ... attack.
+            Debug.Log(this.gameObject.name + " attacks " + target.name);
             Attack();
         }
 
         
         // If the player has zero or less health...
-     /*   if (target.GetComponentInParent<PlayerHealth>().currentHealth <= 0)
+        if (playerHealth.currentHealth <= 0)
         {
-            animator.SetTrigger("PlayerDead");
+           // animator.SetBool("IsDead");
             target = enemyController.GetTarget();
         }
-        */
+        
     }
 
 
