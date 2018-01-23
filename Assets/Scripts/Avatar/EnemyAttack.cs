@@ -4,16 +4,16 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
-    public int attackDamage = 1;               // The amount of health taken away per attack.
+    public float timeBetweenAttacks = 1f;   // The time in seconds between each attack.
+    public int attackDamage = 1;            // The amount of health taken away per attack.
 
 
-    Animator animator;                              // Reference to the animator component.
-    GameObject target;                          // Reference to the player GameObject.
-    PlayerHealth playerHealth;                  // Reference to the player's health.
-    EnemyHealth enemyHealth;                    // Reference to this enemy's health.
-    bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
-    float timer;                                // Timer for counting up to the next attack.
+    Animator animator;                      // Reference to the animator component.
+    GameObject target;                      // Reference to the player GameObject.
+    PlayerHealth playerHealth;              // Reference to the player's health.
+    EnemyHealth enemyHealth;                // Reference to this enemy's health.
+    bool playerInRange;                     // Whether player is within the trigger collider and can be attacked.
+    float timer;                            // Timer for counting up to the next attack.
 
     EnemyController enemyController;
 
@@ -26,72 +26,68 @@ public class EnemyAttack : MonoBehaviour
        
         animator = GetComponent<Animator>();
         enemyHealth = GetComponent<EnemyHealth>();
-
-        
-        if (playerHealth == null)//target == null|| playerHealth == null || enemyHealth == null)
+  
+        if (target == null|| enemyController == null || enemyHealth == null)
         {
-            Debug.Log("[EnnemyAttack.cs] Cannot get PlayerHealth component... ");
+            Debug.Log("[EnnemyAttack.cs] Cannot get component references... ");
+            return;
         }
-
-        if (target == null)//|| playerHealth == null || enemyHealth == null)
-        {
-            Debug.Log("[EnnemyAttack.cs] Cannot get PlayerController component... ");
-        }
-
-        if ( enemyHealth == null)
-        {
-            Debug.Log("[EnnemyAttack.cs] Cannot get EnnemyHealth component... ");
-        }
-
-
-
     }
 
     private void Start()
-    {
-        playerHealth = target.GetComponentInParent<PlayerHealth>();
+    {   
+        playerHealth = target.GetComponent<PlayerHealth>();
     }
 
-
-    void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // If the entering collider is the player...
-        if (other.gameObject == target)
+
+        if (collision.collider.gameObject == target)
+        {
+            //Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
             playerInRange = true;
+        }
     }
 
-
-    void OnTriggerExit(Collider other)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-
         // If the exiting collider is the player...
-        if (other.gameObject == target)
+        if (collision.collider.gameObject == target)
             playerInRange = false;
     }
 
-
+  
     void Update()
     {
         // Add the time since Update was last called to the timer.
         timer += Time.deltaTime;
 
         // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-        if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
+        if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
         {
-            // ... attack.
+            Debug.Log(this.gameObject.name + " attacks " + target.name + " (" + playerHealth.currentHealth + "/" + playerHealth.maxHealth + "HP)");
             Attack();
         }
 
         
-        // If the player has zero or less health...
-     /*   if (target.GetComponentInParent<PlayerHealth>().currentHealth <= 0)
+        // If the player has zero or less health, switch to valid target
+        if (playerHealth.currentHealth <= 0)
         {
-            animator.SetTrigger("PlayerDead");
+            target.GetComponent<Animator>().SetBool("IsDead", true);
             target = enemyController.GetTarget();
-        }
-        */
+            if(target != null)
+            {
+                playerHealth = target.GetComponent<PlayerHealth>();
+                playerInRange = false;
+                Debug.Log("[EnemyAttack] Update : Switch to target : " + target.name + ".");
+            }
+            else
+            {
+                Debug.Log("[EnemyAttack] Update : Target switch fail.");
+            }
+        }    
     }
-
 
     void Attack()
     {
