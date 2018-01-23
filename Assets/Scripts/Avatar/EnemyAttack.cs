@@ -50,13 +50,14 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         // If the exiting collider is the player...
         if (collision.collider.gameObject == target)
             playerInRange = false;
     }
 
+  
     void Update()
     {
         // Add the time since Update was last called to the timer.
