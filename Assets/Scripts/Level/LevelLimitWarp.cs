@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LevelLimitWarp))]
+[RequireComponent(typeof(Transform))]
 public class LevelLimitWarp : MonoBehaviour
 {
     [SerializeField] private Transform linkedWarp;
@@ -11,10 +11,77 @@ public class LevelLimitWarp : MonoBehaviour
     [SerializeField] private bool atRight = false;
     [SerializeField] private float offset = 1.25f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Start()
     {
-        print("Collid enter");
+        print(linkedWarp.name);
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        Rigidbody2D rb = col.collider.attachedRigidbody;
+        int direction = 1;
+        Vector2 v2; 
+
+        if (rb != null)
+        {
+            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
+            //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
+            if (horizontal)
+            {
+                direction = (atTop) ? 1 : -1;
+                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
+                rb.MovePosition(v2);
+            }
+            else
+            {
+                direction = (atRight) ? 1 : -1;
+                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
+                rb.MovePosition(v2);
+            }
+            Debug.Log("[OnCollisionEnter2D] Warp " + col.collider.gameObject.name + " : " + col.collider.gameObject.transform.position + " -> " + v2);
+        }
+        else
+        {
+            Debug.Log("[Warp] Can't get collider Rigidbody2D");
+            print("[LevelLimitWarp]return;");
+            return;
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider col)
+    {
+        Rigidbody rb = col.attachedRigidbody;
+        int direction = 1;
+        Vector2 v2;
+
+        if (rb != null)
+        {
+            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
+            //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
+            if (horizontal)
+            {
+                direction = (atTop) ? 1 : -1;
+                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
+                rb.MovePosition(v2);
+            }
+            else
+            {
+                direction = (atRight) ? 1 : -1;
+                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
+                rb.MovePosition(v2);
+            }
+            Debug.Log("[3D] Warp " + col.gameObject.name + " : " + col.gameObject.transform.position + " -> " + v2);
+        }
+        else
+        {
+            Debug.Log("[Warp] Can't get collider Rigidbody2D");
+            print("[LevelLimitWarp]return;");
+            return;
+        }
+    }
+
+
     void OnTriggerEnter2D(Collider2D col)
     {
         Rigidbody2D rb = col.attachedRigidbody;
@@ -42,6 +109,7 @@ public class LevelLimitWarp : MonoBehaviour
         else
         {
             Debug.Log("[Warp] Can't get collider Rigidbody2D");
+            print("[LevelLimitWarp]return;");
             return;
         }
     }

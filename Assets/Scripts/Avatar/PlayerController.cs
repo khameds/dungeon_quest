@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
                 grounded = true;
         }
         animator.SetBool("Ground", grounded);
-
+        animator.SetBool("IsDead", playerHealth.isDead);
         // Set the vertical animation
         animator.SetFloat("vSpeed", rigidBody.velocity.y);
 
