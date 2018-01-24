@@ -9,108 +9,93 @@ public class LevelLimitWarp : MonoBehaviour
     [SerializeField] private bool horizontal = false;
     [SerializeField] private bool atTop = false;
     [SerializeField] private bool atRight = false;
-    [SerializeField] private float offset = 1.25f;
+    [SerializeField] private float offset = 0.1f;
+
+    bool teleport = false;
+    Vector2 destination;
+    
+    Rigidbody2D rb;
 
     private void Start()
     {
-        print(linkedWarp.name);
+      //  destination = linkedWarp.position - this.gameObject.transform.position;
+      //  print("destination (" + this.gameObject.name + "):" + destination);
+        
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    /*
+    private void OnTriggerExit2D(Collider2D col)
     {
-        Rigidbody2D rb = col.collider.attachedRigidbody;
-        int direction = 1;
-        Vector2 v2; 
-
-        if (rb != null)
-        {
-            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
-            //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
-            if (horizontal)
-            {
-                direction = (atTop) ? 1 : -1;
-                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
-                rb.MovePosition(v2);
-            }
-            else
-            {
-                direction = (atRight) ? 1 : -1;
-                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
-                rb.MovePosition(v2);
-            }
-            Debug.Log("[OnCollisionEnter2D] Warp " + col.collider.gameObject.name + " : " + col.collider.gameObject.transform.position + " -> " + v2);
-        }
-        else
-        {
-            Debug.Log("[Warp] Can't get collider Rigidbody2D");
-            print("[LevelLimitWarp]return;");
-            return;
-        }
+        rb = col.attachedRigidbody;
+        teleport = true;
     }
-
-
-    private void OnTriggerEnter(Collider col)
-    {
-        Rigidbody rb = col.attachedRigidbody;
-        int direction = 1;
-        Vector2 v2;
-
-        if (rb != null)
-        {
-            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
-            //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
-            if (horizontal)
-            {
-                direction = (atTop) ? 1 : -1;
-                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
-                rb.MovePosition(v2);
-            }
-            else
-            {
-                direction = (atRight) ? 1 : -1;
-                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
-                rb.MovePosition(v2);
-            }
-            Debug.Log("[3D] Warp " + col.gameObject.name + " : " + col.gameObject.transform.position + " -> " + v2);
-        }
-        else
-        {
-            Debug.Log("[Warp] Can't get collider Rigidbody2D");
-            print("[LevelLimitWarp]return;");
-            return;
-        }
-    }
-
-
+    */
+    
     void OnTriggerEnter2D(Collider2D col)
     {
-        Rigidbody2D rb = col.attachedRigidbody;
-        int direction = 1;
-        Vector2 v2;
+        rb = col.attachedRigidbody;
 
+        int direction = 1;
+  
         if (rb != null)
         {
-            //Debug.Log(col.gameObject.name + " collids at " + col.gameObject.transform.position);
-            //TODO : warp to linkedWarp location, and shortly disable warping (Time.deltatime <3 )    
+            if (horizontal)
+            {
+                //print("size (" + col.gameObject.name + ") = (" + col.gameObject.GetComponent<BoxCollider2D>().size.x +"," + col.gameObject.GetComponent<BoxCollider2D>().size.y +")");
+                //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," +this.gameObject.GetComponent<BoxCollider2D>().size.y +")");
+
+                //x heigth
+                offset = col.gameObject.GetComponent<BoxCollider2D>().size.x - this.gameObject.GetComponent<BoxCollider2D>().size.y/2;
+
+                direction = (atTop) ? 1 : -1;
+                destination = new Vector2(rb.transform.position.x, linkedWarp.position.y + (offset * direction));
+            }
+            else
+            {
+                //print("size (" + col.gameObject.name + ") = (" + col.gameObject.GetComponent<BoxCollider2D>().size.x + "," + col.gameObject.GetComponent<BoxCollider2D>().size.y + ")");
+                //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," + this.gameObject.GetComponent<BoxCollider2D>().size.y + ")");
+
+                //y weigth
+                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y/2  + this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                direction = (atRight) ? 1 : -1;
+                destination = new Vector2(linkedWarp.position.x + (offset * direction), rb.transform.position.y);
+            }
+        }
+        else return;
+
+        rb.position = destination;
+
+    
+        teleport = true;
+    }
+    
+    private void FixedUpdate()
+    {
+        if (teleport)
+        {
+            /*
+            int direction;
+
             if (horizontal)
             {
                 direction = (atTop) ? 1 : -1;
-                v2 = new Vector2(rb.position.x, linkedWarp.transform.position.y + (offset * direction));
-                rb.MovePosition(v2);
+                destination.y = destination.y + (offset * direction); 
             }
             else
             {
                 direction = (atRight) ? 1 : -1;
-                v2 = new Vector2(linkedWarp.transform.position.x + (offset * direction), rb.position.y);
-                rb.MovePosition(v2);
+                destination.x = destination.x + (offset * direction);
             }
-            Debug.Log("Warp " + col.gameObject.name + " : " + col.gameObject.transform.position + " -> " + v2);
-        }
-        else
-        {
-            Debug.Log("[Warp] Can't get collider Rigidbody2D");
-            print("[LevelLimitWarp]return;");
-            return;
+
+            print(rb.position + "->" + (destination + rb.position)+0.1);
+            rb.MovePosition(destination + rb.position);
+            */
+           // rb.MovePosition(destination);
+         
+          
+            teleport = false;
+            
+           
         }
     }
 }

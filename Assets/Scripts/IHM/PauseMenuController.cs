@@ -4,45 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour {
-
-    public GameObject menuObject;
-    private bool isActive = false; 
+    
+    private bool displaySettings = false; 
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if (isActive == true)
+        if (Input.GetButtonDown("Cancel"))
         {
-            menuObject.SetActive(true);
-            
-            //TODO 
-            //We must see the cursor
-            //Cursor.visible = true;
-            
-            //We stop the game by stopping the time
-            Time.timeScale = 0;
-        }
-        else
-        {
-            menuObject.SetActive(false);
+            //If the game is not in pause
+            if (! SceneManager.GetSceneByName("pause").isLoaded)
+            {
+                //We have to set the game in pause by loading the pause scene and stopping the game
+                Time.timeScale = 0; //Stop the time in the game
 
-            //TODO
-            //We must see the cursor
-            //Cursor.visible = false;
-
-            //We resume the game
-            Time.timeScale = 1;
+                //We load the pause scene
+                SceneManager.LoadScene("pause", LoadSceneMode.Additive);
+            }
+            else
+            {
+                Resume();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isActive = !isActive;
-        }
 	}
 
     public void Resume()
     {
-        isActive = !isActive;
+        SceneManager.UnloadSceneAsync("pause");
+        Time.timeScale = 1;
     }
 
     public void ExitGame()

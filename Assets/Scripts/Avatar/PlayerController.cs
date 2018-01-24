@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
         else wantToJump = false;
+
     }
     
 
