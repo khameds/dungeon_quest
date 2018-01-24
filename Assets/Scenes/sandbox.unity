@@ -612,7 +612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &196437609
 Transform:
   m_ObjectHideFlags: 0
@@ -2477,6 +2477,36 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &979630883 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1414694866373098, guid: 79a5c02773716e042bb2b894087e84af,
+    type: 2}
+  m_PrefabInternal: {fileID: 1060727003}
+--- !u!61 &979630887
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979630883}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.014275163, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.3085504, y: 1.28}
+  m_EdgeRadius: 0
 --- !u!1001 &991813098
 Prefab:
   m_ObjectHideFlags: 0
@@ -3113,6 +3143,19 @@ Prefab:
     - target: {fileID: 1932532566995020, guid: 79a5c02773716e042bb2b894087e84af, type: 2}
       propertyPath: m_Name
       value: PlatformTopCenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414694866373098, guid: 79a5c02773716e042bb2b894087e84af, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186145848753300, guid: 79a5c02773716e042bb2b894087e84af, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 68925002310673728, guid: 79a5c02773716e042bb2b894087e84af,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79a5c02773716e042bb2b894087e84af, type: 2}
@@ -4054,6 +4097,36 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &1353058555 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1186145848753300, guid: 79a5c02773716e042bb2b894087e84af,
+    type: 2}
+  m_PrefabInternal: {fileID: 1060727003}
+--- !u!61 &1353058559
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353058555}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.010609478, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.301219, y: 1.28}
+  m_EdgeRadius: 0
 --- !u!1 &1366853192
 GameObject:
   m_ObjectHideFlags: 0
