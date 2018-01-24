@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if (hit.collider != null && rigidBody.velocity.y <= 0 && !grounded)
         {
             timeToWallUnstick = wallStickTime;
-
+            
             if (rigidBody.velocity.y < -wallSlideSpeed)
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, -wallSlideSpeed);
         }
