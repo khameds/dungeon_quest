@@ -6359,7 +6359,7 @@ GameObject:
   - component: {fileID: 1924254189}
   - component: {fileID: 1924254188}
   - component: {fileID: 1924254187}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
