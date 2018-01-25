@@ -48,11 +48,11 @@ public class GameFlow : MonoBehaviour
     //Can't find any player
     public static void noPlayer()
     {
-        Debug.LogError("[GameFlow.cs] GAMEOVER");
-
+        Debug.Log("[GameFlow.cs] GAMEOVER");
+        //Time.timeScale = 0; //Pause the game
         //(We print Gameover with the choice to restart)
 
         //Back to the menu
-        SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
+        //SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
     }
 }

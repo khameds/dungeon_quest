@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
     public float speed = 300f;      //The AI's speed per second
     public ForceMode2D fMode;
 
+    public bool isChasing = true;
+
     [HideInInspector] public bool pathIsEnded = false;
 
     // The max distance from the AI to a waypoint for it to continue to the next waypoint
@@ -31,67 +33,76 @@ public class EnemyController : MonoBehaviour
           
         // Start a new path to the target position, return the result to the OnPathComplete method
         seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
-        
+        isChasing = true;
         StartCoroutine(UpdatePath());
     }
 
     public GameObject GetTarget()
     {
-        List<GameObject> tmp = new List<GameObject>();
-        List<GameObject> targets = new List<GameObject>();
-        tmp.AddRange(GameObject.FindGameObjectsWithTag("Player"));
-
-        if (tmp.Count > 0)
+        if (isChasing)
         {
-            foreach (GameObject i in tmp)
-            {
-                if (!(i.GetComponent<PlayerHealth>().isDead))
-                    targets.Add(i);
-            }
+            List<GameObject> tmp = new List<GameObject>();
+            List<GameObject> targets = new List<GameObject>();
+            tmp.AddRange(GameObject.FindGameObjectsWithTag("Player"));
 
-            if (targets.Count == 0)
+            if (tmp.Count > 0)
             {
-                Debug.LogError("[GetTarget1]Can't find any player alive");
-                GameFlow.noPlayer();
-                target = null;
+                foreach (GameObject i in tmp)
+                {
+                    if (!(i.GetComponent<PlayerHealth>().isDead))
+                        targets.Add(i);
+                }
+
+                if (targets.Count == 0)
+                {// All players are dead
+                    GameFlow.noPlayer();
+                    isChasing = false;
+                    target = null;
+                }
+                else
+                {// Get a random target in alive targets
+                    target = targets[Random.Range(0, targets.Count)];
+                }
+                return target;
             }
             else
             {
-                target = targets[Random.Range(0, targets.Count)];
+                isChasing = false;
+                GameFlow.noPlayer();
+                return null;
             }
-            return target;
         }
-        else
-        {
-            Debug.LogError("[GetTarget2]Can't find any player alive");
-            GameFlow.noPlayer();
-            return null;
-        }
+        else return null;
     }
 
     IEnumerator UpdatePath()
     {
-        if (target == null) // TODO test if player alive
+        if (isChasing)
         {
-            target = GetTarget();
-
-            if (target == null)
+            if (target == null) // TODO test if player alive
             {
-                Debug.LogError("[UpdatePath] Can't find any player alive, GAMEOVER.");
-                yield break;
-            }           
+                target = GetTarget();
+
+                if (target == null)
+                {
+                    Debug.LogError("[UpdatePath] Can't find any player alive, GAMEOVER.");
+                    isChasing = false;
+                    GameFlow.noPlayer();
+                    yield break;
+                }
+            }
+
+            // Start a new path to the target position, return the result to the OnPathComplete method
+            seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+
+            yield return new WaitForSeconds(1f / updateRate);
+            StartCoroutine(UpdatePath());
         }
-
-        // Start a new path to the target position, return the result to the OnPathComplete method
-        seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
-
-        yield return new WaitForSeconds(1f / updateRate);
-        StartCoroutine(UpdatePath());
     }
 
     public void OnPathComplete(Path p)
     {
-        if (!p.error)
+        if (isChasing && !p.error )
         {
             path = p;
             currentWaypoint = 0;
@@ -102,42 +113,45 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (target == null)
-        {// Should not happen
-            target = GetTarget();
+        if (isChasing)
+        {
             if (target == null)
+            {// Should not happen
+                target = GetTarget();
+                if (target == null)
+                {
+                    //print("[EnemyController] FixedUpdate : Target is null.");
+                    return;
+                }
+            }
+
+            if (path == null)
             {
-                //print("[EnemyController] FixedUpdate : Target is null.");
+                //print("[EnemyController] FixedUpdate : Path is null.");
                 return;
             }
-        }
 
-        if (path == null)
-        {
-            //print("[EnemyController] FixedUpdate : Path is null.");
-            return;
-        }
+            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                pathIsEnded = true;
+                //print("[EnemyController] FixedUpdate : Path ended.");
+                return;
+            }
+            pathIsEnded = false;
 
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            pathIsEnded = true;
-            //print("[EnemyController] FixedUpdate : Path ended.");
-            return;
-        }
-        pathIsEnded = false;
+            //Direction to the next waypoint
+            Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            dir *= speed * Time.fixedDeltaTime;
 
-        //Direction to the next waypoint
-        Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-        dir *= speed * Time.fixedDeltaTime;
+            //Move the AI
+            rb.AddForce(dir, fMode);
 
-        //Move the AI
-        rb.AddForce(dir, fMode);
-
-        float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
-        if (dist < nextWaypointDistance)
-        {
-            currentWaypoint++;
-            return;
+            float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            if (dist < nextWaypointDistance)
+            {
+                currentWaypoint++;
+                return;
+            }
         }
     }
 }

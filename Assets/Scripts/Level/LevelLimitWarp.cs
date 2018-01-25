@@ -22,14 +22,6 @@ public class LevelLimitWarp : MonoBehaviour
       //  print("destination (" + this.gameObject.name + "):" + destination);
         
     }
-
-    /*
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        rb = col.attachedRigidbody;
-        teleport = true;
-    }
-    */
     
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -45,7 +37,7 @@ public class LevelLimitWarp : MonoBehaviour
                 //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," +this.gameObject.GetComponent<BoxCollider2D>().size.y +")");
 
                 //x heigth
-                offset = col.gameObject.GetComponent<BoxCollider2D>().size.x - this.gameObject.GetComponent<BoxCollider2D>().size.y/2;
+                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y + col.gameObject.GetComponent<CircleCollider2D>().radius - this.gameObject.GetComponent<BoxCollider2D>().size.y;
 
                 direction = (atTop) ? 1 : -1;
                 destination = new Vector2(rb.transform.position.x, linkedWarp.position.y + (offset * direction));
@@ -61,11 +53,7 @@ public class LevelLimitWarp : MonoBehaviour
                 destination = new Vector2(linkedWarp.position.x + (offset * direction), rb.transform.position.y);
             }
         }
-        else return;
-
-        rb.position = destination;
-
-    
+        else return;    
         teleport = true;
     }
     
@@ -90,9 +78,7 @@ public class LevelLimitWarp : MonoBehaviour
             print(rb.position + "->" + (destination + rb.position)+0.1);
             rb.MovePosition(destination + rb.position);
             */
-           // rb.MovePosition(destination);
-         
-          
+            rb.MovePosition(destination);        
             teleport = false;
             
            

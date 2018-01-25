@@ -14,7 +14,7 @@ public class EnemyAttack : MonoBehaviour
     EnemyHealth enemyHealth;                // Reference to this enemy's health.
     bool playerInRange;                     // Whether player is within the trigger collider and can be attacked.
     float timer;                            // Timer for counting up to the next attack.
-
+    [SerializeField] private float timeSwitchTarget = 0.5f;
     EnemyController enemyController;
 
 
@@ -43,7 +43,7 @@ public class EnemyAttack : MonoBehaviour
     {
         // If the entering collider is the player...
 
-        if (collision.collider.gameObject == target)
+        if (enemyController.isChasing && collision.collider.gameObject == target)
         {
             //Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
             playerInRange = true;
@@ -53,52 +53,64 @@ public class EnemyAttack : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         // If the exiting collider is the player...
-        if (collision.collider.gameObject == target)
+        if (enemyController.isChasing && collision.collider.gameObject == target)
             playerInRange = false;
     }
 
   
     void Update()
     {
-        // Add the time since Update was last called to the timer.
-        timer += Time.deltaTime;
-
-        // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-        if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
+        if (enemyController.isChasing)
         {
-            Debug.Log(this.gameObject.name + " attacks " + target.name + " (" + playerHealth.currentHealth + "/" + playerHealth.maxHealth + "HP)");
-            Attack();
+            // Add the time since Update was last called to the timer.
+            timer += Time.deltaTime;
+
+            // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
+            if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
+            {
+                Debug.Log(this.gameObject.name + " attacks " + target.name + " (" + playerHealth.currentHealth + "/" + playerHealth.maxHealth + "HP)");
+                Attack();
+            }
+
+
+            // If the player has zero or less health, switch to valid target
+            if (playerHealth.currentHealth <= 0)
+            {
+                target.GetComponent<Animator>().SetBool("IsDead", true);
+               
+                target = enemyController.GetTarget();
+                if (target != null && enemyController.isChasing)
+                {
+                    playerHealth = target.GetComponent<PlayerHealth>();
+                    playerInRange = false;
+                    Debug.Log("[EnemyAttack] Update : Switch to target : " + target.name + ".");
+                }
+            }
         }
 
-        
-        // If the player has zero or less health, switch to valid target
-        if (playerHealth.currentHealth <= 0)
-        {
-            target.GetComponent<Animator>().SetBool("IsDead", true);
-            target = enemyController.GetTarget();
-            if(target != null)
-            {
-                playerHealth = target.GetComponent<PlayerHealth>();
-                playerInRange = false;
-                Debug.Log("[EnemyAttack] Update : Switch to target : " + target.name + ".");
-            }
-            else
-            {
-                Debug.Log("[EnemyAttack] Update : Target switch fail.");
-            }
-        }    
+        //this.gameObject.SetActive(enemyController.isChasing);
+    }
+
+    IEnumerator Tempo()
+    {
+        while (!enemyController.isChasing) { }
+        this.gameObject.SetActive(false);
+        yield return new WaitForSeconds(timeSwitchTarget);
     }
 
     void Attack()
     {
-        // Reset the timer.
-        timer = 0f;
-
-        // If the player has health to lose...
-        if (playerHealth.currentHealth > 0)
+        if (enemyController.isChasing)
         {
-            // ... damage the player.
-            playerHealth.TakeDamage(attackDamage);
+            // Reset the timer.
+            timer = 0f;
+
+            // If the player has health to lose...
+            if (playerHealth.currentHealth > 0)
+            {
+                // ... damage the player.
+                playerHealth.TakeDamage(attackDamage);
+            }
         }
     }
 }
