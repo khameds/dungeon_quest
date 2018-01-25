@@ -8,6 +8,11 @@ public class Inventory : MonoBehaviour {
     public Image[] itemImages = new Image[maxItemSlots];
     public Item[] items = new Item[maxItemSlots];
 
+    private void Awake()
+    {
+        
+    }
+
     public void AddItem(Item itemToAdd)
     {
         for(int i = 0; i < items.Length; i++)
