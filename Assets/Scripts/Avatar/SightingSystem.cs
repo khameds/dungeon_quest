@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class FireArrow : MonoBehaviour
+public class SightingSystem : MonoBehaviour
 {
+    /*
     public Rigidbody2D sight;
     public Rigidbody2D character;
     private Vector2 direction;
@@ -22,7 +23,11 @@ public class FireArrow : MonoBehaviour
 
 
     public float maxDragDistance = 2f; //We can set it by the type of the selected weapon
-
+    void Awake()
+    {
+        character = GetComponent<Rigidbody2D>();
+    }
+    
     void Start()
     {
         //Set Cursor to not be visible
@@ -42,7 +47,7 @@ public class FireArrow : MonoBehaviour
         //   sight.position = mousePos;
 
         //https://docs.unity3d.com/ScriptReference/Vector2.SmoothDamp.html
-     //   if (Vector2.Scale(mousePos - oldMousePosition) > sensibility)
+        //   if (Vector2.Scale(mousePos - oldMousePosition) > sensibility)
         {
             oldMousePosition = mousePos;
             oldDirection = (mousePos - character.position).normalized;
@@ -51,7 +56,7 @@ public class FireArrow : MonoBehaviour
 
     void OnMouseDown()
     {
-        
+
         //Switch on weapon selected and FIREEEEEE if enough ammo
 
     }
@@ -60,4 +65,6 @@ public class FireArrow : MonoBehaviour
     {
         //For weapons that require letting the key press
     }
+
+    */
 }

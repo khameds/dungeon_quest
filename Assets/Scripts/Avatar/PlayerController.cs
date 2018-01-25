@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private Transform groundCheck;              // A position marking where to check if the player is grounded.
     const float groundedRadius = .1f;           // Radius of the overlap circle to determine if grounded
     
-   // private Transform headCheck;              // A position marking where to check for ceilings
+    private Transform headCheck;              // A position marking where to check for ceilings
     private const float headRadius = .01f;      // Radius of the overlap circle to determine if the player can stand up
     private Animator animator;                  // Reference to the player's Animator component.
     private Rigidbody2D rigidBody;              // Reference to the player's Rigibody2D component 
@@ -28,17 +28,20 @@ public class PlayerController : MonoBehaviour
     private float timeToWallUnstick;            // Define if the player is still considered as "wall sliding"
     private Vector2 input;                      // Store input informations
     private bool canJump = true;                       // Check if the player can jump again;
+    [SerializeField] private GameObject hud;
 
-    public PlayerHealth playerHealth;
+    [HideInInspector] public PlayerHealth playerHealth;
     // At script load
     private void Awake()
     {
         // Setting up references.
         groundCheck = transform.Find("GroundCheck");
-        //headCheck = transform.Find("HeadCheck");
+        headCheck = transform.Find("HeadCheck");
+       
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
+    
         input = new Vector2();
     }
 
@@ -149,6 +152,7 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        hud.transform.localScale = theScale;
     }
 
     // Draw gizmo for debug purpose

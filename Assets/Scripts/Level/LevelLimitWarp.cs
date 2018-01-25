@@ -37,7 +37,7 @@ public class LevelLimitWarp : MonoBehaviour
                 //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," +this.gameObject.GetComponent<BoxCollider2D>().size.y +")");
 
                 //x heigth
-                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y + col.gameObject.GetComponent<CircleCollider2D>().radius - this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y + col.gameObject.GetComponent<CircleCollider2D>().radius * 2 + this.gameObject.GetComponent<BoxCollider2D>().size.y;
 
                 direction = (atTop) ? 1 : -1;
                 destination = new Vector2(rb.transform.position.x, linkedWarp.position.y + (offset * direction));
