@@ -51,7 +51,8 @@ public class EnemyController : MonoBehaviour
 
             if (targets.Count == 0)
             {
-                Debug.LogError("[GetTarget1]Can't find any player alive, GAMEOVER.");
+                Debug.LogError("[GetTarget1]Can't find any player alive");
+                GameFlow.noPlayer();
                 target = null;
             }
             else
@@ -62,7 +63,8 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("[GetTarget2]Can't find any player, GAMEOVER.");
+            Debug.LogError("[GetTarget2]Can't find any player alive");
+            GameFlow.noPlayer();
             return null;
         }
     }
