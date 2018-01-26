@@ -14,13 +14,13 @@ public class OptionsController : MonoBehaviour {
 
     void Start()
     {
-        codes.Add("Left", KeyCode.Q);
-        codes.Add("Right", KeyCode.D);
-        codes.Add("Fire", KeyCode.Mouse0);
-        codes.Add("SpecialAction", KeyCode.Mouse1); //Specific actions with some weapons
-        codes.Add("SwitchWeapon", KeyCode.Mouse2); 
-        codes.Add("Jump", KeyCode.Space);
-        codes.Add("Cancel", KeyCode.Escape);
+        codes.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left","W")));
+        codes.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D")));
+        codes.Add("Fire", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Fire", "Mouse0")));
+        codes.Add("SpecialAction", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SpecialAction", "Mouse1")));
+        codes.Add("SwitchWeapon", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SwitchWeapon", "Mouse2")));
+        codes.Add("Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")));
+        codes.Add("Cancel", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cancel", "Escape")));
 
         left.text = codes["Left"].ToString();
         right.text = codes["Right"].ToString();
@@ -29,10 +29,20 @@ public class OptionsController : MonoBehaviour {
         action.text = codes["SpecialAction"].ToString();
         switchWeapon.text = codes["SwitchWeapon"].ToString();
         cancel.text = codes["Cancel"].ToString();
+
     }
 
+    public void Save()
+    {
+        foreach (var key in codes)
+        {
+            PlayerPrefs.SetString(key.Key, key.Value.ToString());
+        }
 
-    // Permit to acceed to the scene in paramater
+        PlayerPrefs.Save();
+        ExitSettings();
+    }
+
     public void ExitSettings()
     {
         SceneManager.UnloadSceneAsync("options");
@@ -57,6 +67,12 @@ public class OptionsController : MonoBehaviour {
             {
                 codes[currentKey.name] = e.keyCode;
                 currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                currentKey = null;
+            }
+            if (e.isMouse)
+            {
+                codes[currentKey.name] = (KeyCode)System.Enum.Parse(typeof(KeyCode), "Mouse" + e.button.ToString());
+                currentKey.transform.GetChild(0).GetComponent<Text>().text = "Mouse" + e.button.ToString();
                 currentKey = null;
             }
         }
