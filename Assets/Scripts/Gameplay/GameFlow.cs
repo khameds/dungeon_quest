@@ -43,7 +43,7 @@ public class GameFlow : MonoBehaviour
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
         {
             //Get the prefab & positions of spawn points
-            GameObject character = GameObject.Find("CharacterExample");
+            GameObject character = GameObject.Find("Character");
             Vector2 positionCharacter1 = GameObject.Find("PlayerSpawn1").transform.position;
             Vector2 positionCharacter2 = GameObject.Find("PlayerSpawn2").transform.position;
             Vector2 positionCharacter3 = GameObject.Find("PlayerSpawn3").transform.position;

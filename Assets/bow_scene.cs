@@ -6,16 +6,15 @@ public class bow_scene : MonoBehaviour {
 
 
 
-    public Item bow = null;
+    public Item item = null;
     private GameObject Inventory;
     private bool picked_up = false;
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player") && Input.GetButtonDown("Pick_Object"))
         {
-            
-            if(!picked_up)
-                Pickup(other);
+                if (!picked_up)
+                    Pickup(other);
         }
     }
     // Update is called once per frame
@@ -25,9 +24,15 @@ public class bow_scene : MonoBehaviour {
 
         picked_up = true;    
         
-        if (bow != null) { 
-            Debug.Log("Bow picked up");
-            player.gameObject.transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().AddItem(bow);
+        if (item != null) { 
+            if(player.gameObject.transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsFull())
+                player.gameObject.GetComponent<PlayerInventory>().DropObject();
+
+            player.gameObject.transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().AddItem(item);
+        }
+        else
+        {
+            Debug.Log("Item not set");
         }
         
         
