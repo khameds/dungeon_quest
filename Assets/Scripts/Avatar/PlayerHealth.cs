@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         baseColor = spriteRenderer.color;
         //print("Instanciate PlayerHealth");
+        
     }
 
     void Update()
@@ -56,8 +57,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
 
         // Set the health bar's value to the current health.
-        //healthSlider.value = (currentHealth * 100) / maxHealth;
-
+        healthSlider.value = (float) currentHealth / maxHealth;
+        print(healthSlider.value);
         // Play the hurt sound effect.
         //playerAudio.Play();
         //Debug.Log(this.gameObject.name + " takes " + amount + "damage. (" + currentHealth + "/" + maxHealth + ")");
