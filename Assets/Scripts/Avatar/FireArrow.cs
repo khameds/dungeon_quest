@@ -17,6 +17,8 @@ public class FireArrow : MonoBehaviour
             sight.position = character.position + (mousePos - character.position).normalized * maxDragDistance;
         else
             sight.position = mousePos;
+
+        Debug.Log(sight.position);
     }
 
     void OnMouseDown()

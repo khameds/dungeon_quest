@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
     public const int maxItemSlots = 4;
-    public Image[] itemImages = new Image[maxItemSlots];
+    public Sprite[] itemImages = new Sprite[maxItemSlots];
     public Item[] items = new Item[maxItemSlots];
-
     private void Awake()
     {
         
@@ -20,8 +19,12 @@ public class Inventory : MonoBehaviour {
             if(items[i] == null)
             {
                 items[i] = itemToAdd;
-                itemImages[i].sprite = itemToAdd.sprite;
-                itemImages[i].enabled = true;
+                itemImages[i] = itemToAdd.sprite;
+                transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().sprite = itemImages[i];
+                transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().enabled = true;
+
+                //transform.Find("ItemSlot" + i + "/BackgroundImage").gameObject.GetComponent<Image>().sprite = itemImages[i];
+
                 return;
             }
         }
@@ -34,8 +37,7 @@ public class Inventory : MonoBehaviour {
             if (items[i] == itemToRemove)
             {
                 items[i] = null;
-                itemImages[i].sprite = null;
-                itemImages[i].enabled = false;
+                itemImages[i]= null;
                 return;
             }
         }
