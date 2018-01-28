@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;                      // Store input informations
     private bool canJump = true;                       // Check if the player can jump again;
     [SerializeField] private GameObject hud;
+    public PlayerInventory inventory;
 
     [HideInInspector] public PlayerHealth playerHealth;
     // At script load
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
+        inventory = GetComponent<PlayerInventory>();
     
         input = new Vector2();
     }

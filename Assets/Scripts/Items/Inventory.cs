@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour {
             if(items[i] == null)
             {
                 items[i] = itemToAdd;
-                itemImages[i] = itemToAdd.sprite;
+                itemImages[i] = itemToAdd.descriptionSprite;
                 transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().sprite = itemImages[i];
                 transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().enabled = true;
 
@@ -57,6 +57,11 @@ public class Inventory : MonoBehaviour {
     public string NameOfItem(int indice)
     {
         return items[indice].ToString().Split(' ')[0];
+    }
+
+    public Item GetItem(int indice)
+    {
+        return(items[Mathf.Clamp(indice, 0, maxItemSlots - 1)]);
     }
 
 }

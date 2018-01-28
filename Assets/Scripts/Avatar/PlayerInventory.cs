@@ -10,11 +10,14 @@ public class PlayerInventory : MonoBehaviour {
     public int current_item;
     private string sprite_background_item_selected;
     private string sprite_background_item;
+    public Inventory inventory;
+
     public void Start()
     {
         current_item = 1;
         sprite_background_item_selected = "Sprites/Inventory/buttonSquare_brown_pressed";
         sprite_background_item = "Sprites/Inventory/buttonSquare_brown";
+        
     }
 
     public void DropObject()
@@ -22,9 +25,9 @@ public class PlayerInventory : MonoBehaviour {
         string name_item = "";
         if (transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsItemSet(current_item))
         {
-            name_item = transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().NameOfItem(current_item);
+            name_item = inventory.NameOfItem(current_item);
             Instantiate(Resources.Load("Items/" + name_item + "/" + name_item + "_scene", typeof(GameObject)), transform.position, transform.rotation);
-            transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().RemoveItem(current_item);
+            inventory.RemoveItem(current_item);
         }
     }
 
@@ -63,9 +66,11 @@ public class PlayerInventory : MonoBehaviour {
             change_background(current_item, 3);
             current_item = 3;
         }
+    }
 
-        
-
+    public Item GetCurrentItem()
+    {
+        return inventory.GetItem(current_item);
     }
 
 }

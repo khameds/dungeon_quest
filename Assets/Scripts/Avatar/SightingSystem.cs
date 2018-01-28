@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SightingSystem : MonoBehaviour
 {
-    /*
+    
     public Rigidbody2D sight;
     public Rigidbody2D character;
     private Vector2 direction;
@@ -14,6 +14,7 @@ public class SightingSystem : MonoBehaviour
     private Vector2 oldDirection;
     private float sensibility = 2f;
 
+    [SerializeField] private PlayerInventory inventory;
     // Property for weapon use
     public Vector2 Direction
     {
@@ -54,17 +55,6 @@ public class SightingSystem : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
-    {
 
-        //Switch on weapon selected and FIREEEEEE if enough ammo
-
-    }
-
-    void OnMouseUp()
-    {
-        //For weapons that require letting the key press
-    }
-
-    */
+    
 }
