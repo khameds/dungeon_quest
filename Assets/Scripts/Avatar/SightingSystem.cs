@@ -16,6 +16,7 @@ public class SightingSystem : MonoBehaviour
     private Vector2 oldMousePosition;
     private Vector2 oldDirection;
     private float sensibility = 2f;
+    private float angle;
 
     [SerializeField] private PlayerInventory inventory;
     // Property for weapon use
@@ -41,7 +42,8 @@ public class SightingSystem : MonoBehaviour
     void Start()
     {
         //Set Cursor to not be visible
-        Cursor.visible = false;
+        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
         oldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         oldDirection = (oldMousePosition - character.position).normalized;
     }
@@ -54,26 +56,36 @@ public class SightingSystem : MonoBehaviour
         else
             spriteRenderer.sprite = null;
 
-
+        
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (mousePos - character.position).normalized;
         direction = (oldDirection + (mousePos - oldMousePosition).normalized).normalized;
-        if (Vector3.Distance(mousePos, character.position) > maxDragDistance)
+        //if (Vector3.Distance(mousePos, character.position) > maxDragDistance)
             rbSight.position = character.position + direction * maxDragDistance;
-         else
-           rbSight.position = mousePos;
-/*
-        //https://docs.unity3d.com/ScriptReference/Vector2.SmoothDamp.html
-        if (Vector2.Scale(mousePos - oldMousePosition) > sensibility)
-        {
-            oldMousePosition = mousePos;
-            oldDirection = (mousePos - character.position).normalized;
-        }
+        // else
+        //   rbSight.position = mousePos;
 
-    */
+        angle = GetAngle(character.position, mousePos);
+        sight.transform.rotation = Quaternion.Euler(0f, 0f, angle); ;
+
+        /*
+                //https://docs.unity3d.com/ScriptReference/Vector2.SmoothDamp.html
+                if (Vector2.Scale(mousePos - oldMousePosition) > sensibility)
+                {
+                    oldMousePosition = mousePos;
+                    oldDirection = (mousePos - character.position).normalized;
+                }
+
+            */
+
+    }
+
+    float GetAngle(Vector2 v1, Vector2 v2)
+    {
+        return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
     }
 
 
-    
+
 }
