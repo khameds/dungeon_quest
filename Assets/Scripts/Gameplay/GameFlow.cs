@@ -40,22 +40,23 @@ public class GameFlow : MonoBehaviour
 
     private static void generatePlayers(int numberOfPlayer)
     {
+
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
         {
-            //Get the prefab & positions of spawn points
-            GameObject character = GameObject.Find("Character");
+            GameObject character = Instantiate(Resources.Load("Avatar/Character",typeof (GameObject))) as GameObject;
+
             Vector2 positionCharacter1 = GameObject.Find("PlayerSpawn1").transform.position;
             Vector2 positionCharacter2 = GameObject.Find("PlayerSpawn2").transform.position;
             Vector2 positionCharacter3 = GameObject.Find("PlayerSpawn3").transform.position;
             Vector2 positionCharacter4 = GameObject.Find("PlayerSpawn4").transform.position;
 
-            //Duplicate the prefab
-            GameObject character1 = Instantiate(character);
-            character1.transform.position = positionCharacter1;
-            
+            character.transform.position = positionCharacter1;
+
             if (numberOfPlayer >= 2)
             {
+                //Duplication
                 GameObject character2 = Instantiate(character);
+                //Move the object to the spaawn
                 character2.transform.position = positionCharacter2;
             }
             if (numberOfPlayer >= 3)
@@ -68,8 +69,6 @@ public class GameFlow : MonoBehaviour
                 GameObject character4 = Instantiate(character);
                 character4.transform.position = positionCharacter4;
             }
-
-            character.SetActive(false);
         }
         else
         {
@@ -99,7 +98,10 @@ public class GameFlow : MonoBehaviour
 
     private static void launchWave(int waveNum)
     {
-        GameObject enemy = GameObject.Find("EnemyExample");
+        //Display the alert
+        DisplayAlert.Print("Manche " + waveNum);
+
+        GameObject enemy = Instantiate(Resources.Load("Avatar/MaceEnemy", typeof(GameObject))) as GameObject;
         enemy.SetActive(true);
 
         switch (waveNum)
