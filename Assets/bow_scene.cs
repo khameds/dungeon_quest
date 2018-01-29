@@ -7,7 +7,6 @@ public class bow_scene : MonoBehaviour {
 
 
     public Item item = null;
-    private GameObject Inventory;
     private bool picked_up = false;
     void OnTriggerStay2D(Collider2D other)
     {
@@ -21,21 +20,34 @@ public class bow_scene : MonoBehaviour {
 
     void Pickup(Collider2D player)
     {
+        GameObject inventory = player.gameObject.transform.Find("Canvas/Inventory").gameObject;
+        picked_up = true;
 
-        picked_up = true;    
-        
-        if (item != null) { 
-            if(player.gameObject.transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsFull())
-                player.gameObject.GetComponent<PlayerInventory>().DropObject();
+        if (item != null)
+        {
+            if (inventory.GetComponent<Inventory>().IsFull())
+            {
+                if (player.gameObject.GetComponent<PlayerInventory>().DropObject())
+                {
+                    inventory.GetComponent<Inventory>().AddItem(item);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    picked_up = false;
+                }
 
-            player.gameObject.transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().AddItem(item);
+            }
+            else
+            {
+                inventory.GetComponent<Inventory>().AddItem(item);
+                Destroy(gameObject);
+            }
         }
         else
         {
-            Debug.Log("Item not set");
+            Debug.Log("[Bow_scene] Item not set");
         }
-        
-        
-        Destroy(gameObject);
     }
+     
 }
