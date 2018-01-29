@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour {
     
-    private bool displaySettings = false; 
-	
-	// Update is called once per frame
-	void Update ()
+    private bool displaySettings = false;
+
+    void Start()
+    {
+        Cursor.visible = true;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetButtonDown("Cancel"))
         {
@@ -32,6 +37,7 @@ public class PauseMenuController : MonoBehaviour {
     public void Resume()
     {
         SceneManager.UnloadSceneAsync("pause");
+        Cursor.visible = false;
         Time.timeScale = 1;
     }
 

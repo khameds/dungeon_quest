@@ -14,6 +14,8 @@ public class OptionsController : MonoBehaviour {
 
     void Start()
     {
+        Cursor.visible = true;
+
         codes.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left","W")));
         codes.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D")));
         codes.Add("Fire", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Fire", "Mouse0")));
