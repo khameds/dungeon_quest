@@ -31,9 +31,6 @@ public class Inventory : MonoBehaviour {
                 itemImages[i] = itemToAdd.descriptionSprite;
                 transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().sprite = itemImages[i];
                 transform.Find("ItemSlot" + i + "/ItemImage").gameObject.GetComponent<Image>().enabled = true;
-
-                //transform.Find("ItemSlot" + i + "/BackgroundImage").gameObject.GetComponent<Image>().sprite = itemImages[i];
-
                 return;
             }
         }
@@ -41,10 +38,13 @@ public class Inventory : MonoBehaviour {
 
     public void RemoveItem(int itemToRemove)
     {
-       items[itemToRemove] = null;
-       itemImages[itemToRemove]= null;
-       transform.Find("ItemSlot" + itemToRemove + "/ItemImage").gameObject.GetComponent<Image>().sprite = null;
-       transform.Find("ItemSlot" + itemToRemove + "/ItemImage").gameObject.GetComponent<Image>().enabled = false;
+        if (itemToRemove != 0)
+        {
+            items[itemToRemove] = null;
+            itemImages[itemToRemove] = null;
+            transform.Find("ItemSlot" + itemToRemove + "/ItemImage").gameObject.GetComponent<Image>().sprite = null;
+            transform.Find("ItemSlot" + itemToRemove + "/ItemImage").gameObject.GetComponent<Image>().enabled = false;
+        }
     }
 
     public bool IsItemSet(int indice)
