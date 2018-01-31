@@ -150,6 +150,13 @@ public class GameFlow : MonoBehaviour
 
     private static void launchBossWave()
     {
-        //TODO
+        //TOFINISH
+        /*
+        //Loading and instatation of the prefab of the boss
+        GameObject boss = Instantiate(Resources.Load("Avatar/Boss", typeof(GameObject))) as GameObject;
+
+        //Move the boss to the spawn
+        boss.transform.position = GameObject.Find("EnemySpawn1").transform.position;
+        */
     }
 }
