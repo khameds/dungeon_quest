@@ -12,14 +12,12 @@ public class GameFlow : MonoBehaviour
     //Use this for initialization
     void Start ()
     {
+        //Getting all the necessary parameters
+
         try
-        {
-            //Getting all the necessary parameters
-            /*
-            numberOfPlayer = System.Int32.Parse(LevelParam.Get("numberOfPlayer"));          // Disable as long as it's not finished
-            */
-
-
+        {      
+            //numberOfPlayer = System.Int32.Parse(LevelParam.Get("numberOfPlayer"));
+            
             //Other parameters TODO
             // ...
         }
@@ -34,43 +32,51 @@ public class GameFlow : MonoBehaviour
 
         generatePlayers(numberOfPlayer);
 
+        //Launching the first wave
         waveNum = 1;
         launchWave(waveNum);
     }
 
     private static void generatePlayers(int numberOfPlayer)
     {
-
+        //Generating the correct number of player on the spawn spot fixed on the map
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
         {
+            //Loading the prefab Character
             GameObject character = Instantiate(Resources.Load("Avatar/Character",typeof (GameObject))) as GameObject;
 
+            //Loading the spawn spots
             Vector2 positionCharacter1 = GameObject.Find("PlayerSpawn1").transform.position;
             Vector2 positionCharacter2 = GameObject.Find("PlayerSpawn2").transform.position;
             Vector2 positionCharacter3 = GameObject.Find("PlayerSpawn3").transform.position;
             Vector2 positionCharacter4 = GameObject.Find("PlayerSpawn4").transform.position;
 
+            //Player 1
             character.transform.position = positionCharacter1;
 
-            if (numberOfPlayer >= 2)
+            if (numberOfPlayer >= 2) //Player 2
             {
                 //Duplication
                 GameObject character2 = Instantiate(character);
-                //Move the object to the spaawn
+                //Move the object to the spawn spot
                 character2.transform.position = positionCharacter2;
             }
-            if (numberOfPlayer >= 3)
+            if (numberOfPlayer >= 3) //Player 3
             {
+                //Duplication
                 GameObject character3 = Instantiate(character);
+                //Move the object to the spawn spot
                 character3.transform.position = positionCharacter3;
             }
-            if (numberOfPlayer >= 4)
+            if (numberOfPlayer >= 4) //Player 4
             {
+                //Duplication
                 GameObject character4 = Instantiate(character);
+                //Move the object to the spawn spot
                 character4.transform.position = positionCharacter4;
             }
         }
-        else
+        else //Problem
         {
             Debug.Log("[GameFlow.cs] Problem with numberOfPlayer's value");
             //Back to the menu
@@ -82,13 +88,15 @@ public class GameFlow : MonoBehaviour
     public static void noPlayer()
     {
         Debug.Log("[GameFlow.cs] GAMEOVER");
-        //Time.timeScale = 0; //Pause the game
-        //(We print Gameover with the choice to restart)
 
-        //Back to the menu
+        //Launch a choice menu to restart/quit (future version)
+        //SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
+
+        //Back to the menu (actual version)
         SceneManager.LoadScene("sandbox", LoadSceneMode.Single);
     }
 
+    //Can't find any enemy
     public static void noEnemy()
     {
         Debug.Log("[GameFlow.cs] Won Wave");
@@ -98,26 +106,31 @@ public class GameFlow : MonoBehaviour
 
     private static void launchWave(int waveNum)
     {
-        //Display the alert
+        //Display the alert on the game
         DisplayAlert.Print("Manche " + waveNum);
 
+        //Loading and instatation of the prefab of enemy
         GameObject enemy = Instantiate(Resources.Load("Avatar/MaceEnemy", typeof(GameObject))) as GameObject;
         enemy.SetActive(true);
 
         switch (waveNum)
         {
             case 1: //First wave
+                //Duplication
                 GameObject enemy1_1 = Instantiate(enemy);
                 GameObject enemy1_2 = Instantiate(enemy);
                 GameObject enemy1_3 = Instantiate(enemy);
+                //Move the objects to the spawn spot
                 enemy1_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy1_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
                 enemy1_3.transform.position = GameObject.Find("EnemySpawn3").transform.position;
                 break;
             case 2: //Second wave
+                //Duplication
                 GameObject enemy2_1 = Instantiate(enemy);
                 GameObject enemy2_2 = Instantiate(enemy);
                 GameObject enemy2_3 = Instantiate(enemy);
+                //Move the objects to the spawn 
                 enemy2_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy2_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
                 enemy2_3.transform.position = GameObject.Find("EnemySpawn3").transform.position;
@@ -130,7 +143,8 @@ public class GameFlow : MonoBehaviour
                 SceneManager.LoadScene("menu", LoadSceneMode.Single);
                 break;
         }
-        //We disable the example enemy
+
+        //We disable the instantiated enemy
         enemy.SetActive(false);
     }
 
