@@ -37,7 +37,35 @@ public class GameFlow : MonoBehaviour
         launchWave(waveNum);
     }
 
-    private static void generatePlayers(int numberOfPlayer)
+    private void FixedUpdate()
+    {
+        playerVerification();
+        mobVerification();
+    }
+
+    private void playerVerification()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int playerAlive = players.Length;
+
+        if(playerAlive==0)
+        {
+            noPlayer();
+        }
+    }
+
+    private void mobVerification()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int enemyAlive = enemies.Length;
+
+        if (enemyAlive == 0)
+        {
+            noEnemy();
+        }
+    }
+
+        private static void generatePlayers(int numberOfPlayer)
     {
         //Generating the correct number of player on the spawn spot fixed on the map
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
@@ -92,7 +120,7 @@ public class GameFlow : MonoBehaviour
         //Launch a choice menu to restart/quit (future version)
         //SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
 
-        //Back to the menu (actual version)
+        //Reload the level (actual version)
         SceneManager.LoadScene("sandbox", LoadSceneMode.Single);
     }
 
