@@ -14,21 +14,29 @@ public class PlayerInventory : MonoBehaviour {
 
     public void Start()
     {
-        current_item = 1;
-        sprite_background_item_selected = "Sprites/Inventory/buttonSquare_brown_pressed";
-        sprite_background_item = "Sprites/Inventory/buttonSquare_brown";
+        current_item = 0;
+        sprite_background_item_selected = "Sprites/Inventory/buttonSquare_brown";
+        sprite_background_item = "Sprites/Inventory/buttonSquare_brown_pressed";
+
+        inventory.AddItem((Item) Resources.Load("Items/Bow/Bow"));
+        inventory.RemoveItem(1);
         
     }
 
-    public void DropObject()
+    public bool DropObject()
     {
         string name_item = "";
-        if (transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsItemSet(current_item))
+        if (current_item != 0)
         {
-            name_item = inventory.NameOfItem(current_item);
-            Instantiate(Resources.Load("Items/" + name_item + "/" + name_item + "_scene", typeof(GameObject)), transform.position, transform.rotation);
-            inventory.RemoveItem(current_item);
+            if (transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsItemSet(current_item))
+            {
+                name_item = inventory.NameOfItem(current_item);
+                Instantiate(Resources.Load("Items/" + name_item + "/" + name_item + "_scene", typeof(GameObject)), transform.position, transform.rotation);
+                inventory.RemoveItem(current_item);
+                return true;
+            }
         }
+        return false;
     }
 
     private void change_background(int old_indice,int new_indice)
@@ -40,7 +48,7 @@ public class PlayerInventory : MonoBehaviour {
 
     private void Update()
     {
-        if(Input.GetButtonDown("Drop_Object"))
+        if(Input.GetButtonDown("Drop_Object") && current_item !=0)
         {
             DropObject();
         }

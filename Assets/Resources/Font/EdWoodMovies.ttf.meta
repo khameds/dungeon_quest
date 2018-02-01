@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c49b0f0a79b582c43a9c77faf5df4e86
+timeCreated: 1517229470
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Ed Wood Movies
+  fontNames:
+  - Ed Wood Movies
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

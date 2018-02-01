@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
+        Screen.fullScreen = !Screen.fullScreen;
         // Set all references
         animator = GetComponent<Animator>();
         userControl = GetComponent<UserControl>();

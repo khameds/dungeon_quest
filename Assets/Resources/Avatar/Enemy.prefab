@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1806109058814698
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.5
   attackDamage: 1
+  timeSwitchTarget: 0.5
 --- !u!114 &114329169470040464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +251,7 @@ MonoBehaviour:
   updateRate: 2
   speed: 300
   fMode: 0
+  isChasing: 1
   pathIsEnded: 0
   nextWaypointDistance: 3
 --- !u!212 &212077495971252560
