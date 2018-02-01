@@ -49,6 +49,8 @@ public class OptionsController : MonoBehaviour {
         }
 
         PlayerPrefs.Save();
+        GameInputManager.UpdateInputs();
+
         ExitSettings();
     }
 

@@ -31,16 +31,21 @@ public class GameInputManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        left = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left", "Q"));
-        right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D"));
-        jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space"));
-        fire = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Fire", "Mouse0"));
-        specialAction = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SpecialAction", "Mouse1"));
-        switchWeapon = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SwitchWeapon", "Mouse2"));
-        cancel = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cancel", "Escape"));
-        take = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Take", "F"));
-        drop = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Drop", "C"));
+        UpdateInputs();
 
+    }
+
+    public static void UpdateInputs()
+    {
+        GIM.left = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left", "Q"));
+        GIM.right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D"));
+        GIM.jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space"));
+        GIM.fire = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Fire", "Mouse0"));
+        GIM.specialAction = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SpecialAction", "Mouse1"));
+        GIM.switchWeapon = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SwitchWeapon", "Mouse2"));
+        GIM.cancel = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cancel", "Escape"));
+        GIM.take = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Take", "F"));
+        GIM.drop = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Drop", "C"));
     }
 
 }
