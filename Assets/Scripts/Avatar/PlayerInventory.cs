@@ -30,6 +30,7 @@ public class PlayerInventory : MonoBehaviour {
         {
             if (transform.Find("Canvas/Inventory").gameObject.GetComponent<Inventory>().IsItemSet(current_item))
             {
+                
                 name_item = inventory.NameOfItem(current_item);
                 Instantiate(Resources.Load("Items/" + name_item + "/" + name_item + "_scene", typeof(GameObject)), transform.position, transform.rotation);
                 inventory.RemoveItem(current_item);
