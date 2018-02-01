@@ -29,7 +29,7 @@ public class UserControl : MonoBehaviour
         if (!wantToJump && !Dead)
         {
             // Read the jump input in Update so button presses aren't missed.
-            wantToJump = Input.GetButtonDown("Jump");
+            wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
         }
     }
 
@@ -40,7 +40,13 @@ public class UserControl : MonoBehaviour
         // Pass all parameters to the character control script.
         if (!Dead)
         {
-            player.Move(Input.GetAxis("Horizontal"), wantToJump);
+            int direction = 0;
+            if (Input.GetKey(GameInputManager.GIM.left))
+                direction--;
+            if (Input.GetKey(GameInputManager.GIM.right))
+                direction++;
+
+            player.Move(direction, wantToJump);
             wantToJump = false;
         }
     }
