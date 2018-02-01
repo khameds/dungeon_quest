@@ -8,7 +8,7 @@ public class OptionsController : MonoBehaviour {
 
     private Dictionary<string, KeyCode> codes = new Dictionary<string, KeyCode>();
 
-    public Text left, right, jump, fire, action, switchWeapon, cancel;
+    public Text left, right, jump, fire, action, switchWeapon, cancel, take, drop;
 
     private GameObject currentKey;
 
@@ -23,6 +23,8 @@ public class OptionsController : MonoBehaviour {
         codes.Add("SwitchWeapon", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SwitchWeapon", "Mouse2")));
         codes.Add("Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")));
         codes.Add("Cancel", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cancel", "Escape")));
+        codes.Add("Take", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Take", "F")));
+        codes.Add("Drop", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Drop", "C")));
 
         left.text = codes["Left"].ToString();
         right.text = codes["Right"].ToString();
@@ -31,6 +33,8 @@ public class OptionsController : MonoBehaviour {
         action.text = codes["SpecialAction"].ToString();
         switchWeapon.text = codes["SwitchWeapon"].ToString();
         cancel.text = codes["Cancel"].ToString();
+        take.text = codes["Take"].ToString();
+        drop.text = codes["Drop"].ToString();
 
     }
 
