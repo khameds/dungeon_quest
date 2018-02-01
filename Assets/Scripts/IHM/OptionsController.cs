@@ -8,6 +8,7 @@ public class OptionsController : MonoBehaviour {
 
     private Dictionary<string, KeyCode> codes = new Dictionary<string, KeyCode>();
 
+    //The texts which are displayed on the button in the option menu
     public Text left, right, jump, fire, action, switchWeapon, cancel, take, drop;
 
     private GameObject currentKey;
@@ -16,7 +17,8 @@ public class OptionsController : MonoBehaviour {
     {
         Cursor.visible = true;
 
-        codes.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left","W")));
+        //Dynamic display of the keybinds and mouse controls in the option menu
+        codes.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left","Q")));
         codes.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D")));
         codes.Add("Fire", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Fire", "Mouse0")));
         codes.Add("SpecialAction", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("SpecialAction", "Mouse1")));
@@ -38,6 +40,7 @@ public class OptionsController : MonoBehaviour {
 
     }
 
+    //Save the customized inputs in the PlayerPrefs file
     public void Save()
     {
         foreach (var key in codes)
@@ -46,9 +49,12 @@ public class OptionsController : MonoBehaviour {
         }
 
         PlayerPrefs.Save();
+        GameInputManager.UpdateInputs();
+
         ExitSettings();
     }
 
+    //Exit the Options scene to come back to the previous scene (main menu or pause menu)
     public void ExitSettings()
     {
         SceneManager.UnloadSceneAsync("options");
@@ -64,11 +70,17 @@ public class OptionsController : MonoBehaviour {
 
     }
 
+    //Change the keybinds or mouse control
     void OnGUI()
     {
+        //If we have clicked on a button to change the value of the keybind
         if (currentKey != null)
         {
+            //We get the event the user create (click on his mouse or press a key)
             Event e = Event.current;
+
+            //We add the new control to the Dictionnary codes to add this to the PlayerPrefs
+            //And we change the text of the button
             if (e.isKey)
             {
                 codes[currentKey.name] = e.keyCode;
@@ -84,10 +96,10 @@ public class OptionsController : MonoBehaviour {
         }
     }
     
+    //Get the button which is clicked
     public void ChangeKey(GameObject clicked)
     {
         currentKey = clicked;
-
     }
 
 }

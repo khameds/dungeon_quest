@@ -111,9 +111,15 @@ public class PlayerController : MonoBehaviour
         if (!wantToJump)
         {
             // Read the jump input in Update so button presses aren't missed.
-            wantToJump = Input.GetButtonDown("Jump");
+            wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
         }
+        int direction = 0;
+        if (Input.GetKey(GameInputManager.GIM.left))
+            direction--;
+        if (Input.GetKey(GameInputManager.GIM.right))
+            direction++;
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //input = new Vector2(direction, Input.GetAxis("Vertical"));
     }
 
     public void Move(float move, bool jump)

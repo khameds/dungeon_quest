@@ -4060,8 +4060,8 @@ MonoBehaviour:
   action: {fileID: 1470310624}
   switchWeapon: {fileID: 155423914}
   cancel: {fileID: 1601081408}
-  take: {fileID: 0}
-  drop: {fileID: 0}
+  take: {fileID: 1670646195}
+  drop: {fileID: 1735673070}
 --- !u!4 &1818240534
 Transform:
   m_ObjectHideFlags: 0
