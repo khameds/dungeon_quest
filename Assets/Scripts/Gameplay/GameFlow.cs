@@ -165,7 +165,7 @@ public class GameFlow : MonoBehaviour
                 break;
             case 3: //Boss wave
                 launchBossWave();
-                break;
+                break; 
             case 4: //Won
                 Debug.Log("[GameFlow.cs] WON !");
                 SceneManager.LoadScene("menu", LoadSceneMode.Single);
