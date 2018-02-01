@@ -2,7 +2,7 @@
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 2;
+    public int maxHealth = 1;
     public int currentHealth;
     public AudioClip deathClip;
 
@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount, Vector3 hitPoint)
+    public void TakeDamage(int amount)
     {
         if (isDead)
         {
@@ -31,12 +31,8 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        enemyAudio.Play();
-
+        //enemyAudio.Play();
         currentHealth -= amount;
-
-        hitParticles.transform.position = hitPoint;
-        hitParticles.Play();
 
         if (currentHealth <= 0)
             Death();
@@ -46,11 +42,12 @@ public class EnemyHealth : MonoBehaviour
     void Death()
     {
         isDead = true;
-        animator.SetTrigger("Dead");
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play();
+        //animator.SetTrigger("Dead");
+        //enemyAudio.clip = deathClip;
+        //enemyAudio.Play();
 
-        //TODO : death animation and destroy
+        // TODO add particule effect
+        Destroy(gameObject);
     }
 
 }

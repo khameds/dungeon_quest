@@ -57,7 +57,7 @@ public class SightingSystem : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (mousePos - character.position).normalized;
 
-        direction.x = Mathf.Abs(direction.x);
+        //direction.x = Mathf.Abs(direction.x);
         print("Shot direction : " + direction);
 
 
