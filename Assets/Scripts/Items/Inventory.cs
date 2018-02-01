@@ -25,6 +25,11 @@ public class Inventory : MonoBehaviour {
     {
         for(int i = 0; i < items.Length; i++)
         {
+            if(items[i] == itemToAdd)
+            {
+                items[i].itemObject.GetComponent<Shoot>().AddAmmo();
+                return;
+            }
             if(items[i] == null)
             {
                 items[i] = itemToAdd;
@@ -63,5 +68,7 @@ public class Inventory : MonoBehaviour {
     {
         return(items[Mathf.Clamp(indice, 0, maxItemSlots - 1)]);
     }
+
+
 
 }

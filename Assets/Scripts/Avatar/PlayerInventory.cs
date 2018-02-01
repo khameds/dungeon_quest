@@ -82,4 +82,9 @@ public class PlayerInventory : MonoBehaviour {
         return inventory.GetItem(current_item);
     }
 
+    public void DestroyCurrentItem()
+    {
+        inventory.RemoveItem(current_item);
+    }
+
 }

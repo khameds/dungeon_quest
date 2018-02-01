@@ -13,14 +13,18 @@ public class SightingSystem : MonoBehaviour
     private float sensibility = 2f;
     private float angle;
     private PlayerController playerController;
-
+    
     [SerializeField] private PlayerInventory inventory;
+
+
+
     // Property for weapon use
     public Vector2 Direction
     {
         get { return direction; }
     }
 
+    
 
 
     public float maxDragDistance = .2f; //We can set it by the type of the selected weapon
@@ -50,21 +54,27 @@ public class SightingSystem : MonoBehaviour
     {
         Item item = inventory.GetCurrentItem();
         if (item != null)
+        {
             spriteRenderer.sprite = item.descriptionSprite;
+            
+        }
         else
             spriteRenderer.sprite = null;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (mousePos - character.position).normalized;
 
-        //direction.x = Mathf.Abs(direction.x);
-        print("Shot direction : " + direction);
 
 
         angle = GetAngle(character.position, mousePos);
         angle = (playerController.facingRight) ? - angle : angle;
-        sight.transform.rotation = Quaternion.Euler(0f, 0f, angle); ;
+        sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        
     }
+
+
+
 
     float GetAngle(Vector2 v1, Vector2 v2)
     {

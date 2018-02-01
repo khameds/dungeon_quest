@@ -25,5 +25,9 @@ public class ArrowAttack : MonoBehaviour {
             enemyHealth.TakeDamage(attackDamage);
             Destroy(gameObject);
         }
+        else
+        {
+            //Destroy(gameObject);
+        }
     }
 }
