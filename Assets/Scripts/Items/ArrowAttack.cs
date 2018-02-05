@@ -27,7 +27,7 @@ public class ArrowAttack : MonoBehaviour {
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

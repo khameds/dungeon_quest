@@ -8,7 +8,8 @@ public class SightingSystem : MonoBehaviour
     
     public GameObject sight;
     public Rigidbody2D character;
-    private Vector2 direction, mousePos;
+    public Vector2 direction;
+    private Vector2 mousePos;
     private SpriteRenderer spriteRenderer;
     private float sensibility = 2f;
     private float angle;
