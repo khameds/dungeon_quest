@@ -34,10 +34,38 @@ public class GameFlow : MonoBehaviour
 
         //Launching the first wave
         waveNum = 1;
-        launchWave(waveNum);
+        launchWave();
     }
 
-    private static void generatePlayers(int numberOfPlayer)
+    private void FixedUpdate()
+    {
+        playerVerification();
+        mobVerification();
+    }
+
+    private void playerVerification()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int playerAlive = players.Length;
+
+        if(playerAlive==0)
+        {
+            noPlayer();
+        }
+    }
+
+    private void mobVerification()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int enemyAlive = enemies.Length;
+
+        if (enemyAlive == 0)
+        {
+            noEnemy();
+        }
+    }
+
+        private static void generatePlayers(int numberOfPlayer)
     {
         //Generating the correct number of player on the spawn spot fixed on the map
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
@@ -92,7 +120,7 @@ public class GameFlow : MonoBehaviour
         //Launch a choice menu to restart/quit (future version)
         //SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
 
-        //Back to the menu (actual version)
+        //Reload the level (actual version)
         SceneManager.LoadScene("sandbox", LoadSceneMode.Single);
     }
 
@@ -101,14 +129,13 @@ public class GameFlow : MonoBehaviour
     {
         Debug.Log("[GameFlow.cs] Won Wave");
 
-        launchWave(++waveNum);
+        Debug.Log("NUMERO DE VAGUE=" + waveNum);
+
+        launchWave();
     }
 
-    private static void launchWave(int waveNum)
+    private static void launchWave()
     {
-        //Display the alert on the game
-        DisplayAlert.Print("Manche " + waveNum);
-
         //Loading and instatation of the prefab of enemy
         GameObject enemy = Instantiate(Resources.Load("Avatar/MaceEnemy", typeof(GameObject))) as GameObject;
         enemy.SetActive(true);
@@ -116,6 +143,10 @@ public class GameFlow : MonoBehaviour
         switch (waveNum)
         {
             case 1: //First wave
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + waveNum);
+
                 //Duplication
                 GameObject enemy1_1 = Instantiate(enemy);
                 GameObject enemy1_2 = Instantiate(enemy);
@@ -124,8 +155,13 @@ public class GameFlow : MonoBehaviour
                 enemy1_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy1_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
                 enemy1_3.transform.position = GameObject.Find("EnemySpawn3").transform.position;
+                waveNum++;
                 break;
             case 2: //Second wave
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + waveNum);
+
                 //Duplication
                 GameObject enemy2_1 = Instantiate(enemy);
                 GameObject enemy2_2 = Instantiate(enemy);
@@ -134,13 +170,19 @@ public class GameFlow : MonoBehaviour
                 enemy2_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy2_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
                 enemy2_3.transform.position = GameObject.Find("EnemySpawn3").transform.position;
+                waveNum++;
                 break;
             case 3: //Boss wave
+
+                //Display the alert on the game
+                DisplayAlert.Print("Boss");
+
                 launchBossWave();
-                break;
+                waveNum++;
+                break; 
             case 4: //Won
                 Debug.Log("[GameFlow.cs] WON !");
-                SceneManager.LoadScene("menu", LoadSceneMode.Single);
+                SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
                 break;
         }
 
@@ -150,7 +192,6 @@ public class GameFlow : MonoBehaviour
 
     private static void launchBossWave()
     {
-        //TOFINISH
         /*
         //Loading and instatation of the prefab of the boss
         GameObject boss = Instantiate(Resources.Load("Avatar/Boss", typeof(GameObject))) as GameObject;

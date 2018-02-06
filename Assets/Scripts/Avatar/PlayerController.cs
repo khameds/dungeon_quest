@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
 
     [SerializeField] public float maxSpeed = 10f;                  // The fastest the player can travel in the x axis.
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         grounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -107,6 +109,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         // Store input information for FixedUpdate method
         if (!wantToJump)
         {

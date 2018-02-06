@@ -29,7 +29,7 @@ public class LevelLimitWarp : MonoBehaviour
 
         int direction = 1;
   
-        if (rb != null)
+        if (rb != null && !teleport)
         {
             if (horizontal)
             {
@@ -37,7 +37,10 @@ public class LevelLimitWarp : MonoBehaviour
                 //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," +this.gameObject.GetComponent<BoxCollider2D>().size.y +")");
 
                 //x heigth
-                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y + col.gameObject.GetComponent<CircleCollider2D>().radius * 2 + this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                if (col.gameObject.tag.Equals("Player"))
+                    offset = col.gameObject.GetComponent<BoxCollider2D>().size.y + col.gameObject.GetComponent<CircleCollider2D>().radius * 2 + this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                else if (col.gameObject.tag.Equals("Ammo"))
+                    offset = col.gameObject.GetComponent<CapsuleCollider2D>().size.x + this.gameObject.GetComponent<BoxCollider2D>().size.y;
 
                 direction = (atTop) ? 1 : -1;
                 destination = new Vector2(rb.transform.position.x, linkedWarp.position.y + (offset * direction));
@@ -48,7 +51,10 @@ public class LevelLimitWarp : MonoBehaviour
                 //print("size (" + this.gameObject.name + ") = " + this.gameObject.GetComponent<BoxCollider2D>().size.x + "," + this.gameObject.GetComponent<BoxCollider2D>().size.y + ")");
 
                 //y weigth
-                offset = col.gameObject.GetComponent<BoxCollider2D>().size.y/2  + this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                if(col.gameObject.tag.Equals("Player"))
+                    offset = col.gameObject.GetComponent<BoxCollider2D>().size.y/2  + this.gameObject.GetComponent<BoxCollider2D>().size.y;
+                else if (col.gameObject.tag.Equals("Ammo"))
+                    offset = col.gameObject.GetComponent<CapsuleCollider2D>().size.x + this.gameObject.GetComponent<BoxCollider2D>().size.y;
                 direction = (atRight) ? 1 : -1;
                 destination = new Vector2(linkedWarp.position.x + (offset * direction), rb.transform.position.y);
             }

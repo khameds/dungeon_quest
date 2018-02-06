@@ -228,6 +228,8 @@ GameObject:
   - component: {fileID: 114582122370531298}
   - component: {fileID: 114343466933637352}
   - component: {fileID: 114952140587481640}
+  - component: {fileID: 114105745461850002}
+  - component: {fileID: 114808193062400542}
   m_Layer: 8
   m_Name: Character
   m_TagString: Player
@@ -627,6 +629,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114105745461850002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495442367787958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 127
+    i1: 96
+    i2: 68
+    i3: 82
+    i4: 202
+    i5: 38
+    i6: 218
+    i7: 52
+    i8: 216
+    i9: 202
+    i10: 245
+    i11: 159
+    i12: 176
+    i13: 214
+    i14: 245
+    i15: 67
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114119315011063606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -873,6 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sight: {fileID: 1044925277726460}
   character: {fileID: 50531216024203202}
+  direction: {x: 0, y: 0}
   inventory: {fileID: 0}
   maxDragDistance: 2
 --- !u!114 &114589489175835664
@@ -1016,6 +1051,27 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114808193062400542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495442367787958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114810275533300842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1104,6 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
+  character: {fileID: 0}
 --- !u!212 &212452339016776210
 SpriteRenderer:
   m_ObjectHideFlags: 1

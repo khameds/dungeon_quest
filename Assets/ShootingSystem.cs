@@ -9,7 +9,7 @@ public class ShootingSystem : MonoBehaviour {
     private PlayerInventory inventory;
 
     public Rigidbody2D character;
-
+    private PlayerController playerController;
     Vector2 direction;
     float fireRate;
     float timeToFire;
@@ -20,7 +20,9 @@ public class ShootingSystem : MonoBehaviour {
         
         inventory = GetComponent<PlayerInventory>();
         character = GetComponent<Rigidbody2D>();
-        if (inventory == null || character == null)
+        direction = GetComponent<SightingSystem>().direction;
+        playerController = character.gameObject.GetComponent<PlayerController>();
+        if (inventory == null || character == null || direction == null || playerController == null)
             Debug.LogError("[ShootingSystem] Fail to get all attribut references.");
     }
 
@@ -44,7 +46,7 @@ public class ShootingSystem : MonoBehaviour {
                 }
                 if(Input.GetButtonUp("Fire"))
                 {
-                    if (current.GetComponent<Shoot>().shoot(startFire - Time.time, direction,character.transform.position,character.transform.rotation) == 0)
+                    if (current.GetComponent<Shoot>().shoot(startFire - Time.time,character.transform.position, character,playerController.facingRight) == 0)
                     {
                         Debug.Log("Remove Object");
                         inventory.DestroyCurrentItem();
