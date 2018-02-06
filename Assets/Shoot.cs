@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour {
 
     public float fireRate = 0;
+    public float minShootVelocity = 5;
     private int Ammo = 3;
     float timeToFire;
     private string AmmoObject = "Items/Bow/Bow_Arrow";
@@ -46,7 +47,7 @@ public class Shoot : MonoBehaviour {
 
         GameObject projectile = Instantiate(Resources.Load(AmmoObject, typeof(GameObject)),(Vector2)position+direction, Quaternion.Euler(0f, 0f, angle)) as GameObject;
 
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * (5 + 20 * -time) ;
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * (minShootVelocity + projectile.GetComponent<ArrowAttack>().shootVelocity * -time) ;
         
         Ammo = Ammo - 1;
         return Ammo;

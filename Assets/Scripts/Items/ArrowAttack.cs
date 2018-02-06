@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ArrowAttack : MonoBehaviour {
     public int attackDamage = 1;            // The amount of health taken away per attack.
+    public float shootVelocity = 20;
     Animator animator;                      // Reference to the animator component.
     EnemyHealth enemyHealth;                // Reference to this enemy's health.
     PlayerHealth playerHealth;
