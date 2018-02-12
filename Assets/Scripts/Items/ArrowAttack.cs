@@ -25,11 +25,13 @@ public class ArrowAttack : MonoBehaviour {
         {
             enemyHealth = collision.collider.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(attackDamage);
+            Destroy(gameObject);
         }
         else if (collision.gameObject.tag.Equals("Player"))
         {
             playerHealth = collision.collider.gameObject.GetComponent<PlayerHealth>();
             playerHealth.TakeDamage(attackDamage);
+            Destroy(gameObject);
 
         }
         else if (!collision.gameObject.tag.Equals("Teleporter"))
