@@ -118,15 +118,14 @@ public class GameFlow : MonoBehaviour
         Debug.Log("[GameFlow.cs] GAMEOVER");
 
         //Launch a choice menu to restart/quit (future version)
-        SceneManager.LoadScene("gameover", LoadSceneMode.Additive);
+        if(!SceneManager.GetSceneByName("gameOver").isLoaded)
+            SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
     }
 
     //Can't find any enemy
     public static void noEnemy()
     {
         Debug.Log("[GameFlow.cs] Won Wave");
-
-        Debug.Log("NUMERO DE VAGUE=" + waveNum);
 
         launchWave();
     }
