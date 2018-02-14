@@ -40,13 +40,13 @@ public class UserControl : MonoBehaviour
         // Pass all parameters to the character control script.
         if (!Dead)
         {
-            int direction = 0;
+            GameInputManager.direction = 0;
             if (Input.GetKey(GameInputManager.GIM.left))
-                direction--;
+                GameInputManager.direction--;
             if (Input.GetKey(GameInputManager.GIM.right))
-                direction++;
+                GameInputManager.direction++;
 
-            player.Move(direction, wantToJump);
+            player.Move(GameInputManager.direction, wantToJump);
             wantToJump = false;
         }
     }

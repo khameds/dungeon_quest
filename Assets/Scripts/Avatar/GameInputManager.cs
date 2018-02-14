@@ -7,6 +7,7 @@ public class GameInputManager : MonoBehaviour
     /*This class replaces the Input Manager by default in order to customize our own inputs*/
 
     public static GameInputManager GIM;
+    public static int direction;
 
     public KeyCode left {get; set;}
     public KeyCode right {get; set;}

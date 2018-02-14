@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour
     private Rigidbody2D rigidBody;              // Reference to the player's Rigibody2D component 
     private bool wantToJump = false;            // Did the player pressed the "Jump" button
     private float timeToWallUnstick;            // Define if the player is still considered as "wall sliding"
-    private Vector2 input;                      // Store input informations
+    //private Vector2 input;                      // Store input informations
     private bool canJump = true;                       // Check if the player can jump again;
     [SerializeField] private GameObject hud;
     [HideInInspector] public PlayerInventory inventory;
@@ -45,7 +45,7 @@ public class PlayerController : NetworkBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         inventory = GetComponent<PlayerInventory>();
     
-        input = new Vector2();
+      //  input = new Vector2();
     }
 
 
@@ -98,7 +98,7 @@ public class PlayerController : NetworkBehaviour
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
                 wantToJump = canJump = false;
             }
-            else if (input.x == wallDirection)// If running to the wall, just slide over it   
+            else if (GameInputManager.direction == wallDirection)// If running to the wall, just slide over it   
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
         else wantToJump = false;
@@ -120,13 +120,13 @@ public class PlayerController : NetworkBehaviour
             // Read the jump input in Update so button presses aren't missed.
             wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
         }
-        int direction = 0;
+        /*int direction = 0;
         if (Input.GetKey(GameInputManager.GIM.left))
             direction--;
         if (Input.GetKey(GameInputManager.GIM.right))
             direction++;
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        //input = new Vector2(direction, Input.GetAxis("Vertical"));
+        input = new Vector2(direction, Input.GetAxis("Vertical"));*/
     }
 
     public void Move(float move, bool jump)
