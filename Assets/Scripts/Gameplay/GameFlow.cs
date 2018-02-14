@@ -178,7 +178,7 @@ public class GameFlow : MonoBehaviour
                 break; 
             case 4: //Won
                 Debug.Log("[GameFlow.cs] WON !");
-                SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
+                SceneManager.LoadScene("levelSuccess", LoadSceneMode.Single);
                 break;
         }
 
