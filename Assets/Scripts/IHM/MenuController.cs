@@ -11,8 +11,10 @@ public class MenuController : MonoBehaviour {
     }
 
     // Permit to acceed to the scene in paramater
-    public void NewScene(string theScene)
+    public void NewGame(string theScene)
     {
+
+
         SceneManager.LoadScene(theScene, LoadSceneMode.Single);
 
     }
