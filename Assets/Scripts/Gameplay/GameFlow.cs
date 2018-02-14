@@ -15,7 +15,7 @@ public class GameFlow : MonoBehaviour
         //Getting all the necessary parameters
 
         try
-        {      
+        {
             //numberOfPlayer = System.Int32.Parse(LevelParam.Get("numberOfPlayer"));
             
             //Other parameters TODO
@@ -118,10 +118,7 @@ public class GameFlow : MonoBehaviour
         Debug.Log("[GameFlow.cs] GAMEOVER");
 
         //Launch a choice menu to restart/quit (future version)
-        //SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
-
-        //Reload the level (actual version)
-        SceneManager.LoadScene("sandbox", LoadSceneMode.Single);
+        SceneManager.LoadScene("gameover", LoadSceneMode.Additive);
     }
 
     //Can't find any enemy
