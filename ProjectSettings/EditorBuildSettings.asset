@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/createGameSolo.unity
     guid: 1fe37e9c0197f7b4aad81bc622b5bf6b
-  - enabled: 1
+  - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/gameover.unity
+    guid: 9d44bdc65c3599b4a89971dfbfcb5fea
