@@ -8,10 +8,12 @@ public class ArrowAttack : MonoBehaviour {
     Animator animator;                      // Reference to the animator component.
     EnemyHealth enemyHealth;                // Reference to this enemy's health.
     PlayerHealth playerHealth;
+    private Rigidbody2D rb;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -25,16 +27,25 @@ public class ArrowAttack : MonoBehaviour {
         {
             enemyHealth = collision.collider.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(attackDamage);
+            Destroy(gameObject);
         }
         else if (collision.gameObject.tag.Equals("Player"))
         {
             playerHealth = collision.collider.gameObject.GetComponent<PlayerHealth>();
             playerHealth.TakeDamage(attackDamage);
+            Destroy(gameObject);
 
         }
         else if (!collision.gameObject.tag.Equals("Teleporter"))
         {
             Destroy(gameObject);
         } 
+    }
+
+    private void Update()
+    {
+        Vector3 dir = rb.velocity;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
