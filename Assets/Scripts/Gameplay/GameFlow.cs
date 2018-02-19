@@ -8,6 +8,7 @@ public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
     private static int numberOfPlayer = 1;
+    public static int alivePlayers;
 
     //Use this for initialization
     void Start ()
@@ -46,9 +47,18 @@ public class GameFlow : MonoBehaviour
     private void playerVerification()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int playerAlive = players.Length;
+        alivePlayers = 0;
 
-        if(playerAlive==0)
+        foreach (GameObject player in players)
+        {
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            if(playerHealth.currentHealth!=0)
+            {
+                alivePlayers++;
+            }
+        }
+
+        if(alivePlayers == 0)
         {
             noPlayer();
         }
@@ -115,11 +125,12 @@ public class GameFlow : MonoBehaviour
     //Can't find any player
     public static void noPlayer()
     {
-        Debug.Log("[GameFlow.cs] GAMEOVER");
-
         //Launch a choice menu to restart/quit (future version)
         if(!SceneManager.GetSceneByName("gameOver").isLoaded)
+        {
+            Debug.Log("[GameFlow.cs] GAMEOVER");
             SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
+        }
     }
 
     //Can't find any enemy
