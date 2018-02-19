@@ -1154,7 +1154,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1393398032}
-        m_MethodName: NewGame
+        m_MethodName: NewScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

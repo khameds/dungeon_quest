@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuController : MonoBehaviour {
     
     private bool displaySettings = false;
+    public GameObject pauseObject;
 
     void Start()
     {
@@ -15,30 +16,28 @@ public class PauseMenuController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (displaySettings == true)
         {
-            //If the game is not in pause
-            if (! SceneManager.GetSceneByName("pause").isLoaded)
-            {
-                //We have to set the game in pause by loading the pause scene and stopping the game
-                Time.timeScale = 0; //Stop the time in the game
-
-                //We load the pause scene
-                SceneManager.LoadScene("pause", LoadSceneMode.Additive);
-            }
-            else
-            {
-                Resume();
-            }
+            Time.timeScale = 0; //Stop the time in the game
+            pauseObject.SetActive(true);
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1; //Resume the game
+            pauseObject.SetActive(false);
         }
 
-	}
+        if (Input.GetButtonDown("Cancel"))
+        {
+            displaySettings = !displaySettings;
+        }
+
+    }
 
     public void Resume()
     {
-        SceneManager.UnloadSceneAsync("pause");
-        Cursor.visible = false;
-        Time.timeScale = 1;
+        displaySettings = !displaySettings;
     }
 
     public void ExitGame()
