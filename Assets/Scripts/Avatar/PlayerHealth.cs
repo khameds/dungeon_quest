@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Set the health bar's value to the current health.
         healthSlider.value = (float) currentHealth / maxHealth;
-        print(healthSlider.value);
+        //print(healthSlider.value);
         // Play the hurt sound effect.
         //playerAudio.Play();
         //Debug.Log(this.gameObject.name + " takes " + amount + "damage. (" + currentHealth + "/" + maxHealth + ")");

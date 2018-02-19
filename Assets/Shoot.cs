@@ -26,7 +26,7 @@ public class Shoot : MonoBehaviour {
 
     public int shoot(float time,Vector3 position, Rigidbody2D character,bool FacingRight)
     {
-        Debug.Log("J'ai tenu : " + time + "J'ai encore :" + Ammo+ " ");
+        //Debug.Log("J'ai tenu : " + time + "J'ai encore :" + Ammo+ " ");
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - character.position).normalized;
 

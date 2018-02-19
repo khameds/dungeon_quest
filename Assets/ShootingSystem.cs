@@ -48,7 +48,7 @@ public class ShootingSystem : MonoBehaviour {
                 {
                     if (current.GetComponent<Shoot>().shoot(startFire - Time.time,character.transform.position, character,playerController.facingRight) == 0)
                     {
-                        Debug.Log("Remove Object");
+                        //Debug.Log("Remove Object");
                         inventory.DestroyCurrentItem();
                     }
                 }
