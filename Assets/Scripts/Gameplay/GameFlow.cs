@@ -91,6 +91,7 @@ public class GameFlow : MonoBehaviour
 
             //Player 1
             character.transform.position = positionCharacter1;
+            character.GetComponent<UserControl>().setNumber(1);
 
             if (numberOfPlayer >= 2) //Player 2
             {
@@ -98,6 +99,7 @@ public class GameFlow : MonoBehaviour
                 GameObject character2 = Instantiate(character);
                 //Move the object to the spawn spot
                 character2.transform.position = positionCharacter2;
+                character2.GetComponent<UserControl>().setNumber(2);
             }
             if (numberOfPlayer >= 3) //Player 3
             {
@@ -105,6 +107,7 @@ public class GameFlow : MonoBehaviour
                 GameObject character3 = Instantiate(character);
                 //Move the object to the spawn spot
                 character3.transform.position = positionCharacter3;
+                character3.GetComponent<UserControl>().setNumber(3);
             }
             if (numberOfPlayer >= 4) //Player 4
             {
@@ -112,6 +115,8 @@ public class GameFlow : MonoBehaviour
                 GameObject character4 = Instantiate(character);
                 //Move the object to the spawn spot
                 character4.transform.position = positionCharacter4;
+                character4.GetComponent<UserControl>().setNumber(4);
+
             }
         }
         else //Problem
@@ -126,11 +131,11 @@ public class GameFlow : MonoBehaviour
     public static void noPlayer()
     {
         //Launch a choice menu to restart/quit (future version)
-        if(!SceneManager.GetSceneByName("gameOver").isLoaded)
+        /*if(!SceneManager.GetSceneByName("gameOver").isLoaded)
         {
             Debug.Log("[GameFlow.cs] GAMEOVER");
             SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
-        }
+        }*/
     }
 
     //Can't find any enemy
