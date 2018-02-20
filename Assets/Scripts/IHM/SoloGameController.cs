@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SoloGameController : MonoBehaviour
 {
@@ -84,8 +85,12 @@ public class SoloGameController : MonoBehaviour
             LevelParam.Set("Difficulty", "hard");
 
         LevelParam.Set("Level", indexLevel.ToString());
-        //Load Scene
 
+        SceneManager.LoadScene("sandbox");
+    }
 
+    public void backToMenu()
+    {
+        SceneManager.LoadScene("mainMenu");
     }
 }
