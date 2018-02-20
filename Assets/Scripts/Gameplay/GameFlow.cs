@@ -93,6 +93,7 @@ public class GameFlow : MonoBehaviour
             character.transform.position = positionCharacter1;
             character.GetComponent<UserControl>().setNumber(0);
             character.GetComponent<SightingSystem>().setNumber(0);
+            character.GetComponent<ShootingSystem>().setNumber(0);
 
             if (numberOfPlayer >= 2) //Player 2
             {
@@ -102,6 +103,8 @@ public class GameFlow : MonoBehaviour
                 character2.transform.position = positionCharacter2;
                 character2.GetComponent<UserControl>().setNumber(1);
                 character2.GetComponent<SightingSystem>().setNumber(1);
+                character2.GetComponent<ShootingSystem>().setNumber(1);
+
 
             }
             if (numberOfPlayer >= 3) //Player 3
@@ -112,6 +115,8 @@ public class GameFlow : MonoBehaviour
                 character3.transform.position = positionCharacter3;
                 character3.GetComponent<UserControl>().setNumber(2);
                 character3.GetComponent<SightingSystem>().setNumber(2);
+                character3.GetComponent<ShootingSystem>().setNumber(2);
+
 
             }
             if (numberOfPlayer >= 4) //Player 4
@@ -122,8 +127,8 @@ public class GameFlow : MonoBehaviour
                 character4.transform.position = positionCharacter4;
                 character4.GetComponent<UserControl>().setNumber(3);
                 character4.GetComponent<SightingSystem>().setNumber(3);
-
-
+                character4.GetComponent<ShootingSystem>().setNumber(3);
+                
             }
         }
         else //Problem
