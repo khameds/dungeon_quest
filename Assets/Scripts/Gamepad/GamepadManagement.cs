@@ -5,9 +5,9 @@ using XInputDotNetPure;
 
 public class GamepadManagement : MonoBehaviour
 {
-    public static GamePadState[] state;
-    public static GamePadState[] prevState;
-    
+    public static GamePadState[] state = new GamePadState[4];
+    public static GamePadState[] prevState = new GamePadState[4];
+
     void Start ()
     {
 		
@@ -23,7 +23,7 @@ public class GamepadManagement : MonoBehaviour
     void Update ()
     {
         //Detecting gamepads
-        if(!prevState[0].IsConnected)
+        if(prevState.Length.Equals(0) || !prevState[0].IsConnected)
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -31,8 +31,9 @@ public class GamepadManagement : MonoBehaviour
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
                 if (testState.IsConnected)
                 {
-                    Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
+                    Debug.Log(string.Format("{0} gamepad(s) found ", testPlayerIndex));
                 }
+                state[i] = GamePad.GetState(testPlayerIndex);
             }
         }
 
