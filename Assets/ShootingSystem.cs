@@ -56,7 +56,7 @@ public class ShootingSystem : MonoBehaviour {
                         }
                     }
                 }
-                else //Player 2/3/4 with gamepad
+                /*else //Player 2/3/4 with gamepad
                 {
                     if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right > 0.2)
                     {
@@ -70,7 +70,7 @@ public class ShootingSystem : MonoBehaviour {
                             inventory.DestroyCurrentItem();
                         }
                     }
-                }
+                }*/
             }
 
 
