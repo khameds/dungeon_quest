@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 [RequireComponent(typeof(PlayerController))]
 public class UserControl : MonoBehaviour
@@ -9,6 +11,7 @@ public class UserControl : MonoBehaviour
     private PlayerHealth playerHealth;
     private bool wantToJump;
     private bool isDead;
+    public int userNumber;
 
     public bool Dead
     {
@@ -28,8 +31,14 @@ public class UserControl : MonoBehaviour
     {
         if (!wantToJump && !Dead)
         {
+            /* Keyboard
             // Read the jump input in Update so button presses aren't missed.
             wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
+            */
+
+            //Gamepad
+
+            wantToJump = (GamepadManagement.prevState[userNumber].Buttons.A == ButtonState.Pressed && GamepadManagement.state[userNumber].Buttons.A == ButtonState.Released);
         }
     }
 
@@ -40,14 +49,51 @@ public class UserControl : MonoBehaviour
         // Pass all parameters to the character control script.
         if (!Dead)
         {
-            GameInputManager.direction = 0;
-            if (Input.GetKey(GameInputManager.GIM.left))
-                GameInputManager.direction--;
-            if (Input.GetKey(GameInputManager.GIM.right))
-                GameInputManager.direction++;
+            moveManagement();
 
-            player.Move(GameInputManager.direction, wantToJump);
             wantToJump = false;
         }
+    }
+
+    private void moveManagement()
+    {
+        GameInputManager.direction = 0;
+
+        //Keyboard only for player 1
+        if (userNumber==0)
+        {
+            if (Input.GetKey(GameInputManager.GIM.left))
+                GameInputManager.direction = -1;
+            if (Input.GetKey(GameInputManager.GIM.right))
+                GameInputManager.direction = 1;
+        }
+
+        //DPad or Joystick choice
+        if (GamepadManagement.state[userNumber].ThumbSticks.Left.X == 0)
+        {
+            //DPad
+            if (GamepadManagement.state[userNumber].DPad.Left == ButtonState.Pressed)
+            {
+                GameInputManager.direction = -1;
+            }
+
+            if (GamepadManagement.state[userNumber].DPad.Right == ButtonState.Pressed)
+            {
+                GameInputManager.direction = 1;
+            }
+
+            player.Move(GameInputManager.direction, wantToJump);
+        }
+        else
+        {
+            //Joystick
+            player.Move(GamepadManagement.state[userNumber].ThumbSticks.Left.X, wantToJump);
+        }
+    }
+
+    //Set the number of this player (1 => 4)
+    internal void setNumber(int v)
+    {
+        userNumber = v;
     }
 }
