@@ -31,14 +31,15 @@ public class UserControl : MonoBehaviour
     {
         if (!wantToJump && !Dead)
         {
-            /* Keyboard
+            //Keyboard
             // Read the jump input in Update so button presses aren't missed.
-            wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
-            */
+            if (userNumber == 0)
+            {
+                wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
+            }
 
             //Gamepad
-
-            wantToJump = (GamepadManagement.prevState[userNumber].Buttons.A == ButtonState.Pressed && GamepadManagement.state[userNumber].Buttons.A == ButtonState.Released);
+            wantToJump = (GamepadManagement.prevState[userNumber].Triggers.Left == 1/* && GamepadManagement.state[userNumber].Buttons.LeftShoulder == ButtonState.Released*/);
         }
     }
 
@@ -91,7 +92,7 @@ public class UserControl : MonoBehaviour
         }
     }
 
-    //Set the number of this player (1 => 4)
+    //Set the number of this player (0 => 3)
     internal void setNumber(int v)
     {
         userNumber = v;
