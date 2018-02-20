@@ -49,7 +49,7 @@ public class ShootingSystem : MonoBehaviour {
                     }
                     if (Input.GetButtonUp("Fire"))
                     {
-                        if (current.GetComponent<Shoot>().shoot(startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                        if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
                         {
                             //Debug.Log("Remove Object");
                             inventory.DestroyCurrentItem();
@@ -64,7 +64,7 @@ public class ShootingSystem : MonoBehaviour {
                     }
                     if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0)
                     {
-                        if (current.GetComponent<Shoot>().shoot(startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                        if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
                         {
                             //Debug.Log("Remove Object");
                             inventory.DestroyCurrentItem();
