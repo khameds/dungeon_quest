@@ -13,6 +13,7 @@ public class SoloGameController : MonoBehaviour
     private int indexAvatar;
     private int indexLevel;
     public Toggle difficultyNormal;
+    public Text levelDescription;
 
     private void Start()
     {
@@ -44,6 +45,7 @@ public class SoloGameController : MonoBehaviour
             avatars[0].SetActive(true);
         if (levels[0])
             levels[0].SetActive(true);
+        levelDescription.text = "Niveau " + (indexLevel + 1).ToString();
     }
 
     public void ToggleAvatar(int direction)
@@ -74,6 +76,7 @@ public class SoloGameController : MonoBehaviour
 
         //Toggle on the new avatar
         levels[indexLevel].SetActive(true);
+        levelDescription.text = "Niveau " + (indexLevel+1).ToString();
     }
 
     public void createGame()

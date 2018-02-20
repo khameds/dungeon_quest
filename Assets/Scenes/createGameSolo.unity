@@ -211,6 +211,7 @@ MonoBehaviour:
   avatarList: {fileID: 613368010}
   levelList: {fileID: 1309183696}
   difficultyNormal: {fileID: 652698169}
+  levelDescription: {fileID: 1051167389}
 --- !u!4 &80528124
 Transform:
   m_ObjectHideFlags: 0
@@ -2035,6 +2036,7 @@ MonoBehaviour:
   avatarList: {fileID: 0}
   levelList: {fileID: 0}
   difficultyNormal: {fileID: 0}
+  levelDescription: {fileID: 0}
 --- !u!1 &1337519438
 GameObject:
   m_ObjectHideFlags: 0
