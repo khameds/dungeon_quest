@@ -14,7 +14,8 @@ public class SightingSystem : MonoBehaviour
     private float sensibility = 2f;
     private float angle;
     private PlayerController playerController;
-    
+    public int userNumber;
+
     [SerializeField] private PlayerInventory inventory;
 
 
@@ -68,6 +69,7 @@ public class SightingSystem : MonoBehaviour
 
 
         angle = GetAngle(character.position, mousePos);
+        Debug.Log(GetAngle(character.position, new Vector2(GamepadManagement.state[userNumber].ThumbSticks.Right.X, GamepadManagement.state[userNumber].ThumbSticks.Right.Y)));
         angle = (playerController.facingRight) ? - angle : angle;
         sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
@@ -83,5 +85,10 @@ public class SightingSystem : MonoBehaviour
     }
 
 
+    //Set the number of this player (1 => 4)
+    internal void setNumber(int v)
+    {
+        userNumber = v;
+    }
 
 }
