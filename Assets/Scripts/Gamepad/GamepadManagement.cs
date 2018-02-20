@@ -62,4 +62,24 @@ public class GamepadManagement : MonoBehaviour
         transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
         */
     }
+
+    public static GamePadState getStateByUserNumber(int userNumber)
+    {
+        switch(userNumber)
+        {
+            case 0:
+                Debug.Log("ERROR : Player 1 don't have any gamepad");
+                break;
+            case 1:
+                return state[0];
+            case 2:
+                return state[1];
+            case 3:
+                return state[2];
+            default:
+                Debug.Log("ERROR : Invalid userNumber");
+                break;
+        }
+        return null;
+    }
 }
