@@ -56,19 +56,21 @@ public class ShootingSystem : MonoBehaviour {
                         }
                     }
                 }
-                /*
-                if (GamepadManagement.state[userNumber].Triggers.Right > 0.2)
+                else //Player 2/3/4 with gamepad
                 {
-                    startFire = Time.time;
-                }
-                if (GamepadManagement.state[userNumber].Triggers.Right == 0)
-                {
-                    if (current.GetComponent<Shoot>().shoot(startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right > 0.2)
                     {
-                        //Debug.Log("Remove Object");
-                        inventory.DestroyCurrentItem();
+                        startFire = Time.time;
                     }
-                }*/
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0)
+                    {
+                        if (current.GetComponent<Shoot>().shoot(startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                        {
+                            //Debug.Log("Remove Object");
+                            inventory.DestroyCurrentItem();
+                        }
+                    }
+                }
             }
 
 
