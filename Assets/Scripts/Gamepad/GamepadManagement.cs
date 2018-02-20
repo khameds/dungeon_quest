@@ -69,7 +69,7 @@ public class GamepadManagement : MonoBehaviour
         {
             case 0:
                 Debug.Log("ERROR : Player 1 don't have any gamepad");
-                break;
+                throw new System.RankException();
             case 1:
                 return state[0];
             case 2:
@@ -78,8 +78,7 @@ public class GamepadManagement : MonoBehaviour
                 return state[2];
             default:
                 Debug.Log("ERROR : Invalid userNumber");
-                break;
+                throw new System.RankException();
         }
-        return null;
     }
 }
