@@ -68,16 +68,17 @@ public class SightingSystem : MonoBehaviour
 
 
 
-        angle = GetAngle(character.position, mousePos);
-        Debug.Log(GetAngle(character.position, new Vector2(GamepadManagement.state[userNumber].ThumbSticks.Right.X, GamepadManagement.state[userNumber].ThumbSticks.Right.Y)));
+        //angle = GetAngle(character.position, mousePos); //Mouse
+        angle = GetAngle(character.position, new Vector2(character.position.x + GamepadManagement.state[userNumber].ThumbSticks.Right.X, character.position.y + GamepadManagement.state[userNumber].ThumbSticks.Right.Y)); //Gamepad
+
+        Debug.Log("Mouse angle = "+GetAngle(character.position, mousePos));
+        Debug.Log("Gamepad angle = "+GetAngle(character.position, new Vector2(character.position.x+GamepadManagement.state[userNumber].ThumbSticks.Right.X, character.position.y+GamepadManagement.state[userNumber].ThumbSticks.Right.Y)));
+
         angle = (playerController.facingRight) ? - angle : angle;
         sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         
     }
-
-
-
 
     float GetAngle(Vector2 v1, Vector2 v2)
     {
@@ -85,7 +86,7 @@ public class SightingSystem : MonoBehaviour
     }
 
 
-    //Set the number of this player (1 => 4)
+    //Set the number of this player (0 => 3)
     internal void setNumber(int v)
     {
         userNumber = v;
