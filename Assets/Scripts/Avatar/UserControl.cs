@@ -70,6 +70,8 @@ public class UserControl : MonoBehaviour
                 GameInputManager.direction = -1;
             if (Input.GetKey(GameInputManager.GIM.right))
                 GameInputManager.direction = 1;
+
+            player.Move(GameInputManager.direction, wantToJump);
         }
         else
         {
