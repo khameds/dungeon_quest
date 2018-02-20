@@ -14,7 +14,8 @@ public class SightingSystem : MonoBehaviour
     private float sensibility = 2f;
     private float angle;
     private PlayerController playerController;
-    
+    public int userNumber;
+
     [SerializeField] private PlayerInventory inventory;
 
 
@@ -64,18 +65,25 @@ public class SightingSystem : MonoBehaviour
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (mousePos - character.position).normalized;
+        
+        if(userNumber==0) //Mouse
+        {
+            angle = GetAngle(character.position, mousePos);
+            //Debug.Log("Mouse angle = " + GetAngle(character.position, mousePos));
+        }
+        else //Gamepad
+        {
+            Vector2 stickVector = new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y);
+            angle = GetAngle(character.position, stickVector);
+            //Debug.Log("Gamepad angle = " + GetAngle(character.position, new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y)));
+        }
 
 
-
-        angle = GetAngle(character.position, mousePos);
         angle = (playerController.facingRight) ? - angle : angle;
         sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         
     }
-
-
-
 
     float GetAngle(Vector2 v1, Vector2 v2)
     {
@@ -83,5 +91,10 @@ public class SightingSystem : MonoBehaviour
     }
 
 
+    //Set the number of this player (0 => 3)
+    internal void setNumber(int v)
+    {
+        userNumber = v;
+    }
 
 }

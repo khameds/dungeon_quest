@@ -14,6 +14,7 @@ public class ShootingSystem : MonoBehaviour {
     float fireRate;
     float timeToFire;
     float startFire;
+    public int userNumber;
 
     void Awake()
     {
@@ -40,23 +41,47 @@ public class ShootingSystem : MonoBehaviour {
 
             if(fireRate == 0)
             {
-                if(Input.GetButtonDown("Fire"))
+                if(userNumber==0) //Player 1 with keyboard+mouse
                 {
-                    startFire = Time.time;
-                }
-                if(Input.GetButtonUp("Fire"))
-                {
-                    if (current.GetComponent<Shoot>().shoot(startFire - Time.time,character.transform.position, character,playerController.facingRight) == 0)
+                    if (Input.GetButtonDown("Fire"))
                     {
-                        Debug.Log("Remove Object");
-                        inventory.DestroyCurrentItem();
+                        startFire = Time.time;
+                    }
+                    if (Input.GetButtonUp("Fire"))
+                    {
+                        if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                        {
+                            //Debug.Log("Remove Object");
+                            inventory.DestroyCurrentItem();
+                        }
                     }
                 }
+                /*else //Player 2/3/4 with gamepad
+                {
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right > 0.2)
+                    {
+                        startFire = Time.time;
+                    }
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0)
+                    {
+                        if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                        {
+                            //Debug.Log("Remove Object");
+                            inventory.DestroyCurrentItem();
+                        }
+                    }
+                }*/
             }
 
 
 
 
         }
+    }
+
+    //Set the number of this player (0 => 3)
+    internal void setNumber(int v)
+    {
+        userNumber = v;
     }
 }

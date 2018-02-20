@@ -55,7 +55,6 @@ public class EnemyController : MonoBehaviour
 
                 if (targets.Count == 0)
                 {// All players are dead
-                    GameFlow.noPlayer();
                     isChasing = false;
                     target = null;
                 }
@@ -68,7 +67,6 @@ public class EnemyController : MonoBehaviour
             else
             {
                 isChasing = false;
-                GameFlow.noPlayer();
                 return null;
             }
         }
@@ -85,9 +83,8 @@ public class EnemyController : MonoBehaviour
 
                 if (target == null)
                 {
-                    Debug.LogError("[UpdatePath] Can't find any player alive, GAMEOVER.");
+                    Debug.LogError("[UpdatePath] Can't find any player alive");
                     isChasing = false;
-                    GameFlow.noPlayer();
                     yield break;
                 }
             }

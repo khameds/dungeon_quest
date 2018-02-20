@@ -24,16 +24,26 @@ public class Shoot : MonoBehaviour {
         Debug.Log("Reload ammo = " + Ammo);
     }
 
-    public int shoot(float time,Vector3 position, Rigidbody2D character,bool FacingRight)
+    public int shoot(int playerNumber, float time, Vector3 position, Rigidbody2D character, bool FacingRight)
     {
-        Debug.Log("J'ai tenu : " + time + "J'ai encore :" + Ammo+ " ");
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Debug.Log("J'ai tenu : " + time + "J'ai encore :" + Ammo+ " ");
+
+        Vector2 mousePos;
+
+        if (playerNumber == 0) //Mouse
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else //Gamepad
+        {
+            mousePos = new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(playerNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(playerNumber).ThumbSticks.Right.Y);
+        }
+
         Vector2 direction = (mousePos - character.position).normalized;
 
-        float angle = GetAngle(character.position,mousePos) ;
-        angle = (FacingRight) ? -angle : 180 + angle ;
+        float angle = GetAngle(character.position, mousePos);
 
-        
+        angle = (FacingRight) ? -angle : 180 + angle ;
        
         if (FacingRight)
             direction.x = Mathf.Abs(direction.x);
