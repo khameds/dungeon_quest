@@ -65,14 +65,19 @@ public class SightingSystem : MonoBehaviour
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (mousePos - character.position).normalized;
+        
+        if(userNumber==0) //Mouse
+        {
+            angle = GetAngle(character.position, mousePos);
+            //Debug.Log("Mouse angle = " + GetAngle(character.position, mousePos));
+        }
+        else //Gamepad
+        {
+            Vector2 stickVector = new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y);
+            angle = GetAngle(character.position, stickVector);
+            //Debug.Log("Gamepad angle = " + GetAngle(character.position, new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y)));
+        }
 
-
-
-        //angle = GetAngle(character.position, mousePos); //Mouse
-        angle = GetAngle(character.position, new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y)); //Gamepad
-
-        Debug.Log("Mouse angle = "+GetAngle(character.position, mousePos));
-        Debug.Log("Gamepad angle = "+GetAngle(character.position, new Vector2(character.position.x+GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y+GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y)));
 
         angle = (playerController.facingRight) ? - angle : angle;
         sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
