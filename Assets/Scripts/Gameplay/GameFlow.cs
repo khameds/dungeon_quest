@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
-    private static int numberOfPlayer = 1;
+    private static int numberOfPlayer = 2;
     public static int alivePlayers;
 
     //Use this for initialization
@@ -91,7 +91,7 @@ public class GameFlow : MonoBehaviour
 
             //Player 1
             character.transform.position = positionCharacter1;
-            character.GetComponent<UserControl>().setNumber(1);
+            character.GetComponent<UserControl>().setNumber(0);
 
             if (numberOfPlayer >= 2) //Player 2
             {
@@ -99,7 +99,7 @@ public class GameFlow : MonoBehaviour
                 GameObject character2 = Instantiate(character);
                 //Move the object to the spawn spot
                 character2.transform.position = positionCharacter2;
-                character2.GetComponent<UserControl>().setNumber(2);
+                character2.GetComponent<UserControl>().setNumber(1);
             }
             if (numberOfPlayer >= 3) //Player 3
             {
@@ -107,7 +107,7 @@ public class GameFlow : MonoBehaviour
                 GameObject character3 = Instantiate(character);
                 //Move the object to the spawn spot
                 character3.transform.position = positionCharacter3;
-                character3.GetComponent<UserControl>().setNumber(3);
+                character3.GetComponent<UserControl>().setNumber(2);
             }
             if (numberOfPlayer >= 4) //Player 4
             {
@@ -115,7 +115,7 @@ public class GameFlow : MonoBehaviour
                 GameObject character4 = Instantiate(character);
                 //Move the object to the spawn spot
                 character4.transform.position = positionCharacter4;
-                character4.GetComponent<UserControl>().setNumber(4);
+                character4.GetComponent<UserControl>().setNumber(3);
 
             }
         }
