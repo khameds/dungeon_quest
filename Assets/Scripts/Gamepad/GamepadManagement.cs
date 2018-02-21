@@ -64,7 +64,7 @@ public class GamepadManagement : MonoBehaviour
         */
     }
 
-    public static object getPrevStateByUserNumber(int userNumber)
+    public static GamePadState getPrevStateByUserNumber(int userNumber)
     {
         switch (userNumber)
         {
