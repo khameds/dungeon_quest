@@ -63,7 +63,20 @@ public class SightingSystem : MonoBehaviour
         else
             spriteRenderer.sprite = null;
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos;
+
+        if (userNumber == 0) //Mouse
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else //Gamepad
+        {
+            mousePos = new Vector2(character.position.x + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.X, character.position.y + GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Right.Y);
+        }
+
+
+
+
         direction = (mousePos - character.position).normalized;
         
         if(userNumber==0) //Mouse
@@ -81,7 +94,14 @@ public class SightingSystem : MonoBehaviour
 
         angle = (playerController.facingRight) ? - angle : angle;
         sight.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
+        if (playerController.facingRight)
+            direction.x = Mathf.Abs(direction.x);
+        else
+        {
+            if (direction.x > 0)
+                direction.x -= 2 * direction.x;
+        }
+        sight.transform.position = (Vector3)(direction/2+character.position);
         
     }
 
