@@ -54,6 +54,14 @@ public class OptionsController : MonoBehaviour {
         Start();
     }
 
+    void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Cancel();
+        }
+    }
+
     //Save the customized inputs in the PlayerPrefs file
     public void Save()
     {
