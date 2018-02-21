@@ -56,13 +56,13 @@ public class ShootingSystem : MonoBehaviour {
                         }
                     }
                 }
-                /*else //Player 2/3/4 with gamepad
+                else //Player 2/3/4 with gamepad
                 {
-                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right > 0.2)
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right != 0 && GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Right == 0)
                     {
                         startFire = Time.time;
                     }
-                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0)
+                    if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0 && GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Right !=0)
                     {
                         if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
                         {
@@ -70,7 +70,7 @@ public class ShootingSystem : MonoBehaviour {
                             inventory.DestroyCurrentItem();
                         }
                     }
-                }*/
+                }
             }
 
 
