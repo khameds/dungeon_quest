@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
@@ -61,6 +62,25 @@ public class GamepadManagement : MonoBehaviour
         // Make the current object turn
         transform.localRotation *= Quaternion.Euler(0.0f, state.ThumbSticks.Left.X * 25.0f * Time.deltaTime, 0.0f);
         */
+    }
+
+    public static GamePadState getPrevStateByUserNumber(int userNumber)
+    {
+        switch (userNumber)
+        {
+            case 0:
+                Debug.Log("ERROR : Player 1 don't have any gamepad");
+                throw new System.RankException();
+            case 1:
+                return prevState[0];
+            case 2:
+                return prevState[1];
+            case 3:
+                return prevState[2];
+            default:
+                Debug.Log("ERROR : Invalid userNumber");
+                throw new System.RankException();
+        }
     }
 
     public static GamePadState getStateByUserNumber(int userNumber)
