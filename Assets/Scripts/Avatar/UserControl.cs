@@ -40,7 +40,7 @@ public class UserControl : MonoBehaviour
             else
             {
                 //Gamepad
-                wantToJump = (GamepadManagement.prevState[userNumber].Triggers.Left == 1/* && GamepadManagement.getStateByUserNumber(userNumber).Buttons.LeftShoulder == ButtonState.Released*/);
+                wantToJump = (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Left == 1/* && GamepadManagement.getStateByUserNumber(userNumber).Buttons.LeftShoulder == ButtonState.Released*/);
             }
 
         }
