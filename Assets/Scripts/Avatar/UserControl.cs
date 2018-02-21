@@ -40,7 +40,9 @@ public class UserControl : MonoBehaviour
             else
             {
                 //Gamepad
-                wantToJump = (GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Left == 1/* && GamepadManagement.getStateByUserNumber(userNumber).Buttons.LeftShoulder == ButtonState.Released*/);
+                if(wantToJump == false)
+                wantToJump = (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Left >= 0.1 && GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Left == 0 );
+                
             }
 
         }
@@ -52,11 +54,8 @@ public class UserControl : MonoBehaviour
 
         // Pass all parameters to the character control script.
         if (!Dead)
-        {
             moveManagement();
-
-            wantToJump = false;
-        }
+        
     }
 
     private void moveManagement()
@@ -71,7 +70,7 @@ public class UserControl : MonoBehaviour
             if (Input.GetKey(GameInputManager.GIM.right))
                 GameInputManager.direction = 1;
 
-            player.Move(GameInputManager.direction, wantToJump);
+            wantToJump = player.Move(GameInputManager.direction, wantToJump);
         }
         else
         {
@@ -89,12 +88,12 @@ public class UserControl : MonoBehaviour
                     GameInputManager.direction = 1;
                 }
 
-                player.Move(GameInputManager.direction, wantToJump);
+                wantToJump = player.Move(GameInputManager.direction, wantToJump);
             }
             else
             {
                 //Joystick
-                player.Move(GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Left.X, wantToJump);
+                wantToJump = player.Move(GamepadManagement.getStateByUserNumber(userNumber).ThumbSticks.Left.X, wantToJump);
             }
         }        
     }

@@ -115,11 +115,11 @@ public class PlayerController : NetworkBehaviour
         }
 
         // Store input information for FixedUpdate method
-        if (!wantToJump)
+        /*if (!wantToJump) //In usercontrol
         {
             // Read the jump input in Update so button presses aren't missed.
             wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
-        }
+        }*/
         /*int direction = 0;
         if (Input.GetKey(GameInputManager.GIM.left))
             direction--;
@@ -129,7 +129,7 @@ public class PlayerController : NetworkBehaviour
         input = new Vector2(direction, Input.GetAxis("Vertical"));*/
     }
 
-    public void Move(float move, bool jump)
+    public bool Move(float move, bool jump)
     {
         //only control the player if grounded or airControl is turned on
         if (grounded || airControl)
@@ -152,10 +152,11 @@ public class PlayerController : NetworkBehaviour
             grounded = false;
             animator.SetBool("Ground", false);
             rigidBody.AddForce(new Vector2(0f, jumpForce));
-
-            if (jump)
-                wantToJump = false;
+            wantToJump = false;
+            
         }
+
+        return false;
     }
 
     public void Flip()
