@@ -40,6 +40,20 @@ public class OptionsController : MonoBehaviour {
 
     }
 
+    public void Cancel()
+    {
+        codes.Remove("Left");
+        codes.Remove("Right");
+        codes.Remove("Fire");
+        codes.Remove("SpecialAction");
+        codes.Remove("SwitchWeapon");
+        codes.Remove("Jump");
+        codes.Remove("Cancel");
+        codes.Remove("Take");
+        codes.Remove("Drop");
+        Start();
+    }
+
     //Save the customized inputs in the PlayerPrefs file
     public void Save()
     {
@@ -51,24 +65,11 @@ public class OptionsController : MonoBehaviour {
         PlayerPrefs.Save();
         GameInputManager.UpdateInputs();
 
-        ExitSettings();
     }
 
-    //Exit the Options scene to come back to the previous scene (main menu or pause menu)
-    public void ExitSettings()
-    {
-        SceneManager.UnloadSceneAsync("options");
-    }
 
-    // Update is called once per frame
-    void Update ()
-    {
-        if (Input.GetButtonDown("Cancel"))
-        {
-            ExitSettings();
-        }
 
-    }
+
 
     //Change the keybinds or mouse control
     void OnGUI()
