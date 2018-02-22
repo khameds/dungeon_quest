@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WeaponSightSystemTest.unity
     guid: 5e845cb72cee37246ad33e9865f3abac
   - enabled: 1
+    path: Assets/Scenes/createMultiLocal.unity
+    guid: aa9ebf1fc5234dd45a0ab8a623baa82e
+  - enabled: 1
     path: Assets/Scenes/createGameMulti.unity
     guid: 45fc472d97aaa1d4e9f78d2d301d0c67
   - enabled: 1
