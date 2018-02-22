@@ -10,8 +10,6 @@ public class OptionsController : MonoBehaviour {
 
     //The texts which are displayed on the button in the option menu
     public Text left, right, jump, fire, action, switchWeapon, cancel, take, drop;
-    public Slider volume;
-    public Toggle mute;
 
     private GameObject currentKey;
 

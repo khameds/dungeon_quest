@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Music : MonoBehaviour {
 
     Object[] myMusic;
+    public Slider volume;
+    public Toggle mute;
 
     void Awake()
     {
@@ -17,11 +20,28 @@ public class Music : MonoBehaviour {
     void Start ()
     {
         GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().volume = 0.5F;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    public void changeVolume()
     {
-		
-	}
+        if (!mute.isOn)
+            GetComponent<AudioSource>().volume = volume.value;
+    }
+
+    public void muteUnMute()
+    {
+        if (mute.isOn)
+        {
+            GetComponent<AudioSource>().volume = 0;
+        }
+        else
+        {
+            GetComponent<AudioSource>().volume = volume.value;
+        }
+
+
+    }
+
+
 }
