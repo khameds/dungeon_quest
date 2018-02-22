@@ -51,16 +51,22 @@ public class MultiLocalController : MonoBehaviour
         levelDescription.text = "Niveau " + (indexLevel + 1).ToString();
     }
 
-    public void createGame()
+    public void goToNextScene()
     {
-        if (difficultyNormal.isOn)
-            LevelParam.Set("Difficulty", "normal");
+        if (cooperationMode.isOn)
+        {
+            LevelParam.Set("Mode", "coop");
+            if (difficultyNormal.isOn)
+                LevelParam.Set("Difficulty", "normal");
+            else
+                LevelParam.Set("Difficulty", "hard");
+        }
         else
-            LevelParam.Set("Difficulty", "hard");
-
+            LevelParam.Set("Mode", "versus");
+        
         LevelParam.Set("Level", indexLevel.ToString());
 
-        SceneManager.LoadScene("sandbox");
+        SceneManager.LoadScene("avatarSelection", LoadSceneMode.Additive);
     }
 
     public void backToPreviousScene()
