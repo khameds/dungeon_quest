@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour {
 
     public float fireRate = 0;
     public float minShootVelocity = 5;
-    private int Ammo = 3;
+    private int Ammo = 0;
     float timeToFire;
     private string AmmoObject = "Items/Bow/Bow_Arrow";
     
@@ -26,7 +26,7 @@ public class Shoot : MonoBehaviour {
 
     public int shoot(int playerNumber, float time, Vector3 position, Rigidbody2D character, bool FacingRight)
     {
-        //Debug.Log("J'ai tenu : " + time + "J'ai encore :" + Ammo+ " ");
+        Debug.Log("J'ai encore :" + Ammo+ " ");
 
         Vector2 mousePos;
 

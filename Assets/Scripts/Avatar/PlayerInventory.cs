@@ -18,8 +18,10 @@ public class PlayerInventory : MonoBehaviour {
         sprite_background_item_selected = "Sprites/Inventory/buttonSquare_brown";
         sprite_background_item = "Sprites/Inventory/buttonSquare_brown_pressed";
 
-        inventory.AddItem((Item) Resources.Load("Items/Bow/Bow"));
-        inventory.RemoveItem(1);
+        Item bow = ScriptableObject.CreateInstance<Item>(); //Ajout de l'arc de base
+        bow.init("Sprites/bow_0", "Sprites/arrow", "Items/Bow/Bow_object", "Bow");
+        inventory.AddItem(bow);
+        
         
     }
 
