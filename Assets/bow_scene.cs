@@ -6,7 +6,7 @@ public class bow_scene : MonoBehaviour {
 
 
 
-    public Item item = null;
+    private Item item = null;
     private bool picked_up = false;
     void OnTriggerStay2D(Collider2D other)
     {
@@ -16,7 +16,14 @@ public class bow_scene : MonoBehaviour {
                     Pickup(other);
         }
     }
-    // Update is called once per frame
+
+
+    private void Start()
+    {
+        Item bow = ScriptableObject.CreateInstance<Item>(); 
+        bow.init("Sprites/bow_0", "Sprites/arrow", "Items/Bow/Bow_object", "Bow");
+        item = bow;
+    }
 
     void Pickup(Collider2D player)
     {
