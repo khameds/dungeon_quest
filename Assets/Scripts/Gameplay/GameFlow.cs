@@ -8,7 +8,7 @@ public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
     private static int numberOfPlayer = 2;
-    private static int levelNumber = 2;
+    private static int levelNumber = 1;
     public static int alivePlayers;
 
     //Use this for initialization
