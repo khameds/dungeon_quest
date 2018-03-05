@@ -24,7 +24,7 @@ public class XInputTestCS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Detecting and assign gamepads to state objects
+        //Detecting gamepads
         if (!playerIndexSet || !prevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
@@ -38,6 +38,7 @@ public class XInputTestCS : MonoBehaviour
             }
         }
 
+        //Assigning gamepads to state objects
         prevState = state;
         state = GamePad.GetState(playerIndex);
 
