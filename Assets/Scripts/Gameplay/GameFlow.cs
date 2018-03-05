@@ -8,7 +8,7 @@ public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
     private static int numberOfPlayer = 2;
-    private static int levelNumber = 1;
+    private static int levelNumber = 2;
     public static int alivePlayers;
 
     //Use this for initialization
@@ -22,7 +22,7 @@ public class GameFlow : MonoBehaviour
                 numberOfPlayer = System.Int32.Parse(LevelParam.Get("numberOfPlayer"));
 
             if (LevelParam.Get("levelNumber") != null)
-                numberOfPlayer = System.Int32.Parse(LevelParam.Get("numberOfPlayer"));
+                levelNumber = System.Int32.Parse(LevelParam.Get("levelNumber"));
 
 
             //Other parameters TODO
@@ -38,7 +38,9 @@ public class GameFlow : MonoBehaviour
         }
 
 
-        GameObject level = Instantiate(Resources.Load("Level/Level1", typeof(GameObject))) as GameObject;
+        GameObject level = Instantiate(Resources.Load("Level/Level"+levelNumber, typeof(GameObject))) as GameObject;
+        if(levelNumber<2)
+            LevelParam.Set("levelNumber", levelNumber + 1 + "");
 
         generatePlayers(numberOfPlayer);
 
