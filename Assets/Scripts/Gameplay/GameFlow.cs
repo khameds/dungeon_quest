@@ -11,6 +11,9 @@ public class GameFlow : MonoBehaviour
     private static int levelNumber = 1;
     public static int alivePlayers;
 
+    
+    public AstarPath path;
+
     //Use this for initialization 
     void Start ()
     {
@@ -40,14 +43,17 @@ public class GameFlow : MonoBehaviour
 
         GameObject level = Instantiate(Resources.Load("Level/Level"+levelNumber, typeof(GameObject))) as GameObject;
         level.transform.position = new Vector2(0, 0);
+        
+        
         if(levelNumber<2)
             LevelParam.Set("levelNumber", levelNumber + 1 + "");
 
-
+        path.Scan();
         //Launching the first wave
         generatePlayers(numberOfPlayer);
 
         waveNum = 1;
+        path.Scan();
         launchWave();
     }
 

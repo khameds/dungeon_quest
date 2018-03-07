@@ -93,8 +93,10 @@ public class EnemyController : MonoBehaviour
             seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
 
             yield return new WaitForSeconds(1f / updateRate);
-            StartCoroutine(UpdatePath());
+            
         }
+
+        StartCoroutine(UpdatePath());
     }
 
     public void OnPathComplete(Path p)
@@ -142,6 +144,7 @@ public class EnemyController : MonoBehaviour
 
             //Move the AI
             rb.AddForce(dir, fMode);
+            //Debug.Log("Add force to " + this);
 
             float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
             if (dist < nextWaypointDistance)
