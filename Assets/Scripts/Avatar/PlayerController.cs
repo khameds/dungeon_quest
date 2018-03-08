@@ -98,8 +98,13 @@ public class PlayerController : NetworkBehaviour
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
                 wantToJump = canJump = false;
             }
-            else if (GameInputManager.direction == wallDirection)// If running to the wall, just slide over it   
+            Debug.Log("FU");
+            if (GameInputManager.direction == wallDirection)
+            {
+                // If running to the wall, just slide over it   
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
+                Debug.Log("FU1");
+            }
         }
         else wantToJump = false;
 
@@ -109,24 +114,27 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (!isLocalPlayer)
         {
             return;
         }
-
+        */
         // Store input information for FixedUpdate method
-        /*if (!wantToJump) //In usercontrol
+        if (!wantToJump) //In usercontrol
         {
             // Read the jump input in Update so button presses aren't missed.
             wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
-        }*/
-        /*int direction = 0;
-        if (Input.GetKey(GameInputManager.GIM.left))
+        }
+
+        int direction = 0;
+        if (Input.GetKeyDown(GameInputManager.GIM.jump))
             direction--;
         if (Input.GetKey(GameInputManager.GIM.right))
             direction++;
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        input = new Vector2(direction, Input.GetAxis("Vertical"));*/
+        GameInputManager.direction = direction;
+        Debug.Log("Direction = " + GameInputManager.direction);
+
     }
 
     public bool Move(float move, bool jump)
