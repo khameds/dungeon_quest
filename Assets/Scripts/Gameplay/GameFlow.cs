@@ -11,6 +11,8 @@ public class GameFlow : MonoBehaviour
     private static int levelNumber = 1;
     public static int alivePlayers;
 
+    public AstarPath path;
+
     //Use this for initialization
     void Start ()
     {
@@ -43,7 +45,7 @@ public class GameFlow : MonoBehaviour
             LevelParam.Set("levelNumber", levelNumber + 1 + "");
 
         generatePlayers(numberOfPlayer);
-
+        path.Scan();
         //Launching the first wave
 
         waveNum = 1;
