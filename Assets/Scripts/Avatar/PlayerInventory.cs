@@ -11,7 +11,7 @@ public class PlayerInventory : MonoBehaviour {
     private string sprite_background_item_selected;
     private string sprite_background_item;
     public Inventory inventory;
-
+    public UserControl user_control;
     public void Start()
     {
         current_item = 0;
@@ -21,7 +21,8 @@ public class PlayerInventory : MonoBehaviour {
         Item bow = ScriptableObject.CreateInstance<Item>(); //Ajout de l'arc de base
         bow.init("Sprites/bow_0", "Sprites/arrow", "Items/Bow/Bow_object", "Bow");
         inventory.AddItem(bow);
-        
+        user_control = GetComponent<UserControl>();
+        SetPositionInventory(user_control.userNumber);
         
     }
 
@@ -87,6 +88,24 @@ public class PlayerInventory : MonoBehaviour {
     public void DestroyCurrentItem()
     {
         inventory.RemoveItem(current_item);
+    }
+
+    public void SetPositionInventory(int player_number)
+    {
+        switch(player_number)
+        {
+            case 0: transform.Find("Canvas/Inventory").position = new Vector3(1866 - 600, 637+80, 0);
+                break;
+            case 1: transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637+80, 0);
+                break;
+            case 2:
+                transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637 + 80, 0); //TO DO
+                break;
+            case 3:
+                transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637 + 80, 0); //TO DO
+                break;
+
+        }
     }
 
 }
