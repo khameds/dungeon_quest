@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarSelectionController : MonoBehaviour {
 
@@ -8,6 +9,10 @@ public class AvatarSelectionController : MonoBehaviour {
     public GameObject avatarList2;
     public GameObject avatarList3;
     public GameObject avatarList4;
+    public GameObject hide1;
+    public GameObject hide2;
+    public GameObject hide3;
+
     private int indexAvatar1;
     private int indexAvatar2;
     private int indexAvatar3;
@@ -96,5 +101,8 @@ public class AvatarSelectionController : MonoBehaviour {
             //Toggle on the new avatar
             avatars1[indexAvatar1].SetActive(true);
         }
+
+        hide3.SetActive(false);
     }
+
 }
