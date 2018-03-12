@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class AvatarSelectionController : MonoBehaviour {
 
@@ -72,7 +74,47 @@ public class AvatarSelectionController : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-	    if (Input.GetKeyDown("left") )
+        //GamepadManagement.getStateByUserNumber(2).DPad.Left == XInputDotNetPure.ButtonState.Pressed
+
+        if (GamepadManagement.GamepadConnectedNumber() + 1 == 1)
+        {
+            avatars2[indexAvatar2].SetActive(false);
+            avatars3[indexAvatar3].SetActive(false);
+            avatars4[indexAvatar4].SetActive(false);
+        }
+        if (GamepadManagement.GamepadConnectedNumber() + 1 == 2)
+        {
+            avatars2[indexAvatar2].SetActive(true);
+            avatars3[indexAvatar3].SetActive(false);
+            avatars4[indexAvatar4].SetActive(false);
+        }
+        if (GamepadManagement.GamepadConnectedNumber() + 1 == 3)
+        {
+            avatars2[indexAvatar2].SetActive(true);
+            avatars3[indexAvatar3].SetActive(true);
+            avatars4[indexAvatar4].SetActive(false);
+        }
+        if (GamepadManagement.GamepadConnectedNumber() + 1 == 4)
+        {
+            avatars2[indexAvatar2].SetActive(true);
+            avatars3[indexAvatar3].SetActive(true);
+            avatars4[indexAvatar4].SetActive(true);
+        }
+
+        if (GamepadManagement.GamepadConnectedNumber()+1 == 4)
+            player4AvatarSelectionListener();
+        if (GamepadManagement.GamepadConnectedNumber()+1 >= 3)
+            player3AvatarSelectionListener();
+        if (GamepadManagement.GamepadConnectedNumber()+1 >= 2)
+            player2AvatarSelectionListener();
+        if (GamepadManagement.GamepadConnectedNumber()+1 >= 1)
+            player1AvatarSelectionListener();
+
+    }
+
+    private void player1AvatarSelectionListener()
+    {
+        if (Input.GetKeyDown("left"))
         {
             //Toggle off the current avatar
             avatars1[indexAvatar1].SetActive(false);
@@ -95,6 +137,87 @@ public class AvatarSelectionController : MonoBehaviour {
 
             //Toggle on the new avatar
             avatars1[indexAvatar1].SetActive(true);
+        }
+    }
+    private void player2AvatarSelectionListener()
+    {
+        if (GamepadManagement.getStateByUserNumber(1).DPad.Left == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(1).DPad.Left == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars2[indexAvatar2].SetActive(false);
+
+            indexAvatar2--;
+            if (indexAvatar2 < 0)
+                indexAvatar2 = avatars2.Length - 1;
+
+            //Toggle on the new avatar
+            avatars2[indexAvatar2].SetActive(true);
+        }
+        if (GamepadManagement.getStateByUserNumber(1).DPad.Right == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(1).DPad.Right == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars2[indexAvatar2].SetActive(false);
+
+            indexAvatar2++;
+            if (indexAvatar2 >= avatars2.Length)
+                indexAvatar2 = 0;
+
+            //Toggle on the new avatar
+            avatars2[indexAvatar2].SetActive(true);
+        }
+    }
+    private void player3AvatarSelectionListener()
+    {
+        if (GamepadManagement.getStateByUserNumber(2).DPad.Left == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(2).DPad.Left == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars3[indexAvatar3].SetActive(false);
+
+            indexAvatar3--;
+            if (indexAvatar3 < 0)
+                indexAvatar3 = avatars3.Length - 1;
+
+            //Toggle on the new avatar
+            avatars3[indexAvatar3].SetActive(true);
+        }
+        if (GamepadManagement.getStateByUserNumber(2).DPad.Right == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(2).DPad.Right == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars3[indexAvatar3].SetActive(false);
+
+            indexAvatar3++;
+            if (indexAvatar3 >= avatars3.Length)
+                indexAvatar3 = 0;
+
+            //Toggle on the new avatar
+            avatars3[indexAvatar3].SetActive(true);
+        }
+    }
+    private void player4AvatarSelectionListener()
+    {
+        if (GamepadManagement.getStateByUserNumber(3).DPad.Left == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(3).DPad.Left == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars4[indexAvatar4].SetActive(false);
+
+            indexAvatar4--;
+            if (indexAvatar4 < 0)
+                indexAvatar4 = avatars4.Length - 1;
+
+            //Toggle on the new avatar
+            avatars4[indexAvatar4].SetActive(true);
+        }
+        if (GamepadManagement.getStateByUserNumber(3).DPad.Left == ButtonState.Released && GamepadManagement.getPrevStateByUserNumber(3).DPad.Left == ButtonState.Pressed)
+        {
+            //Toggle off the current avatar
+            avatars4[indexAvatar4].SetActive(false);
+
+            indexAvatar4++;
+            if (indexAvatar4 >= avatars4.Length)
+                indexAvatar4 = 0;
+
+            //Toggle on the new avatar
+            avatars4[indexAvatar4].SetActive(true);
         }
     }
 }
