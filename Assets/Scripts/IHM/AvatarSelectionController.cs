@@ -82,27 +82,27 @@ public class AvatarSelectionController : MonoBehaviour {
 
         if (GamepadManagement.GamepadConnectedNumber() + 1 == 1)
         {
-            avatars2[indexAvatar2].SetActive(false);
-            avatars3[indexAvatar3].SetActive(false);
-            avatars4[indexAvatar4].SetActive(false);
+            hide1.SetActive(true);
+            hide2.SetActive(true);
+            hide3.SetActive(true);
         }
         if (GamepadManagement.GamepadConnectedNumber() + 1 == 2)
         {
-            avatars2[indexAvatar2].SetActive(true);
-            avatars3[indexAvatar3].SetActive(false);
-            avatars4[indexAvatar4].SetActive(false);
+            hide1.SetActive(false);
+            hide2.SetActive(true);
+            hide3.SetActive(true);
         }
         if (GamepadManagement.GamepadConnectedNumber() + 1 == 3)
         {
-            avatars2[indexAvatar2].SetActive(true);
-            avatars3[indexAvatar3].SetActive(true);
-            avatars4[indexAvatar4].SetActive(false);
+            hide1.SetActive(false);
+            hide2.SetActive(false);
+            hide3.SetActive(true);
         }
         if (GamepadManagement.GamepadConnectedNumber() + 1 == 4)
         {
-            avatars2[indexAvatar2].SetActive(true);
-            avatars3[indexAvatar3].SetActive(true);
-            avatars4[indexAvatar4].SetActive(true);
+            hide1.SetActive(false);
+            hide2.SetActive(false);
+            hide3.SetActive(false);
         }
 
         if (GamepadManagement.GamepadConnectedNumber()+1 == 4)
@@ -142,8 +142,7 @@ public class AvatarSelectionController : MonoBehaviour {
             //Toggle on the new avatar
             avatars1[indexAvatar1].SetActive(true);
         }
-
-        hide3.SetActive(false);
+        
     }
     private void player2AvatarSelectionListener()
     {
