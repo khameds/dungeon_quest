@@ -20,9 +20,32 @@ public class GamepadManagement : MonoBehaviour
         //GamePad.SetVibration(playerIndex, state.Triggers.Left, state.Triggers.Right);
     }
 
+    public static int GamepadConnectedNumber()
+    {
+        GamePadState test1 = GamePad.GetState((PlayerIndex)0);
+        GamePadState test2 = GamePad.GetState((PlayerIndex)1);
+        GamePadState test3 = GamePad.GetState((PlayerIndex)2);
+        GamePadState test4 = GamePad.GetState((PlayerIndex)3);
+
+        int count = 0;
+
+        if (test1.IsConnected)
+            count++;
+        if (test2.IsConnected)
+            count++;
+        if (test3.IsConnected)
+            count++;
+        if (test4.IsConnected)
+            count++;
+
+        return count;
+    }
+
     // Update is called once per frame
     void Update ()
     {
+        Debug.Log(GamepadConnectedNumber());
+
         //Detecting gamepads
         if(prevState.Length.Equals(0) || !prevState[0].IsConnected)
         {
