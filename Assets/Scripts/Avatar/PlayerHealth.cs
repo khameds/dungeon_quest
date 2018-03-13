@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public bool isDead;
     public bool damaged;
+    public float percentageRevive = 0.5f;
+
+
     AudioSource playerAudio;
     SpriteRenderer spriteRenderer;
     Color baseColor;
@@ -32,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         baseColor = spriteRenderer.color;        
     }
+
 
     void Update()
     {
@@ -56,16 +60,29 @@ public class PlayerHealth : MonoBehaviour
 
         // Set the health bar's value to the current health.
         healthSlider.value = (float) currentHealth / maxHealth;
-        //print(healthSlider.value);
+
         // Play the hurt sound effect.
         //playerAudio.Play();
         //Debug.Log(this.gameObject.name + " takes " + amount + "damage. (" + currentHealth + "/" + maxHealth + ")");
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth <= 0 && !isDead)
+        {
+            currentHealth = 0;
             Death();
+        }
     }
 
+    public void Revive()
+    {
+        userControl.Dead = isDead = false;
+        animator.SetBool("IsDead", false);
+        animator.Play("Idle");
+        currentHealth = (int)(maxHealth / 2);
+        Debug.Log(this.gameObject.name + " revived !");
+        // Set the health bar's value to the current health.
+        healthSlider.value = (float)currentHealth / maxHealth;
+    }
 
     void Death()
     {
