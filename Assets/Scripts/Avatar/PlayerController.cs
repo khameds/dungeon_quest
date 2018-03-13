@@ -13,7 +13,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float wallSlideSpeed = 3f;             // Speed of the player over Y-axis while "wall sliding" 
     [SerializeField] private float wallRangeDetection = 0.8f;       // Distance from player's collider within colliding objects are detect
     [SerializeField] private float wallStickTime = 0.25f;           // Wall jump period of time availability
-
+    [SerializeField] private float reviveTimer = 0.75f;
+    private float timeUntilRevive = 0f;
 
     [HideInInspector] public bool facingRight = true;  // For determining which way the player is currently facing.
     [HideInInspector] public bool grounded;            // Whether or not the player is grounded.
@@ -31,6 +32,7 @@ public class PlayerController : NetworkBehaviour
     private bool canJump = true;                       // Check if the player can jump again;
     [SerializeField] private GameObject hud;
     [HideInInspector] public PlayerInventory inventory;
+   
 
     [HideInInspector] public PlayerHealth playerHealth;
     // At script load
@@ -102,6 +104,34 @@ public class PlayerController : NetworkBehaviour
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
         else wantToJump = false;
+
+        /***********************/
+        /*** Revive Handling ***/
+        /***********************/
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
+        {
+            PlayerHealth coopPlayerHealth = hit.collider.GetComponent<PlayerHealth>();
+            if (coopPlayerHealth != null)
+            {
+                Debug.Log("[Revive] CoopPlayerHealth found.");
+                if (coopPlayerHealth.isDead)
+                {
+                    Debug.Log("[Revive] CoopPlayerHealth dead.");
+                    timeUntilRevive += Time.deltaTime;
+                    if (timeUntilRevive >= reviveTimer)
+                    {
+                        Debug.Log("[Revive] CoopPlayerHealth revive.");
+                        coopPlayerHealth.Revive();
+                        timeUntilRevive = 0f;
+                    }
+                }
+
+            }
+            else
+                Debug.Log("[Revive] CoopPlayerHealth == null...");
+        }
+        else
+            timeUntilRevive = 0;
 
     }
     
