@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7206779f4cee9a340a8b144211b49850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0
+  fireRate: 0.2
   minShootVelocity: 5
   AmmoObject: Items/Bow/Bow_Arrow
 --- !u!212 &212138972828712078
