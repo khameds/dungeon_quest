@@ -162,11 +162,11 @@ public class GameFlow : MonoBehaviour
     public static void noPlayer()
     {
         //Launch a choice menu to restart/quit (future version)
-        /*if(!SceneManager.GetSceneByName("gameOver").isLoaded)
+        if(!SceneManager.GetSceneByName("gameOver").isLoaded)
         {
             Debug.Log("[GameFlow.cs] GAMEOVER");
             SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
-        }*/
+        }
     }
 
     //Can't find any enemy

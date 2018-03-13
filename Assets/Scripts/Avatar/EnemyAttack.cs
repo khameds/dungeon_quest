@@ -43,7 +43,7 @@ public class EnemyAttack : MonoBehaviour
     {
         // If the entering collider is the player...
 
-        if (enemyController.isChasing && collision.collider.gameObject == target)
+        if (enemyController.isChasing && collision.collider.gameObject.tag == "Player")
         {
             //Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
             playerInRange = true;
@@ -53,7 +53,7 @@ public class EnemyAttack : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         // If the exiting collider is the player...
-        if (enemyController.isChasing && collision.collider.gameObject == target)
+        if (enemyController.isChasing && collision.collider.gameObject.tag == "Player")
             playerInRange = false;
     }
 
