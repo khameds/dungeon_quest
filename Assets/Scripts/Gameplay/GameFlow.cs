@@ -97,7 +97,6 @@ public class GameFlow : MonoBehaviour
         {
             //Loading the prefab Character
             GameObject character = Instantiate(Resources.Load("Avatar/Character",typeof (GameObject))) as GameObject;
-
             //Loading the spawn spots
             Vector2 positionCharacter1 = GameObject.Find("PlayerSpawn1").transform.position;
             Vector2 positionCharacter2 = GameObject.Find("PlayerSpawn2").transform.position;
@@ -106,8 +105,9 @@ public class GameFlow : MonoBehaviour
 
             //Player 1
 
-            character.GetComponent<SpriteRenderer>().color = new Color(0, 1, 1);
+            character.GetComponent<SpriteRenderer>().color = getColorFromParam(1);
 
+            Debug.Log(getColorFromParam(1));
             GameObject character1 = Instantiate(character);
             character1.transform.position = positionCharacter1;
             character1.GetComponent<UserControl>().setNumber(0);
@@ -116,6 +116,7 @@ public class GameFlow : MonoBehaviour
 
             if (numberOfPlayer >= 2) //Player 2
             {
+                character.GetComponent<SpriteRenderer>().color = getColorFromParam(2);
                 //Duplication
                 GameObject character2 = Instantiate(character);
                 //Move the object to the spawn spot
@@ -128,6 +129,7 @@ public class GameFlow : MonoBehaviour
             }
             if (numberOfPlayer >= 3) //Player 3
             {
+                character.GetComponent<SpriteRenderer>().color = getColorFromParam(3);
                 //Duplication
                 GameObject character3 = Instantiate(character);
                 //Move the object to the spawn spot
@@ -140,6 +142,7 @@ public class GameFlow : MonoBehaviour
             }
             if (numberOfPlayer >= 4) //Player 4
             {
+                character.GetComponent<SpriteRenderer>().color = getColorFromParam(4);
                 //Duplication
                 GameObject character4 = Instantiate(character);
                 //Move the object to the spawn spot
@@ -149,6 +152,7 @@ public class GameFlow : MonoBehaviour
                 character4.GetComponent<ShootingSystem>().setNumber(3);
                 
             }
+            character.SetActive(false);
         }
         else //Problem
         {
@@ -166,6 +170,26 @@ public class GameFlow : MonoBehaviour
         {
             Debug.Log("[GameFlow.cs] GAMEOVER");
             SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
+        }
+    }
+
+    public static Color getColorFromParam(int indexPlayer)
+    {
+        String avatar = "color" + indexPlayer;
+        switch (LevelParam.Get(avatar))
+        {
+            case "0":
+                return new Color(1, 1, 0);
+            case "1":
+                return new Color(1, 0, 1);
+            case "2":
+                return new Color(0, 1, 1);
+            case "3":
+                return new Color(1, 0.5f, 0);
+            case "4":
+                return new Color(0, 0, 1);
+            default:
+                return new Color(1, 1, 1);
         }
     }
 
