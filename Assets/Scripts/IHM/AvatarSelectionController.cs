@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AvatarSelectionController : MonoBehaviour {
 
@@ -23,6 +25,7 @@ public class AvatarSelectionController : MonoBehaviour {
     private GameObject[] avatars3;
     private GameObject[] avatars4;
 
+    public Button start;
 
     // Use this for initialization
     void Start ()
@@ -114,6 +117,10 @@ public class AvatarSelectionController : MonoBehaviour {
         if (GamepadManagement.GamepadConnectedNumber()+1 >= 1)
             player1AvatarSelectionListener();
 
+        if (GamepadManagement.GamepadConnectedNumber() + 1 < 2)
+            start.interactable = false;
+        else
+            start.interactable = true;
     }
 
     private void player1AvatarSelectionListener()
@@ -224,5 +231,20 @@ public class AvatarSelectionController : MonoBehaviour {
             //Toggle on the new avatar
             avatars4[indexAvatar4].SetActive(true);
         }
+    }
+
+    public void StartGame()
+    {
+        int nb_players = GamepadManagement.GamepadConnectedNumber() +1 ;
+
+        LevelParam.Set("color1", indexAvatar1.ToString());
+        LevelParam.Set("color2", indexAvatar2.ToString());
+        if (nb_players > 2)
+            LevelParam.Set("color3", indexAvatar3.ToString());
+        if (nb_players > 3)
+            LevelParam.Set("color4", indexAvatar4.ToString());
+
+
+        SceneManager.LoadScene("sandbox");
     }
 }

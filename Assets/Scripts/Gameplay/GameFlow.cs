@@ -9,6 +9,7 @@ public class GameFlow : MonoBehaviour
     private static int waveNum;
     private static int numberOfPlayer = 2;
     private static int levelNumber = 1;
+    private static String mode = "coop";
     public static int alivePlayers;
 
     //Use this for initialization
@@ -24,6 +25,8 @@ public class GameFlow : MonoBehaviour
             if (LevelParam.Get("levelNumber") != null)
                 levelNumber = System.Int32.Parse(LevelParam.Get("levelNumber"));
 
+            if (LevelParam.Get("mode") != null)
+                mode = LevelParam.Get("mode");
 
             //Other parameters TODO
             // ...
@@ -102,10 +105,14 @@ public class GameFlow : MonoBehaviour
             Vector2 positionCharacter4 = GameObject.Find("PlayerSpawn4").transform.position;
 
             //Player 1
-            character.transform.position = positionCharacter1;
-            character.GetComponent<UserControl>().setNumber(0);
-            character.GetComponent<SightingSystem>().setNumber(0);
-            character.GetComponent<ShootingSystem>().setNumber(0);
+
+            character.GetComponent<SpriteRenderer>().color = new Color(0, 1, 1);
+
+            GameObject character1 = Instantiate(character);
+            character1.transform.position = positionCharacter1;
+            character1.GetComponent<UserControl>().setNumber(0);
+            character1.GetComponent<SightingSystem>().setNumber(0);
+            character1.GetComponent<ShootingSystem>().setNumber(0);
 
             if (numberOfPlayer >= 2) //Player 2
             {

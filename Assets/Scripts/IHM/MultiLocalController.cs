@@ -55,16 +55,16 @@ public class MultiLocalController : MonoBehaviour
     {
         if (cooperationMode.isOn)
         {
-            LevelParam.Set("Mode", "coop");
+            LevelParam.Set("mode", "coop");
             if (difficultyNormal.isOn)
-                LevelParam.Set("Difficulty", "normal");
+                LevelParam.Set("difficulty", "normal");
             else
-                LevelParam.Set("Difficulty", "hard");
+                LevelParam.Set("difficulty", "hard");
         }
         else
-            LevelParam.Set("Mode", "versus");
+            LevelParam.Set("mode", "versus");
         
-        LevelParam.Set("Level", indexLevel.ToString());
+        LevelParam.Set("levelNumber", indexLevel.ToString());
 
         SceneManager.LoadScene("avatarSelection", LoadSceneMode.Additive);
     }

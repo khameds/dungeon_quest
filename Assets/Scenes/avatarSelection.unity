@@ -591,6 +591,7 @@ MonoBehaviour:
   hide1: {fileID: 500963736}
   hide2: {fileID: 58639762}
   hide3: {fileID: 317644658}
+  start: {fileID: 1551917858}
 --- !u!4 &485887134
 Transform:
   m_ObjectHideFlags: 0
@@ -1657,8 +1658,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: goToNextScene
+      - m_Target: {fileID: 485887133}
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
