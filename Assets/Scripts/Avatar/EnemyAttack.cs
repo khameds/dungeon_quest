@@ -16,7 +16,7 @@ public class EnemyAttack : MonoBehaviour
     float timer;                            // Timer for counting up to the next attack.
     [SerializeField] private float timeSwitchTarget = 0.5f;
     EnemyController enemyController;
-
+    Collider2D collide;
 
     void Awake()
     {
@@ -47,6 +47,8 @@ public class EnemyAttack : MonoBehaviour
         {
             //Debug.Log(this.gameObject.name + " : " + target.name + " is in attack range");
             playerInRange = true;
+            collide = collision.collider;
+
         }
     }
 
@@ -54,7 +56,10 @@ public class EnemyAttack : MonoBehaviour
     {
         // If the exiting collider is the player...
         if (enemyController.isChasing && collision.collider.gameObject.tag == "Player")
+        {
             playerInRange = false;
+            collide = null;
+        }
     }
 
   
@@ -66,7 +71,7 @@ public class EnemyAttack : MonoBehaviour
             timer += Time.deltaTime;
 
             // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-            if (timer >= timeBetweenAttacks && playerInRange && playerHealth.currentHealth > 0)
+            if (timer >= timeBetweenAttacks && playerInRange && collide.GetComponent<PlayerHealth>().currentHealth > 0)
             {
                 Debug.Log(this.gameObject.name + " attacks " + target.name + " (" + playerHealth.currentHealth + "/" + playerHealth.maxHealth + "HP)");
                 Attack();
@@ -106,10 +111,10 @@ public class EnemyAttack : MonoBehaviour
             timer = 0f;
 
             // If the player has health to lose...
-            if (playerHealth.currentHealth > 0)
+            if (collide.GetComponent<PlayerHealth>().currentHealth > 0)
             {
                 // ... damage the player.
-                playerHealth.TakeDamage(attackDamage);
+                collide.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
             }
         }
     }
