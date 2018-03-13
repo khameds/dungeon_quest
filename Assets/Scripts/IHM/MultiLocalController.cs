@@ -34,6 +34,7 @@ public class MultiLocalController : MonoBehaviour
             levels[0].SetActive(true);
         levelDescription.text = "Niveau " + (indexLevel + 1).ToString();
     }
+    
 
     public void ToggleLevel(int direction)
     {
@@ -71,7 +72,7 @@ public class MultiLocalController : MonoBehaviour
 
     public void backToPreviousScene()
     {
-        SceneManager.LoadScene("createGameMulti");
+        SceneManager.LoadScene("mainMenu");
     }
 
     private void Update()
@@ -80,5 +81,8 @@ public class MultiLocalController : MonoBehaviour
             hideDifficulty.SetActive(false);
         else
             hideDifficulty.SetActive(true);
+
+        if (Input.GetButtonDown("Cancel"))
+            backToPreviousScene();
     }
 }

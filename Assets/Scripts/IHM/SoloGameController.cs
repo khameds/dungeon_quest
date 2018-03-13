@@ -48,6 +48,14 @@ public class SoloGameController : MonoBehaviour
         levelDescription.text = "Niveau " + (indexLevel + 1).ToString();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            backToMenu();
+        }
+    }
+
     public void ToggleAvatar(int direction)
     {
         //Toggle off the current avatar

@@ -121,6 +121,9 @@ public class AvatarSelectionController : MonoBehaviour {
             start.interactable = false;
         else
             start.interactable = true;
+
+        if (Input.GetButtonDown("Cancel"))
+            SceneManager.LoadScene("createMultiLocal");
     }
 
     private void player1AvatarSelectionListener()
