@@ -100,7 +100,8 @@ public class PlayerController : NetworkBehaviour
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
                 wantToJump = canJump = false;
             }
-            else if (GameInputManager.direction == wallDirection)// If running to the wall, just slide over it   
+
+            if (GameInputManager.direction == wallDirection)// If running to the wall, just slide over it   
                 rigidBody.velocity = new Vector2(0, -wallSlideSpeed);
         }
         else wantToJump = false;
@@ -113,10 +114,9 @@ public class PlayerController : NetworkBehaviour
             PlayerHealth coopPlayerHealth = hit.collider.GetComponent<PlayerHealth>();
             if (coopPlayerHealth != null)
             {
-                Debug.Log("[Revive] CoopPlayerHealth found.");
                 if (coopPlayerHealth.isDead)
                 {
-                    Debug.Log("[Revive] CoopPlayerHealth dead.");
+                   
                     timeUntilRevive += Time.deltaTime;
                     if (timeUntilRevive >= reviveTimer)
                     {
@@ -125,7 +125,6 @@ public class PlayerController : NetworkBehaviour
                         timeUntilRevive = 0f;
                     }
                 }
-
             }
             else
                 Debug.Log("[Revive] CoopPlayerHealth == null...");
@@ -150,13 +149,14 @@ public class PlayerController : NetworkBehaviour
             // Read the jump input in Update so button presses aren't missed.
             wantToJump = Input.GetKeyDown(GameInputManager.GIM.jump);
         }*/
-        /*int direction = 0;
+        int direction = 0;
         if (Input.GetKey(GameInputManager.GIM.left))
             direction--;
         if (Input.GetKey(GameInputManager.GIM.right))
             direction++;
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        input = new Vector2(direction, Input.GetAxis("Vertical"));*/
+        GameInputManager.direction = direction; //test
+        //input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //input = new Vector2(direction, Input.GetAxis("Vertical"));
     }
 
     public bool Move(float move, bool jump)
