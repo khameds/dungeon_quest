@@ -36,7 +36,16 @@ public class PlayerHealth : MonoBehaviour
         baseColor = spriteRenderer.color;        
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.tag == "Player")
+        {
+            if(collision.collider.gameObject.GetComponent<PlayerHealth>().isDead)
+            {
+                collision.collider.gameObject.GetComponent<PlayerHealth>().Revive();
+            }
+        }
+    }
     void Update()
     {
 
