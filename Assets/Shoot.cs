@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour {
 
-    public float fireRate = 0;
+    public float fireRate = 0.5f;
     public float minShootVelocity = 5;
     private int Ammo = 0;
     float timeToFire;
-    private string AmmoObject = "Items/Bow/Bow_Arrow";
+    public string AmmoObject = "Items/Bow/Bow_Arrow";
     
 
 
     private void Start()
     {
         Ammo = 3;
-        
+        //fireRate = 0.5f;
     }
 
     public void AddAmmo()

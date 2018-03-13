@@ -53,7 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 0
-  Ammo: 3
+  minShootVelocity: 5
+  AmmoObject: Items/Bow/Bow_Arrow
 --- !u!212 &212138972828712078
 SpriteRenderer:
   m_ObjectHideFlags: 1

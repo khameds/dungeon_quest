@@ -15,8 +15,9 @@ public class ShootingSystem : MonoBehaviour {
     float timeToFire;
     float startFire;
     public int userNumber;
+    private bool ClickedButton;
 
-    void Awake()
+    void Start()
     {
         
         inventory = GetComponent<PlayerInventory>();
@@ -25,6 +26,9 @@ public class ShootingSystem : MonoBehaviour {
         playerController = character.gameObject.GetComponent<PlayerController>();
         if (inventory == null || character == null || direction == null || playerController == null)
             Debug.LogError("[ShootingSystem] Fail to get all attribut references.");
+
+        timeToFire = Time.time;
+        ClickedButton = false;
     }
 
 
@@ -38,7 +42,7 @@ public class ShootingSystem : MonoBehaviour {
             GameObject current = item.itemObject;
             fireRate = current.GetComponent<Shoot>().fireRate;
 
-
+            
             if(fireRate == 0)
             {
                 if(userNumber==0) //Player 1 with keyboard+mouse
@@ -70,6 +74,52 @@ public class ShootingSystem : MonoBehaviour {
                             inventory.DestroyCurrentItem();
                         }
                     }
+                }
+            }
+            else
+            {
+                if(Time.time > timeToFire)
+                {
+
+                    if (userNumber == 0) //Player 1 with keyboard+mouse
+                    {
+
+                        if (Input.GetButtonDown("Fire"))
+                        {
+                            startFire = Time.time;
+                            ClickedButton = true;
+                        }
+                        if (Input.GetButtonUp("Fire") && ClickedButton)
+                        {
+                            if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                            {
+                                //Debug.Log("Remove Object");
+                                inventory.DestroyCurrentItem();
+                                
+                            }
+                            timeToFire = Time.time + fireRate;
+                            ClickedButton = false;
+                        }
+                    }
+                    else //Player 2/3/4 with gamepad
+                    {
+                        if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right != 0 && GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Right == 0)
+                        {
+                            startFire = Time.time;
+                        }
+                        if (GamepadManagement.getStateByUserNumber(userNumber).Triggers.Right == 0 && GamepadManagement.getPrevStateByUserNumber(userNumber).Triggers.Right != 0)
+                        {
+                            if (current.GetComponent<Shoot>().shoot(userNumber, startFire - Time.time, character.transform.position, character, playerController.facingRight) == 0)
+                            {
+                                //Debug.Log("Remove Object");
+                                inventory.DestroyCurrentItem();
+                                
+                            }
+                            timeToFire += fireRate;
+                        }
+                    }
+
+                    
                 }
             }
 

@@ -44,7 +44,7 @@ public class GamepadManagement : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log(GamepadConnectedNumber());
+        //Debug.Log(GamepadConnectedNumber());
 
         //Detecting gamepads
         if(prevState.Length.Equals(0) || !prevState[0].IsConnected)
