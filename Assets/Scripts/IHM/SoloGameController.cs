@@ -81,13 +81,13 @@ public class SoloGameController : MonoBehaviour
 
     public void createGame()
     {
-        LevelParam.Set("Avatar1", indexAvatar.ToString());
+        LevelParam.Set("color1", indexAvatar.ToString());
         if (difficultyNormal.isOn)
-            LevelParam.Set("Difficulty", "normal");
+            LevelParam.Set("difficulty", "normal");
         else
-            LevelParam.Set("Difficulty", "hard");
+            LevelParam.Set("difficulty", "hard");
 
-        LevelParam.Set("Level", indexLevel.ToString());
+        LevelParam.Set("levelNumber", indexLevel.ToString());
 
         SceneManager.LoadScene("sandbox");
     }
