@@ -53,6 +53,9 @@ public class Shoot : MonoBehaviour {
                 direction.x -= 2 * direction.x; 
         }
 
+        if (time < -1.2f)
+            time = -1.2f;
+
         
 
         GameObject projectile = Instantiate(Resources.Load(AmmoObject, typeof(GameObject)),(Vector2)position+direction, Quaternion.Euler(0f, 0f, angle)) as GameObject;
