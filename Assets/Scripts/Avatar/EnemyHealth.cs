@@ -2,7 +2,7 @@
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 1;
+    public int maxHealth;
     public int currentHealth;
     public AudioClip deathClip;
 
@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour
     bool isDead;
 
 
-    void Awake()
+    void Start()
     {
         animator = GetComponent<Animator>();
         enemyAudio = GetComponent<AudioSource>();
@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
             print("[EnemyHealth]return;");
             return;
         }
-
+        Debug.Log("Ennemy" + currentHealth);
         //enemyAudio.Play();
         currentHealth -= amount;
 
