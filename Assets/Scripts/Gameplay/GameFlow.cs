@@ -24,12 +24,11 @@ public class GameFlow : MonoBehaviour
 
             if (LevelParam.Get("levelNumber") != null)
                 levelNumber = System.Int32.Parse(LevelParam.Get("levelNumber"));
+            else
+                LevelParam.Set("levelNumber", "1");
 
             if (LevelParam.Get("mode") != null)
                 mode = LevelParam.Get("mode");
-
-            //Other parameters TODO
-            // ...
         }
         catch (Exception e)
         {
@@ -42,8 +41,6 @@ public class GameFlow : MonoBehaviour
 
 
         GameObject level = Instantiate(Resources.Load("Level/Level"+levelNumber, typeof(GameObject))) as GameObject;
-        if(levelNumber<2)
-            LevelParam.Set("levelNumber", levelNumber + 1 + "");
 
         generatePlayers(numberOfPlayer);
 

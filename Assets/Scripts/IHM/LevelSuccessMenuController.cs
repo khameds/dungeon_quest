@@ -12,6 +12,8 @@ public class LevelSuccessMenuController : MonoBehaviour
 
     public void NextLevel()
     {
+        if (System.Int32.Parse(LevelParam.Get("levelNumber")) < 2)
+            LevelParam.Set("levelNumber", System.Int32.Parse(LevelParam.Get("levelNumber")) + 1 + "");
         SceneManager.LoadScene("sandbox", LoadSceneMode.Single);
     }
 
