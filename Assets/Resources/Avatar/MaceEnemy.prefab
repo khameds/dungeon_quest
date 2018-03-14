@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 2
-  currentHealth: 0
+  currentHealth: 2
   deathClip: {fileID: 8300000, guid: 3ae36827bfd7a3749b469b2a6246ff3a, type: 3}
 --- !u!114 &114703549080898634
 MonoBehaviour:

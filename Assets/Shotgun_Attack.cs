@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowAttack : MonoBehaviour {
+public class Shotgun_Attack : MonoBehaviour {
+
     public int attackDamage = 1;            // The amount of health taken away per attack.
-    public float shootVelocity = 20;
-    Animator animator;                      // Reference to the animator component.
+    public float shootVelocity;
     EnemyHealth enemyHealth;                // Reference to this enemy's health.
     PlayerHealth playerHealth;
-    private Rigidbody2D rb;
+
     bool hit;
 
-    void Start()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
         hit = false;
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -29,7 +26,7 @@ public class ArrowAttack : MonoBehaviour {
             enemyHealth.TakeDamage(attackDamage);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag.Equals("Player"))
+        else if (collision.gameObject.tag.Equals("Player") && !hit)
         {
             hit = true;
             playerHealth = collision.collider.gameObject.GetComponent<PlayerHealth>();
@@ -37,16 +34,10 @@ public class ArrowAttack : MonoBehaviour {
             Destroy(gameObject);
 
         }
-        else if (!collision.gameObject.tag.Equals("Teleporter"))
+        else if (!collision.gameObject.tag.Equals("Teleporter") && !collision.gameObject.tag.Equals("Ammo"))
         {
             Destroy(gameObject);
-        } 
+        }
     }
 
-    private void Update()
-    {
-        Vector3 dir = rb.velocity;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
 }

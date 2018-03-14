@@ -9,72 +9,94 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1700711320578748}
+  m_RootGameObject: {fileID: 1059827439049558}
   m_IsPrefabParent: 1
---- !u!1 &1700711320578748
+--- !u!1 &1059827439049558
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4522163061162534}
-  - component: {fileID: 212314028966189640}
-  - component: {fileID: 58600829666260944}
-  - component: {fileID: 114752297617137940}
-  m_Layer: 0
-  m_Name: PU_invisible
-  m_TagString: Untagged
+  - component: {fileID: 4460454533437274}
+  - component: {fileID: 212609704792293924}
+  - component: {fileID: 70152708147049618}
+  - component: {fileID: 50519100682579716}
+  - component: {fileID: 114538380686917080}
+  m_Layer: 9
+  m_Name: Shotgun_Ammo
+  m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4522163061162534
+--- !u!4 &4460454533437274
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700711320578748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 308.577, y: 131.9, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
+  m_GameObject: {fileID: 1059827439049558}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 296.47, y: 133.25983, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58600829666260944
-CircleCollider2D:
+--- !u!50 &50519100682579716
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700711320578748}
+  m_GameObject: {fileID: 1059827439049558}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &70152708147049618
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1059827439049558}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.28
---- !u!114 &114752297617137940
+  m_Offset: {x: 0.03467855, y: 0.000002648273}
+  m_Size: {x: 0.29150584, y: 0.29150584}
+  m_Direction: 1
+--- !u!114 &114538380686917080
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700711320578748}
+  m_GameObject: {fileID: 1059827439049558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a26c64509f03d44a967af852a636b9e, type: 3}
+  m_Script: {fileID: 11500000, guid: e6c742531fc08a245b61842c427df254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 4
---- !u!212 &212314028966189640
+  attackDamage: 1
+  shootVelocity: 40
+--- !u!212 &212609704792293924
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700711320578748}
+  m_GameObject: {fileID: 1059827439049558}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -103,12 +125,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c532f6dafe8f0454eaeb9ab4900d967e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05d7a4c48a0fcc941bd4f85dd741e109, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.88, y: 0.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -10,9 +10,13 @@ public class Item : ScriptableObject
 
     public void init(string spr1,string spr2,string item,string name)
     {
-        descriptionSprite = Resources.LoadAll<Sprite>(spr1)[1];
+        if(name.Equals("Bow"))
+            descriptionSprite = Resources.LoadAll<Sprite>(spr1)[1];
+        else
+            descriptionSprite = Resources.Load<Sprite>(spr1);
         ammoSprite = Resources.Load<Sprite>(spr2);
         itemObject = Instantiate(Resources.Load(item) as GameObject);
+
         this.name = name;
     }
 }
