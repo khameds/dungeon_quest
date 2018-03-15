@@ -90,6 +90,11 @@ public class PlayerInventory : MonoBehaviour {
         inventory.RemoveItem(current_item);
     }
 
+    public void SetCurrentItem(int i)
+    {
+        current_item = i;
+    }
+
     public void SetPositionInventory(int player_number)
     {
         switch(player_number)

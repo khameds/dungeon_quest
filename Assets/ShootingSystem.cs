@@ -37,7 +37,7 @@ public class ShootingSystem : MonoBehaviour {
     void Update () {
         
         Item item = inventory.GetCurrentItem();
-        if (item != null)
+        if (item != null && !GetComponent<PlayerHealth>().isDead)
         {
             GameObject current = item.itemObject;
             fireRate = current.GetComponent<Shoot>().fireRate;

@@ -84,13 +84,18 @@ public class PlayerHealth : MonoBehaviour
 
     public void Revive()
     {
-        userControl.Dead = isDead = false;
-        animator.SetBool("IsDead", false);
-        animator.Play("Idle");
-        currentHealth = (int)(maxHealth / 2);
-        Debug.Log(this.gameObject.name + " revived !");
-        // Set the health bar's value to the current health.
-        healthSlider.value = (float)currentHealth / maxHealth;
+        if (LevelParam.Get("mode") == "coop")
+        {
+            userControl.Dead = isDead = false;
+            animator.SetBool("IsDead", false);
+            animator.Play("Idle");
+            currentHealth = (int)(maxHealth / 2);
+            Debug.Log(this.gameObject.name + " revived !");
+            // Set the health bar's value to the current health.
+            healthSlider.value = (float)currentHealth / maxHealth;
+
+            GetComponent<PlayerInventory>().SetCurrentItem(0);
+        }
     }
 
     public void FullRevive()
@@ -101,6 +106,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = (int)maxHealth;
         // Set the health bar's value to the current health.
         healthSlider.value = (float)currentHealth / maxHealth;
+
+        GetComponent<PlayerInventory>().SetCurrentItem(0);
     }
 
     void Death()
@@ -119,6 +126,9 @@ public class PlayerHealth : MonoBehaviour
         // Turn off the movement and shooting scripts.
         //userControl.enabled = false;
         userControl.Dead = true;
+
+        GetComponent<PlayerInventory>().SetCurrentItem(4);
+
 
     }
 }
