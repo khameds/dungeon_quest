@@ -23,18 +23,15 @@ public class ScoreMenu : MonoBehaviour
         }
 
         String text = "Player 1 - " + scoreP1 + " points\n";
-
-        if (System.Int32.Parse(LevelParam.Get("numberOfPlayer"))==2)
+        text = String.Concat(text, "Player 2 - " + scoreP2 + " points\n");
+        
+        if (System.Int32.Parse(LevelParam.Get("numberOfPlayer")) > 2)
         {
-            text = String.Concat(text, "Player 2 - " + scoreP2 + " points\n");
+            text = String.Concat(text, "Player 3 - " + scoreP3 + " points\n");
         }
-        if (System.Int32.Parse(LevelParam.Get("numberOfPlayer")) == 3)
+        if (System.Int32.Parse(LevelParam.Get("numberOfPlayer")) > 3)
         {
-            text = String.Concat("Player 3 - " + scoreP3 + " points\n");
-        }
-        if (System.Int32.Parse(LevelParam.Get("numberOfPlayer")) == 4)
-        {
-            text = String.Concat("Player 4 - " + scoreP4 + " points");
+            text = String.Concat(text, "Player 4 - " + scoreP4 + " points");
         }
 
         //Displaying
