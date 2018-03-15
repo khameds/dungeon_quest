@@ -93,6 +93,16 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = (float)currentHealth / maxHealth;
     }
 
+    public void FullRevive()
+    {
+        userControl.Dead = isDead = false;
+        animator.SetBool("IsDead", false);
+        animator.Play("Idle");
+        currentHealth = (int)maxHealth;
+        // Set the health bar's value to the current health.
+        healthSlider.value = (float)currentHealth / maxHealth;
+    }
+
     void Death()
     {
         // Set the death flag so this function won't be called again.

@@ -270,8 +270,7 @@ public class GameFlow : MonoBehaviour
         foreach (GameObject player in players)
         {
             PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            playerHealth.Revive();
-            playerHealth.currentHealth = playerHealth.maxHealth;
+            playerHealth.FullRevive();
         }
     }
 
