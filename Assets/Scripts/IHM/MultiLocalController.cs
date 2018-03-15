@@ -66,6 +66,8 @@ public class MultiLocalController : MonoBehaviour
             LevelParam.Set("mode", "versus");
         
         LevelParam.Set("levelNumber", indexLevel+1.ToString());
+        int numberOfPlayer = 1 + GamepadManagement.GamepadConnectedNumber();
+        LevelParam.Set("numberOfPlayer", ""+ numberOfPlayer);
 
         SceneManager.LoadScene("avatarSelection", LoadSceneMode.Additive);
     }
