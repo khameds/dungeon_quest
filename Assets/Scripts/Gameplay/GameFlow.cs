@@ -170,7 +170,7 @@ public class GameFlow : MonoBehaviour
         foreach (GameObject player in players)
         {
             PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth.currentHealth != 0)
+            if (!playerHealth.isDead)
             {
                 alivePlayers++;
                 alivePlayersList.Add(player);
@@ -185,14 +185,6 @@ public class GameFlow : MonoBehaviour
         }
         if (LevelParam.Get("mode").Equals("versus") && alivePlayers == 1)
         {
-            foreach (GameObject player in players)
-            {
-                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-                if (playerHealth.currentHealth == 0)
-                {
-                    playerHealth.currentHealth--;
-                }
-            }
             onePlayerOnly((GameObject)alivePlayersList.ToArray()[0]);
         }
     }
