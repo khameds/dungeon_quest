@@ -8,7 +8,7 @@ public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
     private static int roundNum;
-    private static int numberOfPlayer = 2;
+    private static int numberOfPlayer = 1;
     private static int levelNumber = 1;
     private static String mode = "coop";
     public static int alivePlayers;
@@ -176,6 +176,8 @@ public class GameFlow : MonoBehaviour
                 alivePlayersList.Add(player);
             }
         }
+
+        Debug.Log("alivePlayers = " + alivePlayers);
         
         if (LevelParam.Get("mode").Equals("coop") && alivePlayers == 0)
         {
@@ -188,7 +190,7 @@ public class GameFlow : MonoBehaviour
                 PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
                 if (playerHealth.currentHealth == 0)
                 {
-                    playerHealth.currentHealth++;
+                    playerHealth.currentHealth--;
                 }
             }
             onePlayerOnly((GameObject)alivePlayersList.ToArray()[0]);
