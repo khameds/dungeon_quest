@@ -65,7 +65,7 @@ public class MultiLocalController : MonoBehaviour
         else
             LevelParam.Set("mode", "versus");
         
-        LevelParam.Set("levelNumber", indexLevel.ToString());
+        LevelParam.Set("levelNumber", indexLevel+1.ToString());
 
         SceneManager.LoadScene("avatarSelection", LoadSceneMode.Additive);
     }
