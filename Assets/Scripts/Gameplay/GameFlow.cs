@@ -232,12 +232,16 @@ public class GameFlow : MonoBehaviour
                 roundNum++;
                 break;
             case 2: //Second wave
+                resetHealth();
+                resetPosition();
 
                 //Display the alert on the game
                 DisplayAlert.Print("Manche " + roundNum);
                 roundNum++;
                 break;
             case 3: //Third wave
+                resetHealth();
+                resetPosition();
 
                 //Display the alert on the game
                 DisplayAlert.Print("Manche " + roundNum);
@@ -246,6 +250,28 @@ public class GameFlow : MonoBehaviour
             case 4: //Won
                 SceneManager.LoadScene("versusLevelSuccess", LoadSceneMode.Single);
                 break;
+        }
+    }
+
+    private void resetPosition()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            int playerNumber = player.GetComponent<UserControl>().getNumber() + 1;
+            String spawnName = "PlayerSpawn" + playerNumber;
+            player.transform.position = GameObject.Find(spawnName).transform.position;
+        }
+    }
+
+    private void resetHealth()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            playerHealth.Revive();
+            playerHealth.currentHealth = playerHealth.maxHealth;
         }
     }
 
@@ -318,6 +344,7 @@ public class GameFlow : MonoBehaviour
                 GameObject enemy2_2 = Instantiate(enemy);
                 GameObject enemy2_3 = Instantiate(enemy);
                 path.Scan();
+                resetHealth();
                 //Move the objects to the spawn 
                 enemy2_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy2_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
@@ -329,6 +356,7 @@ public class GameFlow : MonoBehaviour
                 //Display the alert on the game
                 DisplayAlert.Print("Boss");
 
+                resetHealth();
                 launchBossWave();
                 waveNum++;
                 break; 
