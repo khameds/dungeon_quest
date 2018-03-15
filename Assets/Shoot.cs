@@ -14,7 +14,7 @@ public class Shoot : MonoBehaviour {
 
     private void Start()
     {
-        Ammo = 3;
+        Ammo = 2;
         //fireRate = 0.5f;
     }
 
@@ -62,7 +62,7 @@ public class Shoot : MonoBehaviour {
 
         if(weapon.Equals("Shotgun"))
         {
-            for (int i=-3;i<3;i++)
+            for (int i=-3;i<=3;i++)
                 {
                     if (i != 0)
                     {
