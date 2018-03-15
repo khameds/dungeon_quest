@@ -365,7 +365,7 @@ public class GameFlow : MonoBehaviour
 
     private void launchBossWave()
     {
-        /*
+        
         //Loading and instatation of the prefab of the boss
         GameObject boss = Instantiate(Resources.Load("Avatar/Boss", typeof(GameObject))) as GameObject;
 
@@ -373,6 +373,6 @@ public class GameFlow : MonoBehaviour
         boss.transform.position = GameObject.Find("EnemySpawn1").transform.position;
         
         path.Scan(); 
-        */
+        
     }
 }
