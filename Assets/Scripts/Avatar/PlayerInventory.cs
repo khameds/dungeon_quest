@@ -99,15 +99,15 @@ public class PlayerInventory : MonoBehaviour {
     {
         switch(player_number)
         {
-            case 0: transform.Find("Canvas/Inventory").position = new Vector3(1866 - 600, 637+80, 0);
+            case 0: transform.Find("Canvas/Inventory").position = new Vector3(1866 - 1000, 637+40, 0);
                 break;
-            case 1: transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637+80, 0);
+            case 1: transform.Find("Canvas/Inventory").position = new Vector3(1866 + 200, 637+40, 0);
                 break;
             case 2:
-                transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637 + 80, 0); //TO DO
+                transform.Find("Canvas/Inventory").position = new Vector3(1866 - 1000, 637 + 80, 0); //TO DO
                 break;
             case 3:
-                transform.Find("Canvas/Inventory").position = new Vector3(1866 - 180, 637 + 80, 0); //TO DO
+                transform.Find("Canvas/Inventory").position = new Vector3(1866 , 637 + 80, 0); //TO DO
                 break;
 
         }
