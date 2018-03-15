@@ -103,4 +103,10 @@ public class UserControl : MonoBehaviour
     {
         userNumber = v;
     }
+
+    //Set the number of this player (0 => 3)
+    internal int getNumber()
+    {
+        return userNumber;
+    }
 }
