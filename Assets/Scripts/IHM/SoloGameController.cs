@@ -96,6 +96,7 @@ public class SoloGameController : MonoBehaviour
             LevelParam.Set("difficulty", "hard");
         
         LevelParam.Set("levelNumber", (indexLevel+1).ToString());
+        LevelParam.Set("mode","coop");
 
         SceneManager.LoadScene("sandbox");
     }
