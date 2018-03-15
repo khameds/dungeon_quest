@@ -11,15 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sandbox.unity
     guid: 9429124e5b244634dbdeb2bd0d73b799
-  - enabled: 1
-    path: Assets/Scenes/profileSelection.unity
-    guid: 60ceb2607685946478221f4606011001
-  - enabled: 1
-    path: Assets/Scenes/pause.unity
-    guid: 9ac8daec2fc876145938bb0afe5891e7
-  - enabled: 1
-    path: Assets/Scenes/options.unity
-    guid: cfe134e02fa81354f8baabca09bbda23
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/bidouille_smail.unity
     guid: 54aa7b6de220e624db5bdb1a9e1d1703
@@ -44,3 +44,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/gameover.unity
     guid: 9d44bdc65c3599b4a89971dfbfcb5fea
+  - enabled: 1
+    path: Assets/Scenes/versusLevelSuccess.unity
+    guid: 12e22d783a2e6944db73117e6680862b
