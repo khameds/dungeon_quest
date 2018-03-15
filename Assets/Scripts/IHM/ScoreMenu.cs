@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreMenu : MonoBehaviour
 {
-    public Font font;
-    private TextMesh tm;
-
     void Start()
     {
         //Getting
@@ -25,8 +23,8 @@ public class ScoreMenu : MonoBehaviour
         }
 
         //Displaying
-        tm = this.gameObject.GetComponent<TextMesh>();
-        tm.text = "Scores\n"+
+        Text textObject = this.gameObject.GetComponent<Text>();
+        textObject.text = ""+
             "Player 1 - "+ scoreP1 + " points\n" +
             "Player 2 - "+ scoreP2 + " points\n" +
             "Player 3 - "+ scoreP3 + " points\n" +
