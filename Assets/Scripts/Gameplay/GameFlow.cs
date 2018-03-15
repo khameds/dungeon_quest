@@ -7,16 +7,17 @@ using UnityEngine.SceneManagement;
 public class GameFlow : MonoBehaviour
 {
     private static int waveNum;
+    private static int roundNum;
     private static int numberOfPlayer = 2;
     private static int levelNumber = 1;
     private static String mode = "coop";
     public static int alivePlayers;
+    public AstarPath path;
 
     //Use this for initialization
     void Start ()
     {
         //Getting all the necessary parameters
-
         try
         {
             if(LevelParam.Get("numberOfPlayer")!=null)
@@ -27,8 +28,10 @@ public class GameFlow : MonoBehaviour
             else
                 LevelParam.Set("levelNumber", "1");
 
-            if (LevelParam.Get("mode") != null)
+            if (LevelParam.Get("mode") != null) //"coop" or "versus"
                 mode = LevelParam.Get("mode");
+            else
+                LevelParam.Set("mode", "coop");
         }
         catch (Exception e)
         {
@@ -39,55 +42,38 @@ public class GameFlow : MonoBehaviour
             SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
         }
 
-
+        //Loading of the level
         GameObject level = Instantiate(Resources.Load("Level/Level"+levelNumber, typeof(GameObject))) as GameObject;
 
+        //Loading of the players
         generatePlayers(numberOfPlayer);
 
-        //Launching the first wave
-
-        waveNum = 1;
-        launchWave();
+        if(mode.Equals("coop"))
+        {
+            //Launching the first wave
+            waveNum = 1;
+            launchWave();
+        }
+        else
+        {
+            //Launching the first round
+            roundNum = 1;
+            launchRound();
+        }
     }
 
     private void FixedUpdate()
     {
+        //Verification about the death
         playerVerification();
-        mobVerification();
-    }
-
-    private void playerVerification()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        alivePlayers = 0;
-
-        foreach (GameObject player in players)
+        if (mode.Equals("coop"))
         {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if(playerHealth.currentHealth!=0)
-            {
-                alivePlayers++;
-            }
-        }
-
-        if(alivePlayers == 0)
-        {
-            noPlayer();
+            //Verification about the death
+            mobVerification();
         }
     }
 
-    private void mobVerification()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        int enemyAlive = enemies.Length;
-
-        if (enemyAlive == 0)
-        {
-            noEnemy();
-        }
-    }
-
-        private static void generatePlayers(int numberOfPlayer)
+    private void generatePlayers(int numberOfPlayer)
     {
         //Generating the correct number of player on the spawn spot fixed on the map
         if (numberOfPlayer >= 1 && numberOfPlayer <= 4)
@@ -104,7 +90,6 @@ public class GameFlow : MonoBehaviour
 
             character.GetComponent<SpriteRenderer>().color = getColorFromParam(1);
 
-            Debug.Log(getColorFromParam(1));
             GameObject character1 = Instantiate(character);
             character1.transform.position = positionCharacter1;
             character1.GetComponent<UserControl>().setNumber(0);
@@ -159,18 +144,59 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    //Can't find any player
-    public static void noPlayer()
+    //Can find only one player (versus mode)
+    public void onePlayerOnly(GameObject player)
     {
-        //Launch a choice menu to restart/quit (future version)
-        if(!SceneManager.GetSceneByName("gameOver").isLoaded)
+        check = false;
+        int playerNumber = player.GetComponent<UserControl>().getNumber() + 1;
+        Debug.Log("[GameFlow.cs] The player "+playerNumber+" won !");
+
+
+        Debug.Log("scoreP" + playerNumber + " = "+ LevelParam.Get("scoreP" + playerNumber));
+
+
+        int actualScore = System.Int32.Parse(LevelParam.Get("scoreP" + playerNumber));
+        //We add a point to this player
+        LevelParam.Set("scoreP" + playerNumber, actualScore + 1 + "");
+
+        launchRound();
+    }
+
+    private void playerVerification()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        ArrayList alivePlayersList = new ArrayList();
+        alivePlayers = 0;
+
+        foreach (GameObject player in players)
         {
-            Debug.Log("[GameFlow.cs] GAMEOVER");
-            SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            if (playerHealth.currentHealth != 0)
+            {
+                alivePlayers++;
+                alivePlayersList.Add(player);
+            }
+        }
+        
+        if (LevelParam.Get("mode").Equals("coop") && alivePlayers == 0)
+        {
+            noPlayer();
+        }
+        if (LevelParam.Get("mode").Equals("versus") && alivePlayers == 1)
+        {
+            foreach (GameObject player in players)
+            {
+                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+                if (playerHealth.currentHealth == 0)
+                {
+                    playerHealth.currentHealth++;
+                }
+            }
+            onePlayerOnly((GameObject)alivePlayersList.ToArray()[0]);
         }
     }
 
-    public static Color getColorFromParam(int indexPlayer)
+    public Color getColorFromParam(int indexPlayer)
     {
         String avatar = "color" + indexPlayer;
         switch (LevelParam.Get(avatar))
@@ -190,15 +216,76 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    //Can't find any enemy
-    public static void noEnemy()
+    private void launchRound()
     {
-        Debug.Log("[GameFlow.cs] Won Wave");
+        switch (roundNum)
+        {
+            case 1: //First wave
 
-        launchWave();
+                //Reset/Initialization of the score
+                LevelParam.Set("scoreP1", "0");
+                LevelParam.Set("scoreP2", "0");
+                LevelParam.Set("scoreP3", "0");
+                LevelParam.Set("scoreP4", "0");
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + roundNum);
+                roundNum++;
+                break;
+            case 2: //Second wave
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + roundNum);
+                roundNum++;
+                break;
+            case 3: //Third wave
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + roundNum);
+                roundNum++;
+                break;
+            case 4: //Won
+                SceneManager.LoadScene("versusLevelSuccess", LoadSceneMode.Single);
+                break;
+        }
     }
 
-    private static void launchWave()
+    ////////// Coop only part /*///////
+
+
+    private void mobVerification()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int enemyAlive = enemies.Length;
+
+        if (enemyAlive == 0)
+        {
+            noEnemy();
+        }
+    }
+
+    //Can't find any player
+    public void noPlayer()
+    {
+        //Launch a choice menu to restart/quit
+        if (!SceneManager.GetSceneByName("gameOver").isLoaded)
+        {
+            Debug.Log("[GameFlow.cs] GAMEOVER");
+            SceneManager.LoadScene("gameOver", LoadSceneMode.Additive);
+        }
+    }
+
+    //Can't find any enemy
+    public void noEnemy()
+    {
+        if (LevelParam.Get("mode").Equals("coop"))
+        {
+            Debug.Log("[GameFlow.cs] Won Wave");
+            launchWave();
+        }
+    }
+
+    private void launchWave()
     {
         //Loading and instatation of the prefab of enemy
         GameObject enemy = Instantiate(Resources.Load("Avatar/MaceEnemy", typeof(GameObject))) as GameObject;
@@ -215,6 +302,7 @@ public class GameFlow : MonoBehaviour
                 GameObject enemy1_1 = Instantiate(enemy);
                 GameObject enemy1_2 = Instantiate(enemy);
                 GameObject enemy1_3 = Instantiate(enemy);
+                path.Scan();
                 //Move the objects to the spawn spot
                 enemy1_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy1_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
@@ -230,6 +318,7 @@ public class GameFlow : MonoBehaviour
                 GameObject enemy2_1 = Instantiate(enemy);
                 GameObject enemy2_2 = Instantiate(enemy);
                 GameObject enemy2_3 = Instantiate(enemy);
+                path.Scan();
                 //Move the objects to the spawn 
                 enemy2_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
                 enemy2_2.transform.position = GameObject.Find("EnemySpawn2").transform.position;
@@ -254,7 +343,7 @@ public class GameFlow : MonoBehaviour
         enemy.SetActive(false);
     }
 
-    private static void launchBossWave()
+    private void launchBossWave()
     {
         /*
         //Loading and instatation of the prefab of the boss
@@ -262,6 +351,8 @@ public class GameFlow : MonoBehaviour
 
         //Move the boss to the spawn
         boss.transform.position = GameObject.Find("EnemySpawn1").transform.position;
+        
+        path.Scan(); 
         */
     }
 }
