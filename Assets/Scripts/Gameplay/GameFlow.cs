@@ -336,7 +336,6 @@ public class GameFlow : MonoBehaviour
                 GameObject enemy2_1 = Instantiate(enemy);
                 GameObject enemy2_2 = Instantiate(enemy);
                 GameObject enemy2_3 = Instantiate(enemy);
-                path.Scan();
                 resetHealth();
                 //Move the objects to the spawn 
                 enemy2_1.transform.position = GameObject.Find("EnemySpawn1").transform.position;
@@ -365,14 +364,10 @@ public class GameFlow : MonoBehaviour
 
     private void launchBossWave()
     {
-        
         //Loading and instatation of the prefab of the boss
         GameObject boss = Instantiate(Resources.Load("Avatar/Boss", typeof(GameObject))) as GameObject;
 
         //Move the boss to the spawn
         boss.transform.position = GameObject.Find("EnemySpawn1").transform.position;
-        
-        path.Scan(); 
-        
     }
 }
