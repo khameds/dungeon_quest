@@ -147,7 +147,6 @@ public class GameFlow : MonoBehaviour
     //Can find only one player (versus mode)
     public void onePlayerOnly(GameObject player)
     {
-        check = false;
         int playerNumber = player.GetComponent<UserControl>().getNumber() + 1;
         Debug.Log("[GameFlow.cs] The player "+playerNumber+" won !");
 
