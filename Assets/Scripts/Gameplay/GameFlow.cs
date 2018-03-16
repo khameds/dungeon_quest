@@ -241,7 +241,23 @@ public class GameFlow : MonoBehaviour
                 DisplayAlert.Print("Manche " + roundNum);
                 roundNum++;
                 break;
-            case 4: //Won
+            case 4: //Third wave
+                resetHealth();
+                resetPosition();
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + roundNum);
+                roundNum++;
+                break;
+            case 5: //Third wave
+                resetHealth();
+                resetPosition();
+
+                //Display the alert on the game
+                DisplayAlert.Print("Manche " + roundNum);
+                roundNum++;
+                break;
+            case 6: //Won
                 SceneManager.LoadScene("versusLevelSuccess", LoadSceneMode.Single);
                 break;
         }
@@ -354,7 +370,10 @@ public class GameFlow : MonoBehaviour
                 break; 
             case 4: //Won
                 Debug.Log("[GameFlow.cs] WON !");
-                SceneManager.LoadScene("levelSuccess", LoadSceneMode.Single);
+                if (levelNumber == 2)
+                    SceneManager.LoadScene("gameSuccess", LoadSceneMode.Single);
+                else
+                    SceneManager.LoadScene("levelSuccess", LoadSceneMode.Single);
                 break;
         }
 
