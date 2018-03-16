@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/gameSuccess.unity
+    guid: 2f3e2a1a7ade71e448b23231a74a69a0
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
