@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Platform
+  - Inventory
+  - Teleporter
+  - Ammo
   layers:
   - Default
   - TransparentFX
@@ -14,10 +19,10 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Background
+  - Obstacle
+  - Ennemy
+  - Foreground
   - 
   - 
   - 
@@ -40,4 +45,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1943491623
+    locked: 0
+  - name: foreground
+    uniqueID: 1600590773
+    locked: 0
+  - name: UI
+    uniqueID: 3130201771
     locked: 0
