@@ -6,12 +6,6 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour
 {
 
-<<<<<<< HEAD
-    [SerializeField] public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-    [SerializeField] private float jumpForce = 400f;                  // Amount of force added when the player jumps.
-    [SerializeField] private bool airControl = true;                 // Whether or not a player can steer while jumping;
-    [SerializeField] private LayerMask whatIsGround;                 // A mask determining what is ground to the character
-=======
     [SerializeField] public float maxSpeed = 10f;                  // The fastest the player can travel in the x axis.
     [SerializeField] private float jumpForce = 650f;                // Amount of force added when the player jumps.
     [SerializeField] private bool airControl = true;                // Whether or not a player can steer while jumping;
@@ -21,7 +15,6 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float wallStickTime = 0.25f;           // Wall jump period of time availability
     [SerializeField] private float reviveTimer = 0.75f;
     private float timeUntilRevive = 0f;
->>>>>>> develop
 
     [HideInInspector] public bool facingRight = true;  // For determining which way the player is currently facing.
     [HideInInspector] public bool grounded;            // Whether or not the player is grounded.
