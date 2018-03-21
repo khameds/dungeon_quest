@@ -1,8 +1,6 @@
 # The Dungeon Quest
  Projet Génie Logiciel
  _______________________
- 
- ![Logo][https://github.com/khameds/dungeon_quest/blob/develop/Assets/Resources/DungeonQuest.png]
 
  ## Installation
  
